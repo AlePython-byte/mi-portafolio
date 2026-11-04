@@ -1,49 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
+import ProjectActionButton from "@/components/ProjectActionButton";
 import { projectsSection } from "@/data/projects";
-
-const buttonBase =
-  "rounded-pill px-5 py-2.5 text-sm font-semibold shadow-neu-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 // Si la imagen del proyecto aún no existe en public/, se usa el placeholder.
 function resolveImage(image: string): string {
   const file = path.join(process.cwd(), "public", image);
   return fs.existsSync(file) ? image : projectsSection.placeholderImage;
-}
-
-function ActionButton({
-  label,
-  href,
-  primary = false,
-}: {
-  label: string;
-  href: string;
-  primary?: boolean;
-}) {
-  if (href === "#") {
-    return (
-      <button
-        type="button"
-        disabled
-        className={`${buttonBase} cursor-not-allowed opacity-50 shadow-neu-inset`}
-      >
-        {projectsSection.comingSoon}
-      </button>
-    );
-  }
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${buttonBase} ${
-        primary ? "bg-accent text-accent-foreground" : ""
-      }`}
-    >
-      {label}
-    </a>
-  );
 }
 
 export default function Projects() {
@@ -104,13 +68,15 @@ export default function Projects() {
                     ))}
                   </ul>
                   <div className="mt-auto flex flex-wrap gap-3 pt-6">
-                    <ActionButton
+                    <ProjectActionButton
                       label={projectsSection.githubLabel}
                       href={project.githubUrl}
+                      disabledText={projectsSection.comingSoon}
                     />
-                    <ActionButton
+                    <ProjectActionButton
                       label={project.demoLabel}
                       href={project.demoUrl}
+                      disabledText={projectsSection.comingSoon}
                       primary
                     />
                   </div>
