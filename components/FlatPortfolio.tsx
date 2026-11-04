@@ -1,6 +1,7 @@
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
+import Personal from "./sections/Personal";
 import Projects from "./sections/Projects";
 import Testimonials from "./sections/Testimonials";
 import Experience from "./sections/Experience";
@@ -15,6 +16,7 @@ export default function FlatPortfolio() {
       <main>
         <Hero />
         <About />
+        <Personal />
         <Projects />
         <Experience />
         <Skills />
