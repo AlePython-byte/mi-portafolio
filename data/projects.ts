@@ -139,7 +139,9 @@ export const projectsSection: ProjectsData = {
       description:
         "App de Wear OS para controlar las luces de tu casa desde la muñeca: enciendes, apagas, ajustas el brillo y activas escenas, y un asistente entiende órdenes en texto. Funciona con un bombillo físico a través de un hub propio.",
       image: "/images/projects/luminawear.png",
-      imageAlt: "Captura de LuminaWear, app para reloj inteligente con Wear OS",
+      imageAlt:
+        "Pantalla principal de LuminaWear en el reloj: 5 de 8 luces encendidas y el botón Apagar todo",
+      imageFit: "contain",
       tags: ["Kotlin", "Jetpack Compose", "Wear OS", "Python"],
       githubUrl: "https://github.com/AlePython-byte/lumina-wear",
       // TODO: reemplazar por el enlace real del video.
