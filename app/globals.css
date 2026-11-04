@@ -1,57 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  --background: #e6e8e7;
-  --foreground: #262a29;
-  --accent: #a8431f;
-  --accent-foreground: #ffffff;
-  --shadow-dark: rgba(38, 42, 41, 0.18);
-  --shadow-light: rgba(255, 255, 255, 0.85);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --background: #1d2120;
-    --foreground: #e6e8e7;
-    --accent: #d4673f;
-    --accent-foreground: #1d2120;
-    --shadow-dark: rgba(0, 0, 0, 0.55);
-    --shadow-light: rgba(255, 255, 255, 0.05);
-  }
+  --page: #e6e8e7;
+  --surface: #e6e8e7;
+  --surface-high: #eef0ef;
+  --surface-low: #d9dcda;
+  --ink: #252a28;
+  --muted: #626966;
+  --accent: #a94820;
+  --accent-strong: #8f3715;
+  --accent-ink: #fff9f4;
+  --line: rgba(37, 42, 40, 0.15);
+  --line-strong: rgba(37, 42, 40, 0.28);
+  --shadow-light: rgba(255, 255, 255, 0.92);
+  --shadow-dark: rgba(157, 163, 160, 0.58);
+  --raised-shadow: -11px -11px 25px var(--shadow-light), 11px 11px 25px var(--shadow-dark);
+  --raised-shadow-small: -5px -5px 12px var(--shadow-light), 5px 5px 12px var(--shadow-dark);
+  --inset-shadow: inset -7px -7px 15px var(--shadow-light), inset 7px 7px 15px var(--shadow-dark);
+  --pressed-shadow: inset -4px -4px 8px var(--shadow-light), inset 4px 4px 8px var(--shadow-dark);
+  --contact-bg: #9d421e;
+  --contact-ink: #fff8f2;
 }
 
 :root[data-theme="dark"] {
-  --background: #1d2120;
-  --foreground: #e6e8e7;
-  --accent: #d4673f;
-  --accent-foreground: #1d2120;
-  --shadow-dark: rgba(0, 0, 0, 0.55);
-  --shadow-light: rgba(255, 255, 255, 0.05);
+  --page: #202322;
+  --surface: #252827;
+  --surface-high: #2b2f2d;
+  --surface-low: #1a1d1c;
+  --ink: #f0eee9;
+  --muted: #aaaead;
+  --accent: #e27b48;
+  --accent-strong: #f09160;
+  --accent-ink: #25150e;
+  --line: rgba(239, 238, 232, 0.14);
+  --line-strong: rgba(239, 238, 232, 0.27);
+  --shadow-light: rgba(58, 63, 61, 0.62);
+  --shadow-dark: rgba(5, 7, 6, 0.7);
+  --raised-shadow: -11px -11px 25px var(--shadow-light), 11px 11px 25px var(--shadow-dark);
+  --raised-shadow-small: -5px -5px 12px var(--shadow-light), 5px 5px 12px var(--shadow-dark);
+  --inset-shadow: inset -7px -7px 15px var(--shadow-light), inset 7px 7px 15px var(--shadow-dark);
+  --pressed-shadow: inset -4px -4px 8px var(--shadow-light), inset 4px 4px 8px var(--shadow-dark);
+  --contact-bg: #e27b48;
+  --contact-ink: #21140f;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--page);
+  --color-foreground: var(--ink);
+  --color-surface: var(--surface);
+  --color-surface-high: var(--surface-high);
+  --color-surface-low: var(--surface-low);
+  --color-muted: var(--muted);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-foreground: var(--accent-ink);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-space-grotesk);
 
   --radius-card: 2rem;
   --radius-pill: 9999px;
-  --shadow-neu:
-    10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
-  --shadow-neu-sm:
-    5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
-  --shadow-neu-inset:
-    inset 5px 5px 10px var(--shadow-dark),
-    inset -5px -5px 10px var(--shadow-light);
+  --shadow-neu: var(--raised-shadow);
+  --shadow-neu-sm: var(--raised-shadow-small);
+  --shadow-neu-inset: var(--inset-shadow);
+  --shadow-neu-pressed: var(--pressed-shadow);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--page);
+  color: var(--ink);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
