@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { MotionProvider } from "@/components/MotionProvider";
 import { PreferencesProvider } from "@/components/PreferencesProvider";
 import "./globals.css";
 
@@ -50,7 +51,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-full flex flex-col">
-        <PreferencesProvider>{children}</PreferencesProvider>
+        <PreferencesProvider>
+          <MotionProvider>{children}</MotionProvider>
+        </PreferencesProvider>
       </body>
     </html>
   );
