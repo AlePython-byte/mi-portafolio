@@ -1,6 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import type { PointerEvent } from "react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { socialIcons } from "@/components/socialIcons";
 import { profile, ui } from "@/data/profile";
@@ -8,15 +15,43 @@ import { profile, ui } from "@/data/profile";
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
+const entranceEase = [0.22, 1, 0.36, 1] as const;
+
 export default function Hero() {
   const { language } = usePreferences();
+  const shouldReduceMotion = useReducedMotion();
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const smoothRotateX = useSpring(rotateX, { stiffness: 180, damping: 22 });
+  const smoothRotateY = useSpring(rotateY, { stiffness: 180, damping: 22 });
+
+  // Tilt 3D solo con ratón y sin preferencia de movimiento reducido.
+  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse" || shouldReduceMotion) return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    rotateX.set(y * -4);
+    rotateY.set(x * 4);
+  }
+
+  function resetTilt() {
+    rotateX.set(0);
+    rotateY.set(0);
+  }
 
   return (
     <section
       id="inicio"
       className="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-14 pt-10 sm:px-6 md:grid-cols-[1.12fr_0.88fr] md:py-24"
     >
-      <div className="order-2 min-w-0 md:order-1">
+      <motion.div
+        className="order-2 min-w-0 md:order-1"
+        initial={shouldReduceMotion ? false : { y: 24 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.55, ease: entranceEase }}
+      >
         <p className="mb-6 text-xs font-extrabold uppercase tracking-[0.18em] text-muted">
           {profile.tag[language]}
         </p>
@@ -68,10 +103,20 @@ export default function Hero() {
             );
           })}
         </ul>
-      </div>
+      </motion.div>
 
-      <div className="order-1 mx-auto w-full max-w-[29rem] min-w-0 md:order-2 md:ml-auto">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[2.25rem] border border-line-strong bg-background p-6 shadow-neu sm:p-8">
+      <motion.div
+        className="order-1 mx-auto w-full max-w-[29rem] min-w-0 [perspective:1000px] md:order-2 md:ml-auto"
+        initial={shouldReduceMotion ? false : { y: 30, rotate: 2 }}
+        animate={{ y: 0, rotate: 0 }}
+        transition={{ duration: 0.65, delay: 0.12, ease: entranceEase }}
+      >
+        <motion.div
+          className="relative aspect-[4/5] overflow-hidden rounded-[2.25rem] border border-line-strong bg-background p-6 shadow-neu sm:p-8"
+          style={{ rotateX: smoothRotateX, rotateY: smoothRotateY }}
+          onPointerMove={handlePointerMove}
+          onPointerLeave={resetTilt}
+        >
           <div className="flex items-start justify-between">
             <p className="text-[0.66rem] font-extrabold uppercase tracking-[0.22em] text-muted">
               {ui.profileCardLabel[language]} / 01
@@ -110,8 +155,8 @@ export default function Hero() {
               </p>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
