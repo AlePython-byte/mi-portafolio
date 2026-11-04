@@ -194,3 +194,26 @@ export type FooterData = {
   backToTop: LocalizedText;
   credits: LocalizedText;
 };
+
+export type ContactFormData = {
+  title: LocalizedText;
+  name: LocalizedText;
+  email: LocalizedText;
+  message: LocalizedText;
+  submit: LocalizedText;
+  sending: LocalizedText;
+  success: LocalizedText;
+  error: LocalizedText;
+  missingEndpoint: LocalizedText;
+};
+
+export type ContactData = {
+  label: LocalizedText;
+  headline: LocalizedText;
+  body: LocalizedText;
+  copy: LocalizedText;
+  copied: LocalizedText;
+  copyError: LocalizedText;
+  socialLabel: LocalizedText;
+  form: ContactFormData;
+};
