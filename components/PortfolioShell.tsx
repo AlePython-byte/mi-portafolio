@@ -9,10 +9,12 @@ const RetroDesktop = dynamic(() => import("./retro/RetroDesktop"), {
 });
 
 const STORAGE_KEY = "portfolio-mode";
-const DESKTOP_QUERY = "(min-width: 768px)";
+
+// Mientras RetroDesktop sea un placeholder, el botón y la capa retro quedan ocultos.
+const RETRO_READY = false;
 
 export default function PortfolioShell({ children }: { children: ReactNode }) {
-  // El modo plano (children) siempre se renderiza; retro es opcional.
+  // El modo plano (children) siempre se renderiza; retro solo si el usuario lo eligió.
   const [retro, setRetro] = useState(false);
 
   useEffect(() => {
@@ -22,11 +24,8 @@ export default function PortfolioShell({ children }: { children: ReactNode }) {
     } catch {
       // localStorage no disponible: se usa el valor por defecto.
     }
-    const enabled =
-      saved === "retro" ||
-      (saved !== "flat" && window.matchMedia(DESKTOP_QUERY).matches);
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setRetro(enabled);
+    setRetro(saved === "retro");
   }, []);
 
   function toggle() {
@@ -42,14 +41,16 @@ export default function PortfolioShell({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
-      {retro && <RetroDesktop />}
-      <button
-        type="button"
-        onClick={toggle}
-        className="fixed bottom-4 right-4 z-[60]"
-      >
-        {retro ? "Modo plano" : "Modo retro"}
-      </button>
+      {RETRO_READY && retro && <RetroDesktop />}
+      {RETRO_READY && (
+        <button
+          type="button"
+          onClick={toggle}
+          className="fixed bottom-4 right-4 z-[60]"
+        >
+          {retro ? "Modo plano" : "Modo retro"}
+        </button>
+      )}
     </>
   );
 }
