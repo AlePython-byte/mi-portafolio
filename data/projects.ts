@@ -23,6 +23,19 @@ export const projectsSection: ProjectsData = {
       // TODO: reemplazar por el enlace real de la demo.
       demoUrl: "#",
       demoLabel: "Ver demo",
+      details: {
+        summary:
+          "Roguelike 3D de terror psicológico inspirado en The Binding of Isaac. Juego como Noah, un bebé atrapado en una pesadilla donde los juguetes y los recuerdos familiares se vuelven criaturas. Su única defensa son sus lágrimas. Está en desarrollo, en la fase 1.",
+        features: [
+          "Combate roguelike en un entorno 3D",
+          "Atmósfera de terror psicológico",
+          "Modelado 3D en Blender y arte 2D en Krita",
+        ],
+        stack: [
+          { label: "Motor y lenguaje", items: ["Godot 4 .NET", "C#"] },
+          { label: "Arte", items: ["Blender", "Krita"] },
+        ],
+      },
     },
     {
       id: "vision2code",
