@@ -70,3 +70,8 @@ body {
 section[id] {
   scroll-margin-top: 5rem;
 }
+
+/* Bloquea el scroll del fondo mientras hay un diálogo modal abierto. */
+body:has(dialog[open]) {
+  overflow: hidden;
+}
