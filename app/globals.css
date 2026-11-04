@@ -58,7 +58,7 @@
   --color-line-strong: var(--line-strong);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-space-grotesk);
+  --font-display: var(--font-geist-sans);
 
   --radius-card: 2rem;
   --radius-pill: 9999px;
@@ -79,10 +79,22 @@ body {
   h2,
   h3,
   h4 {
-    font-family: var(--font-display), var(--font-geist-sans), sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.04em;
+    font-family: var(--font-geist-sans), Arial, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.05em;
     line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-weight: 900;
+    letter-spacing: -0.085em;
+    line-height: 0.92;
+  }
+
+  h2 {
+    letter-spacing: -0.065em;
+    line-height: 0.98;
   }
 }
 
