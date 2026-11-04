@@ -26,9 +26,11 @@ export const profile: Profile = {
   cvUrl: "/cv.pdf",
   social: [
     { label: "GitHub", url: "https://github.com/AlePython-byte" },
-    // TODO: reemplazar por la URL real de LinkedIn.
-    { label: "LinkedIn", url: "https://www.linkedin.com/in/usuario" },
-    { label: "Instagram", url: "https://www.instagram.com/usuario" },
+    {
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/in/alejandro-parra-91ab55319/",
+    },
+    { label: "Instagram", url: "https://www.instagram.com/aleeee.p_m/" },
   ],
 };
 
