@@ -36,6 +36,8 @@ export default function PortfolioShell() {
       : window.matchMedia(DESKTOP_QUERY).matches
         ? "retro"
         : "flat";
+    // Leer localStorage/matchMedia solo es posible tras montar (evita desajuste de hidratación).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMode(initial);
   }, []);
 
