@@ -92,3 +92,22 @@ export type ExtraItem = {
   url?: string;
   icon?: string;
 };
+
+export type AboutEducation = {
+  degree: string;
+  institution: string;
+  campus: string;
+};
+
+export type AboutData = {
+  headline: string;
+  paragraph: string;
+  interestsTitle: string;
+  interests: string[];
+  educationTitle: string;
+  education: AboutEducation;
+  focusTitle: string;
+  focus: string;
+  locationLabel: string;
+  semesterLabel: string;
+};
