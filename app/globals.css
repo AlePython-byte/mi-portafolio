@@ -36,6 +36,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk);
 
   --radius-card: 2rem;
   --radius-pill: 9999px;
@@ -52,4 +53,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), var(--font-geist-sans), sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
 }
