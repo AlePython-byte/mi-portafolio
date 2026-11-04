@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useId, useRef } from "react";
 import ProjectActionButton, {
   projectButtonBase,
 } from "@/components/ProjectActionButton";
+import ProjectImage from "@/components/ProjectImage";
 import { fillTemplate } from "@/lib/format";
 import type { Project, ProjectsData } from "@/data/types";
 
@@ -83,16 +83,13 @@ export default function ProjectDetail({ project, image, labels }: Props) {
           </button>
         </div>
 
-        <div className="relative aspect-video">
-          <Image
-            src={image}
-            alt={project.imageAlt}
-            fill
-            unoptimized={image.endsWith(".svg")}
-            sizes="(min-width: 768px) 48rem, 100vw"
-            className="object-cover"
-          />
-        </div>
+        <ProjectImage
+          src={image}
+          alt={project.imageAlt}
+          fit={project.imageFit}
+          position={project.imagePosition}
+          sizes="(min-width: 768px) 48rem, 100vw"
+        />
 
         <div className="space-y-8 p-5 sm:p-8">
           <header>
