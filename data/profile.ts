@@ -23,7 +23,7 @@ export const profile: Profile = {
 
 export const navLinks: NavLink[] = [
   { label: "Inicio", href: "#inicio" },
-  { label: "Acerca de mí", href: "#sobre-mi" },
+  { label: "Acerca de mí", href: "#acerca-de-mi" },
   { label: "Mi lado personal", href: "#personal" },
   { label: "Habilidades", href: "#habilidades" },
   { label: "Proyectos", href: "#proyectos" },
