@@ -1,7 +1,12 @@
+"use client";
+
+import { usePreferences } from "@/components/PreferencesProvider";
 import Image from "next/image";
 import { profile, ui } from "@/data/profile";
 
 export default function Hero() {
+  const { language } = usePreferences();
+
   return (
     <section
       id="inicio"
@@ -9,12 +14,12 @@ export default function Hero() {
     >
       <div className="order-2 md:order-1">
         <p className="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
-          {profile.role}
+          {profile.role[language]}
         </p>
         <h1 className="text-5xl sm:text-6xl lg:text-8xl">{profile.name}</h1>
-        <p className="mt-6 max-w-xl text-lg opacity-80">{profile.tagline}</p>
+        <p className="mt-6 max-w-xl text-lg opacity-80">{profile.tagline[language]}</p>
         <p className="mt-2 text-sm opacity-60">
-          {profile.location} · {profile.semester}
+          {profile.location[language]} · {profile.semester[language]}
         </p>
 
         <div className="mt-8 flex flex-wrap gap-4">
@@ -23,18 +28,18 @@ export default function Hero() {
             download
             className="rounded-pill bg-accent px-6 py-3 font-semibold text-accent-foreground shadow-neu-sm transition-transform hover:-translate-y-0.5"
           >
-            {ui.downloadCv}
+            {ui.downloadCv[language]}
           </a>
           <a
             href={ui.projectsHref}
             className="rounded-pill px-6 py-3 font-semibold shadow-neu-sm transition-transform hover:-translate-y-0.5"
           >
-            {ui.viewProjects}
+            {ui.viewProjects[language]}
           </a>
         </div>
 
         <ul
-          aria-label={ui.socialAriaLabel}
+          aria-label={ui.socialAriaLabel[language]}
           className="mt-8 flex flex-wrap gap-x-6 gap-y-2"
         >
           {profile.social.map((link) => (
@@ -56,7 +61,7 @@ export default function Hero() {
         <div className="relative h-56 w-56 overflow-hidden rounded-pill shadow-neu sm:h-72 sm:w-72 lg:h-96 lg:w-96">
           <Image
             src={profile.photo}
-            alt={profile.photoAlt}
+            alt={profile.photoAlt[language]}
             fill
             priority
             unoptimized

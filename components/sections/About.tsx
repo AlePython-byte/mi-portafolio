@@ -1,3 +1,6 @@
+"use client";
+
+import { usePreferences } from "@/components/PreferencesProvider";
 import { about } from "@/data/about";
 import { profile } from "@/data/profile";
 
@@ -6,9 +9,10 @@ const cardClass = `${baseCard} bg-background`;
 const accentCardClass = `${baseCard} bg-accent text-accent-foreground`;
 
 export default function About() {
+  const { language } = usePreferences();
   const facts = [
-    { label: about.locationLabel, value: profile.location },
-    { label: about.semesterLabel, value: profile.semester },
+    { label: about.locationLabel, value: profile.location[language] },
+    { label: about.semesterLabel, value: profile.semester[language] },
   ];
 
   return (
@@ -39,7 +43,7 @@ export default function About() {
         <article className={cardClass}>
           <h3 className="text-2xl">{about.educationTitle}</h3>
           <p className="mt-6 text-xl font-semibold">{about.education.degree}</p>
-          <p className="mt-1 text-accent">{profile.semester}</p>
+          <p className="mt-1 text-accent">{profile.semester[language]}</p>
           <p className="mt-4 opacity-80">
             {about.education.institution}
             <br />

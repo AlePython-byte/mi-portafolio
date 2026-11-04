@@ -89,7 +89,7 @@ export type SocialLink = {
 };
 
 export type NavLink = {
-  label: string;
+  label: LocalizedText;
   href: string;
 };
 
@@ -103,28 +103,28 @@ export type LanguageOption = {
 };
 
 export type UiLabels = {
-  navAriaLabel: string;
-  menuOpen: string;
-  menuClose: string;
-  themeToLight: string;
-  themeToDark: string;
-  languageGroup: string;
-  downloadCv: string;
-  viewProjects: string;
+  navAriaLabel: LocalizedText;
+  menuOpen: LocalizedText;
+  menuClose: LocalizedText;
+  themeToLight: LocalizedText;
+  themeToDark: LocalizedText;
+  languageGroup: LocalizedText;
+  downloadCv: LocalizedText;
+  viewProjects: LocalizedText;
   projectsHref: string;
-  socialAriaLabel: string;
+  socialAriaLabel: LocalizedText;
 };
 
 export type Profile = {
   name: string;
   initials: string;
   photo: string;
-  photoAlt: string;
-  role: string;
-  tag: string;
-  tagline: string;
-  location: string;
-  semester: string;
+  photoAlt: LocalizedText;
+  role: LocalizedText;
+  tag: LocalizedText;
+  tagline: LocalizedText;
+  location: LocalizedText;
+  semester: LocalizedText;
   email: string;
   cvUrl: string;
   social: SocialLink[];

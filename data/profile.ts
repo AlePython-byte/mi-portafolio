@@ -4,13 +4,24 @@ export const profile: Profile = {
   name: "Alejandro Parra",
   initials: "AP",
   photo: "/images/profile-placeholder.svg",
-  photoAlt: "Foto de perfil de Alejandro Parra",
-  role: "Backend · Interfaces · Datos",
-  tag: "Portafolio personal · 2026",
-  tagline:
-    "Exploro el desarrollo de software desde el backend y los datos hasta las interfaces y la experiencia de usuario.",
-  location: "Pasto, Colombia",
-  semester: "Quinto semestre",
+  photoAlt: {
+    es: "Foto de perfil de Alejandro Parra",
+    en: "Profile photo of Alejandro Parra",
+  },
+  role: {
+    es: "Backend · Interfaces · Datos",
+    en: "Backend · Interfaces · Data",
+  },
+  tag: {
+    es: "Portafolio personal · 2026",
+    en: "Personal portfolio · 2026",
+  },
+  tagline: {
+    es: "Exploro el desarrollo de software desde el backend y los datos hasta las interfaces y la experiencia de usuario.",
+    en: "I explore software development from the backend and data to interfaces and user experience.",
+  },
+  location: { es: "Pasto, Colombia", en: "Pasto, Colombia" },
+  semester: { es: "Quinto semestre", en: "Fifth semester" },
   email: "jorgealejandroparrab@outlook.com",
   cvUrl: "/cv.pdf",
   social: [
@@ -22,14 +33,17 @@ export const profile: Profile = {
 };
 
 export const navLinks: NavLink[] = [
-  { label: "Inicio", href: "#inicio" },
-  { label: "Acerca de mí", href: "#acerca-de-mi" },
-  { label: "Proyectos", href: "#proyectos" },
-  { label: "Testimonios", href: "#testimonios" },
-  { label: "Experiencia", href: "#experiencia" },
-  { label: "Mi lado personal", href: "#mi-lado-personal" },
-  { label: "Habilidades", href: "#habilidades" },
-  { label: "Contacto", href: "#contacto" },
+  { label: { es: "Inicio", en: "Home" }, href: "#inicio" },
+  { label: { es: "Acerca de mí", en: "About me" }, href: "#acerca-de-mi" },
+  { label: { es: "Proyectos", en: "Projects" }, href: "#proyectos" },
+  { label: { es: "Testimonios", en: "Testimonials" }, href: "#testimonios" },
+  { label: { es: "Experiencia", en: "Experience" }, href: "#experiencia" },
+  {
+    label: { es: "Mi lado personal", en: "Personal side" },
+    href: "#mi-lado-personal",
+  },
+  { label: { es: "Habilidades", en: "Skills" }, href: "#habilidades" },
+  { label: { es: "Contacto", en: "Contact" }, href: "#contacto" },
 ];
 
 export const languages: LanguageOption[] = [
@@ -38,14 +52,20 @@ export const languages: LanguageOption[] = [
 ];
 
 export const ui: UiLabels = {
-  navAriaLabel: "Navegación principal",
-  menuOpen: "Abrir menú",
-  menuClose: "Cerrar menú",
-  themeToLight: "Cambiar a tema claro",
-  themeToDark: "Cambiar a tema oscuro",
-  languageGroup: "Idioma",
-  downloadCv: "Descargar CV",
-  viewProjects: "Ver proyectos",
+  navAriaLabel: { es: "Navegación principal", en: "Main navigation" },
+  menuOpen: { es: "Abrir menú", en: "Open menu" },
+  menuClose: { es: "Cerrar menú", en: "Close menu" },
+  themeToLight: {
+    es: "Cambiar a tema claro",
+    en: "Switch to light theme",
+  },
+  themeToDark: {
+    es: "Cambiar a tema oscuro",
+    en: "Switch to dark theme",
+  },
+  languageGroup: { es: "Idioma", en: "Language" },
+  downloadCv: { es: "Descargar CV", en: "Download CV" },
+  viewProjects: { es: "Ver proyectos", en: "View projects" },
   projectsHref: "#proyectos",
-  socialAriaLabel: "Redes sociales",
+  socialAriaLabel: { es: "Redes sociales", en: "Social links" },
 };

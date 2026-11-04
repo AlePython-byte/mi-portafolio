@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePreferences } from "@/components/PreferencesProvider";
 import { languages, navLinks, profile, ui } from "@/data/profile";
 
 const SECTION_IDS = navLinks.map((link) => link.href.slice(1));
@@ -8,8 +9,8 @@ const SECTION_IDS = navLinks.map((link) => link.href.slice(1));
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(SECTION_IDS[0]);
-  const [dark, setDark] = useState(false);
-  const [lang, setLang] = useState(languages[0].code);
+  const { language, theme, setLanguage, toggleTheme } = usePreferences();
+  const dark = theme === "dark";
 
   // Cierra el menú con Escape.
   useEffect(() => {
@@ -53,7 +54,7 @@ export default function Navbar() {
           {profile.initials}
         </a>
 
-        <nav aria-label={ui.navAriaLabel} className="hidden lg:block">
+        <nav aria-label={ui.navAriaLabel[language]} className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -64,7 +65,7 @@ export default function Navbar() {
                   }
                   className={linkClass(link.href.slice(1))}
                 >
-                  {link.label}
+                  {link.label[language]}
                 </a>
               </li>
             ))}
@@ -74,9 +75,9 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={() => setDark((value) => !value)}
+            onClick={toggleTheme}
             aria-pressed={dark}
-            aria-label={dark ? ui.themeToLight : ui.themeToDark}
+            aria-label={dark ? ui.themeToLight[language] : ui.themeToDark[language]}
             className="grid h-10 w-10 place-items-center rounded-pill shadow-neu-sm"
           >
             <svg
@@ -101,22 +102,22 @@ export default function Navbar() {
 
           <div
             role="group"
-            aria-label={ui.languageGroup}
+            aria-label={ui.languageGroup[language]}
             className="flex rounded-pill p-1 shadow-neu-inset"
           >
-            {languages.map((language) => (
+            {languages.map((option) => (
               <button
-                key={language.code}
+                key={option.code}
                 type="button"
-                onClick={() => setLang(language.code)}
-                aria-pressed={lang === language.code}
+                onClick={() => setLanguage(option.code)}
+                aria-pressed={language === option.code}
                 className={`rounded-pill px-3 py-1 text-xs font-bold ${
-                  lang === language.code
+                  language === option.code
                     ? "bg-accent text-accent-foreground"
                     : "text-foreground"
                 }`}
               >
-                {language.label}
+                {option.label}
               </button>
             ))}
           </div>
@@ -126,7 +127,7 @@ export default function Navbar() {
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="menu-movil"
-            aria-label={open ? ui.menuClose : ui.menuOpen}
+            aria-label={open ? ui.menuClose[language] : ui.menuOpen[language]}
             className="grid h-10 w-10 place-items-center rounded-pill shadow-neu-sm lg:hidden"
           >
             <svg
@@ -151,7 +152,7 @@ export default function Navbar() {
       {open && (
         <nav
           id="menu-movil"
-          aria-label={ui.navAriaLabel}
+          aria-label={ui.navAriaLabel[language]}
           className="mx-4 mb-4 rounded-card bg-background p-3 shadow-neu lg:hidden"
         >
           <ul>
@@ -165,7 +166,7 @@ export default function Navbar() {
                   }
                   className={linkClass(link.href.slice(1))}
                 >
-                  {link.label}
+                  {link.label[language]}
                 </a>
               </li>
             ))}
