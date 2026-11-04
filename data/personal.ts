@@ -51,6 +51,7 @@ export const personal: PersonalData = {
         en: "I have listened to Feid for a long time, and his music always finds a place in my days. My favorite is FERXXO VOL X: Sagrado. I know it is not everyone’s favorite, but I love it: it is one of those albums I always end up returning to.",
       },
       vinyl: true,
+      albumCover: "/images/ferxxo-vol-x.jpg",
     },
     {
       id: "resident-evil-7",

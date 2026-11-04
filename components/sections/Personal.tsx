@@ -17,18 +17,31 @@ const FAN_CLASSES = [
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
-function Vinyl({ paused }: { paused: boolean }) {
+function Vinyl({ paused, cover }: { paused: boolean; cover?: string }) {
   return (
     <span
       aria-hidden="true"
-      className="absolute right-[-16%] top-1/2 aspect-square w-[92%] -translate-y-1/2 rounded-pill motion-safe:animate-[spin_6s_linear_infinite]"
+      className="absolute right-[-16%] top-1/2 block aspect-square w-[92%] -translate-y-1/2 rounded-pill motion-safe:animate-[spin_6s_linear_infinite]"
       style={{
         animationPlayState: paused ? "paused" : "running",
         background:
           "radial-gradient(circle at center, var(--accent) 0 14%, #111 14% 17%, transparent 17%), repeating-radial-gradient(circle at center, #1b1b1b 0 2px, #2a2a2a 2px 4px)",
         boxShadow: "0 6px 16px var(--shadow-dark)",
       }}
-    />
+    >
+      {cover && (
+        <span className="absolute inset-[27%] block overflow-hidden rounded-pill border border-white/20">
+          <Image
+            src={cover}
+            alt=""
+            fill
+            sizes="10rem"
+            className="object-cover"
+          />
+          <span className="absolute left-1/2 top-1/2 block h-[6%] w-[6%] -translate-x-1/2 -translate-y-1/2 rounded-pill bg-[#090909]" />
+        </span>
+      )}
+    </span>
   );
 }
 
@@ -38,7 +51,7 @@ function Cover({ card, paused }: { card: PersonalCard; paused: boolean }) {
   return (
     <span className={`relative block ${card.vinyl ? "pr-[12%]" : ""}`}>
       <span className="relative block">
-        {card.vinyl && <Vinyl paused={paused} />}
+        {card.vinyl && <Vinyl paused={paused} cover={card.albumCover} />}
         <span className="relative z-10 block aspect-square overflow-hidden rounded-card shadow-neu-sm">
           <Image
             src={card.image}

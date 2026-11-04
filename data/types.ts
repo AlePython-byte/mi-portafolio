@@ -175,6 +175,7 @@ export type PersonalCard = {
   subtitle?: LocalizedText;
   note?: LocalizedText;
   vinyl?: boolean;
+  albumCover?: string; // etiqueta central del vinilo
 };
 
 export type PersonalData = {
