@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useReducedMotion } from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import ProjectActionButton from "@/components/ProjectActionButton";
 import ProjectImage from "@/components/ProjectImage";
@@ -14,6 +15,7 @@ type Props = {
 
 export default function ProjectsView({ images }: Props) {
   const { language } = usePreferences();
+  const shouldReduceMotion = useReducedMotion();
   const { projects } = projectsSection;
   const count = `${String(projects.length).padStart(2, "0")} ${
     projects.length === 1
@@ -42,10 +44,20 @@ export default function ProjectsView({ images }: Props) {
       </p>
 
       <ul className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => {
+        {projects.map((project, index) => {
           const image = images[project.id];
           return (
-            <li key={project.id}>
+            // Solo desplaza en y (sin opacidad): la tarjeta siempre queda visible.
+            <motion.li
+              key={project.id}
+              initial={shouldReduceMotion ? false : { y: 24 }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{
+                duration: 0.48,
+                delay: shouldReduceMotion ? 0 : index * 0.07,
+              }}
+            >
               <article className="flex h-full flex-col rounded-card bg-background p-4 shadow-neu sm:p-5">
                 <ProjectImage
                   src={image}
@@ -95,7 +107,7 @@ export default function ProjectsView({ images }: Props) {
                   </div>
                 </div>
               </article>
-            </li>
+            </motion.li>
           );
         })}
       </ul>
