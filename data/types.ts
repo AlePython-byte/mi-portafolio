@@ -139,22 +139,22 @@ export type ExtraItem = {
 };
 
 export type AboutEducation = {
-  degree: string;
+  degree: LocalizedText;
   institution: string;
-  campus: string;
+  campus: LocalizedText;
 };
 
 export type AboutData = {
-  headline: string;
-  paragraph: string;
-  interestsTitle: string;
-  interests: string[];
-  educationTitle: string;
+  headline: LocalizedText;
+  paragraph: LocalizedText;
+  interestsTitle: LocalizedText;
+  interests: LocalizedText[];
+  educationTitle: LocalizedText;
   education: AboutEducation;
-  focusTitle: string;
-  focus: string;
-  locationLabel: string;
-  semesterLabel: string;
+  focusTitle: LocalizedText;
+  focus: LocalizedText;
+  locationLabel: LocalizedText;
+  semesterLabel: LocalizedText;
 };
 
 export type PersonalCard = {
