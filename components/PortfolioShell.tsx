@@ -36,7 +36,7 @@ export default function PortfolioShell() {
       : window.matchMedia(DESKTOP_QUERY).matches
         ? "retro"
         : "flat";
-    // Leer localStorage/matchMedia solo es posible tras montar (evita desajuste de hidrataci�n).
+    // Leer localStorage/matchMedia solo es posible tras montar (evita desajuste de hidratación).
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMode(initial);
   }, []);
@@ -46,7 +46,7 @@ export default function PortfolioShell() {
     try {
       localStorage.setItem(STORAGE_KEY, next);
     } catch {
-      // Se ignora: el cambio sigue valiendo para esta sesión.
+      // Se ignora: el cambio sigue valiendo para esta sesiÃ³n.
     }
   }
 
