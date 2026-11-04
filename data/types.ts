@@ -1,43 +1,49 @@
+export type DemoLabel = "Ver demo" | "Ver video" | "Ver release";
+
 export type Project = {
   id: string;
   title: string;
-  description: string;
+  description: LocalizedText;
   image: string;
-  imageAlt: string;
+  imageAlt: LocalizedText;
   imageFit?: "cover" | "contain"; // por defecto "cover"
   imagePosition?: "center" | "top"; // por defecto "center"
   tags: string[];
   githubUrl: string; // "#" = aún no disponible
   demoUrl: string; // "#" = aún no disponible
-  demoLabel: "Ver demo" | "Ver video" | "Ver release";
+  demoLabel: DemoLabel;
   details: ProjectDetails;
 };
 
+// Un nombre de tecnología (texto único) o un texto traducible.
+export type StackItem = string | LocalizedText;
+
 export type ProjectDetails = {
-  summary: string;
-  features: string[];
-  stack: { label: string; items: string[] }[];
-  highlights?: string[];
+  summary: LocalizedText;
+  features: LocalizedText[];
+  stack: { label: LocalizedText; items: StackItem[] }[];
+  highlights?: LocalizedText[];
 };
 
 export type ProjectsData = {
-  label: string;
-  headline: string;
-  subtitle: string;
-  countSingular: string;
-  countPlural: string;
-  githubLabel: string;
-  comingSoon: string;
+  label: LocalizedText;
+  headline: LocalizedText;
+  subtitle: LocalizedText;
+  countSingular: LocalizedText;
+  countPlural: LocalizedText;
+  githubLabel: LocalizedText;
+  comingSoon: LocalizedText;
   placeholderImage: string;
-  moreInfo: string;
-  moreInfoAria: string; // usa {title}
-  close: string;
-  whatItDoes: string;
-  stackTitle: string;
-  detailsTitle: string;
-  githubDisabledAria: string; // usa {title}
-  demoDisabledAria: string; // usa {kind} y {title}
-  demoKinds: Record<Project["demoLabel"], string>;
+  moreInfo: LocalizedText;
+  moreInfoAria: LocalizedText; // usa {title}
+  close: LocalizedText;
+  whatItDoes: LocalizedText;
+  stackTitle: LocalizedText;
+  detailsTitle: LocalizedText;
+  githubDisabledAria: LocalizedText; // usa {title}
+  demoDisabledAria: LocalizedText; // usa {kind} y {title}
+  demoKinds: Record<DemoLabel, LocalizedText>;
+  demoLabels: Record<DemoLabel, LocalizedText>;
   projects: Project[];
 };
 
