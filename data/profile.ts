@@ -1,17 +1,21 @@
 import type { Language, NavLink, Profile, UiLabels } from "./types";
 
 export const profile: Profile = {
-  name: "Tu Nombre",
+  name: "Alejandro Parra",
   initials: "AP",
   photo: "/images/profile-placeholder.svg",
-  photoAlt: "Foto de perfil",
-  role: "Desarrollador web",
-  tagline: "Frase corta que te describe.",
-  location: "Ciudad, País",
-  semester: "N.º semestre",
+  photoAlt: "Foto de perfil de Alejandro Parra",
+  role: "Backend · Interfaces · Datos",
+  tag: "Portafolio personal · 2026",
+  tagline:
+    "Exploro el desarrollo de software desde el backend y los datos hasta las interfaces y la experiencia de usuario.",
+  location: "Pasto, Colombia",
+  semester: "Quinto semestre",
+  email: "jorgealejandroparrab@outlook.com",
   cvUrl: "/cv.pdf",
   social: [
-    { label: "GitHub", url: "https://github.com/usuario" },
+    { label: "GitHub", url: "https://github.com/AlePython-byte" },
+    // TODO: reemplazar por la URL real de LinkedIn.
     { label: "LinkedIn", url: "https://www.linkedin.com/in/usuario" },
     { label: "Instagram", url: "https://www.instagram.com/usuario" },
   ],

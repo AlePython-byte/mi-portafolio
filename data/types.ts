@@ -76,9 +76,11 @@ export type Profile = {
   photo: string;
   photoAlt: string;
   role: string;
+  tag: string;
   tagline: string;
   location: string;
   semester: string;
+  email: string;
   cvUrl: string;
   social: SocialLink[];
 };
