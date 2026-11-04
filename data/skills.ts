@@ -1,18 +1,28 @@
 import type { SkillsData } from "./types";
 
 export const skills: SkillsData = {
-  label: "03 · Habilidades",
-  headline: "Las herramientas con las que construyo.",
-  subtitle:
-    "Organizo mis conocimientos en cinco áreas que conectan la interfaz, la lógica, los datos, la infraestructura y el flujo de trabajo.",
-  hint: "Pasa el cursor o enfoca una carta",
+  label: { es: "03 · Habilidades", en: "03 · Skills" },
+  headline: {
+    es: "Las herramientas con las que construyo.",
+    en: "The tools I build with.",
+  },
+  subtitle: {
+    es: "Organizo mis conocimientos en cinco áreas que conectan la interfaz, la lógica, los datos, la infraestructura y el flujo de trabajo.",
+    en: "I organize my knowledge into five areas that connect the interface, logic, data, infrastructure, and workflow.",
+  },
+  hint: {
+    es: "Pasa el cursor o enfoca una carta",
+    en: "Hover over or focus a card",
+  },
   groups: [
     {
       id: "frontend",
       number: "01",
-      title: "Frontend",
-      description:
-        "Interfaces web claras, adaptadas y centradas en las personas.",
+      title: { es: "Frontend", en: "Frontend" },
+      description: {
+        es: "Interfaces web claras, adaptadas y centradas en las personas.",
+        en: "Clear, adaptable web interfaces centered on people.",
+      },
       items: [
         { name: "React", icon: "react" },
         { name: "Next.js", icon: "nextjs" },
@@ -25,8 +35,11 @@ export const skills: SkillsData = {
     {
       id: "backend",
       number: "02",
-      title: "Backend",
-      description: "Servicios y lógica para aplicaciones estructuradas.",
+      title: { es: "Backend", en: "Backend" },
+      description: {
+        es: "Servicios y lógica para aplicaciones estructuradas.",
+        en: "Services and logic for structured applications.",
+      },
       items: [
         { name: "Node.js", icon: "nodejs" },
         { name: "NestJS", icon: "nestjs" },
@@ -35,8 +48,11 @@ export const skills: SkillsData = {
     {
       id: "bases-de-datos",
       number: "03",
-      title: "Bases de datos",
-      description: "Modelado, consulta y organización de la información.",
+      title: { es: "Bases de datos", en: "Databases" },
+      description: {
+        es: "Modelado, consulta y organización de la información.",
+        en: "Modeling, querying, and organizing information.",
+      },
       items: [
         { name: "PostgreSQL", icon: "postgresql" },
         { name: "MongoDB", icon: "mongodb" },
@@ -47,8 +63,11 @@ export const skills: SkillsData = {
     {
       id: "cloud-devops",
       number: "04",
-      title: "Cloud & DevOps",
-      description: "Infraestructura, contenedores y automatización de entregas.",
+      title: { es: "Cloud & DevOps", en: "Cloud & DevOps" },
+      description: {
+        es: "Infraestructura, contenedores y automatización de entregas.",
+        en: "Infrastructure, containers, and delivery automation.",
+      },
       items: [
         { name: "AWS" },
         { name: "Azure" },
@@ -59,8 +78,11 @@ export const skills: SkillsData = {
     {
       id: "herramientas",
       number: "05",
-      title: "Herramientas",
-      description: "Flujo de trabajo, colaboración y pruebas de servicios.",
+      title: { es: "Herramientas", en: "Tools" },
+      description: {
+        es: "Flujo de trabajo, colaboración y pruebas de servicios.",
+        en: "Workflow, collaboration, and service testing.",
+      },
       items: [
         { name: "Git", icon: "git" },
         { name: "GitHub", icon: "github" },

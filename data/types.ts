@@ -70,16 +70,16 @@ export type SkillItem = {
 export type SkillGroup = {
   id: string;
   number: string;
-  title: string;
-  description: string;
+  title: LocalizedText;
+  description: LocalizedText;
   items: SkillItem[];
 };
 
 export type SkillsData = {
-  label: string;
-  headline: string;
-  subtitle: string;
-  hint: string;
+  label: LocalizedText;
+  headline: LocalizedText;
+  subtitle: LocalizedText;
+  hint: LocalizedText;
   groups: SkillGroup[];
 };
 
