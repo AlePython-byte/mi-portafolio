@@ -8,6 +8,14 @@ export type Project = {
   githubUrl: string; // "#" = aún no disponible
   demoUrl: string; // "#" = aún no disponible
   demoLabel: "Ver demo" | "Ver video" | "Ver release";
+  details: ProjectDetails;
+};
+
+export type ProjectDetails = {
+  summary: string;
+  features: string[];
+  stack: { label: string; items: string[] }[];
+  highlights?: string[];
 };
 
 export type ProjectsData = {
