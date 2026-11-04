@@ -3,6 +3,7 @@ import path from "node:path";
 import Image from "next/image";
 import ProjectActionButton from "@/components/ProjectActionButton";
 import { projectsSection } from "@/data/projects";
+import { fillTemplate } from "@/lib/format";
 
 // Si la imagen del proyecto aún no existe en public/, se usa el placeholder.
 function resolveImage(image: string): string {
@@ -72,11 +73,22 @@ export default function Projects() {
                       label={projectsSection.githubLabel}
                       href={project.githubUrl}
                       disabledText={projectsSection.comingSoon}
+                      disabledAria={fillTemplate(
+                        projectsSection.githubDisabledAria,
+                        { title: project.title },
+                      )}
                     />
                     <ProjectActionButton
                       label={project.demoLabel}
                       href={project.demoUrl}
                       disabledText={projectsSection.comingSoon}
+                      disabledAria={fillTemplate(
+                        projectsSection.demoDisabledAria,
+                        {
+                          kind: projectsSection.demoKinds[project.demoLabel],
+                          title: project.title,
+                        },
+                      )}
                       primary
                     />
                   </div>

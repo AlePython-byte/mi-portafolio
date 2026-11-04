@@ -5,6 +5,7 @@ type Props = {
   label: string;
   href: string;
   disabledText: string;
+  disabledAria: string;
   primary?: boolean;
 };
 
@@ -12,6 +13,7 @@ export default function ProjectActionButton({
   label,
   href,
   disabledText,
+  disabledAria,
   primary = false,
 }: Props) {
   if (href === "#") {
@@ -19,6 +21,7 @@ export default function ProjectActionButton({
       <button
         type="button"
         disabled
+        aria-label={disabledAria}
         className={`${buttonBase} cursor-not-allowed opacity-50 shadow-neu-inset`}
       >
         {disabledText}
