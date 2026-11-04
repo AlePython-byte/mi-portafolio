@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Imagen del proyecto pendiente">
+  <rect width="640" height="360" fill="#c9cdcb"/>
+  <rect x="200" y="100" width="240" height="160" rx="16" fill="none" stroke="#a3a9a6" stroke-width="10"/>
+  <path d="M220 240l60-60 40 40 30-30 70 70z" fill="#a3a9a6"/>
+  <circle cx="270" cy="145" r="16" fill="#a3a9a6"/>
+</svg>
