@@ -41,3 +41,18 @@ export type Skill = {
   level: SkillLevel;
   icon?: string;
 };
+
+export type SocialLink = {
+  label: string;
+  url: string;
+};
+
+export type Profile = {
+  name: string;
+  role: string;
+  tagline: string;
+  location: string;
+  semester: string;
+  cvUrl: string;
+  social: SocialLink[];
+};
