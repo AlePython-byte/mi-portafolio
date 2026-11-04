@@ -1,0 +1,43 @@
+import type { IconType } from "react-icons";
+import {
+  SiDocker,
+  SiGit,
+  SiGithub,
+  SiGithubactions,
+  SiHtml5,
+  SiLinux,
+  SiMongodb,
+  SiMysql,
+  SiNestjs,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiPostman,
+  SiReact,
+  SiRedis,
+  SiTailwindcss,
+  SiTypescript,
+  SiVite,
+} from "react-icons/si";
+
+// Claves usadas en data/skills.ts. AWS y Azure no existen en react-icons/si.
+export const skillIcons: Record<string, IconType> = {
+  react: SiReact,
+  nextjs: SiNextdotjs,
+  typescript: SiTypescript,
+  tailwind: SiTailwindcss,
+  html: SiHtml5,
+  vite: SiVite,
+  nodejs: SiNodedotjs,
+  nestjs: SiNestjs,
+  postgresql: SiPostgresql,
+  mongodb: SiMongodb,
+  mysql: SiMysql,
+  redis: SiRedis,
+  docker: SiDocker,
+  githubactions: SiGithubactions,
+  git: SiGit,
+  github: SiGithub,
+  linux: SiLinux,
+  postman: SiPostman,
+};
