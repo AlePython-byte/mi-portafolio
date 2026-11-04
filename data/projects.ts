@@ -50,7 +50,7 @@ export const projectsSection: ProjectsData = {
         es: "Roguelike 3D de terror psicológico inspirado en The Binding of Isaac. Juego como Noah, un bebé atrapado en una pesadilla donde los juguetes y los recuerdos familiares se vuelven criaturas, y mi única defensa son sus lágrimas. En desarrollo.",
         en: "3D psychological horror roguelike inspired by The Binding of Isaac. I play as Noah, a baby trapped in a nightmare where toys and family memories turn into creatures, and my only defense is his tears. In development.",
       },
-      image: "/images/projects/lullaby.png",
+      image: "/images/projects/lullaby.jpg",
       imageAlt: {
         es: "Menú principal de LULLABY: una cuna con juguetes y un panel con las opciones Jugar, Dificultad, Controles y Salir",
         en: "Main menu of LULLABY: a crib with toys and a panel with the options Play, Difficulty, Controls, and Quit",
