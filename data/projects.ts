@@ -89,6 +89,30 @@ export const projectsSection: ProjectsData = {
       // TODO: reemplazar por el enlace real del video.
       demoUrl: "#",
       demoLabel: "Ver video",
+      details: {
+        summary:
+          "App Android nativa de rescate de comida. Los negocios publican a menor precio lo que les sobra al final del día; los compradores lo descubren, lo reservan y lo recogen en el local con un código corto.",
+        features: [
+          "Comprador: ofertas en lista, cuadrícula o mapa, filtros, favoritos y pedidos",
+          "Negocio: panel, ofertas, reservas y canje del código con bloqueo tras 5 intentos fallidos",
+          "IA: sube la foto del excedente y la app sugiere título, categoría, descripción y precio con descuento, todo editable",
+          "Registro con rol, modo claro y oscuro, español e inglés",
+        ],
+        stack: [
+          {
+            label: "App Android",
+            items: ["Kotlin", "Jetpack Compose", "Material 3", "Navigation Compose", "Maps Compose", "Retrofit"],
+          },
+          {
+            label: "Servidor",
+            items: ["NestJS", "Prisma", "Supabase Postgres", "Supabase Auth", "Supabase Storage"],
+          },
+        ],
+        highlights: [
+          "Identidad visual propia llamada “Rescate”",
+          "Interruptor de datos de demostración",
+        ],
+      },
     },
     {
       id: "luminawear",
