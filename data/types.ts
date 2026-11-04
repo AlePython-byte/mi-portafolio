@@ -187,3 +187,10 @@ export type PersonalData = {
   resumeLabel: LocalizedText;
   cards: PersonalCard[];
 };
+
+export type FooterData = {
+  quickLinksLabel: LocalizedText;
+  socialLabel: LocalizedText;
+  backToTop: LocalizedText;
+  credits: LocalizedText;
+};
