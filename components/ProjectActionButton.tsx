@@ -1,4 +1,4 @@
-const buttonBase =
+export const projectButtonBase =
   "rounded-pill px-5 py-2.5 text-sm font-semibold shadow-neu-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 type Props = {
@@ -22,7 +22,7 @@ export default function ProjectActionButton({
         type="button"
         disabled
         aria-label={disabledAria}
-        className={`${buttonBase} cursor-not-allowed opacity-50 shadow-neu-inset`}
+        className={`${projectButtonBase} cursor-not-allowed opacity-50 shadow-neu-inset`}
       >
         {disabledText}
       </button>
@@ -33,7 +33,7 @@ export default function ProjectActionButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${buttonBase} ${
+      className={`${projectButtonBase} ${
         primary ? "bg-accent text-accent-foreground" : ""
       }`}
     >
