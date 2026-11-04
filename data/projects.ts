@@ -27,15 +27,16 @@ export const projectsSection: ProjectsData = {
     {
       id: "vision2code",
       title: "Vision2Code",
-      description: "App de escritorio que convierte capturas de pantalla en código.",
+      description:
+        "App de escritorio que convierte la captura de una interfaz en un proyecto de código. La IA solo describe la interfaz como un esquema validado y un generador determinista produce el código, así el resultado es predecible.",
       image: "/images/projects/vision2code.png",
       imageAlt:
         "Captura de Vision2Code, app de escritorio que convierte capturas de pantalla en código",
-      tags: ["Escritorio"],
+      tags: ["Tauri", "Rust", "React", "TypeScript", "NestJS"],
       githubUrl: "https://github.com/AlePython-byte/vision2code",
-      // TODO: reemplazar por el enlace real de la demo.
+      // TODO: reemplazar por el enlace real del release.
       demoUrl: "#",
-      demoLabel: "Ver demo",
+      demoLabel: "Ver release",
     },
     {
       id: "zerowaste-eats",
