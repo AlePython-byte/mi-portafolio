@@ -27,6 +27,15 @@ export type ProjectsData = {
   githubLabel: string;
   comingSoon: string;
   placeholderImage: string;
+  moreInfo: string;
+  moreInfoAria: string; // usa {title}
+  close: string;
+  whatItDoes: string;
+  stackTitle: string;
+  detailsTitle: string;
+  githubDisabledAria: string; // usa {title}
+  demoDisabledAria: string; // usa {kind} y {title}
+  demoKinds: Record<Project["demoLabel"], string>;
   projects: Project[];
 };
 

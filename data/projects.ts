@@ -10,6 +10,19 @@ export const projectsSection: ProjectsData = {
   githubLabel: "GitHub",
   comingSoon: "Próximamente",
   placeholderImage: "/images/projects/placeholder.svg",
+  moreInfo: "Más información",
+  moreInfoAria: "Más información sobre {title}",
+  close: "Cerrar",
+  whatItDoes: "Qué hace",
+  stackTitle: "Stack",
+  detailsTitle: "Detalles",
+  githubDisabledAria: "GitHub de {title}: próximamente",
+  demoDisabledAria: "{kind} de {title}: próximamente",
+  demoKinds: {
+    "Ver demo": "Demo",
+    "Ver video": "Video",
+    "Ver release": "Release",
+  },
   projects: [
     {
       id: "lullaby",
