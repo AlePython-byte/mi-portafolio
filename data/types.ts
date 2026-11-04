@@ -111,3 +111,28 @@ export type AboutData = {
   locationLabel: string;
   semesterLabel: string;
 };
+
+export type PersonalCard = {
+  id: string;
+  image: string;
+  imageAlt: string;
+  title: string;
+  text: string;
+  badge?: string;
+  label?: string;
+  subtitle?: string;
+  note?: string;
+  vinyl?: boolean;
+};
+
+export type PersonalData = {
+  label: string;
+  headline: string;
+  subtitle: string;
+  cardsLabel: string;
+  thumbnailsLabel: string;
+  backLabel: string;
+  pauseLabel: string;
+  resumeLabel: string;
+  cards: PersonalCard[];
+};
