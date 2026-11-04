@@ -32,14 +32,25 @@ export type Experience = {
   stack?: string[];
 };
 
-export type SkillLevel = 1 | 2 | 3 | 4 | 5;
-
-export type Skill = {
-  id: string;
+export type SkillItem = {
   name: string;
-  category: "frontend" | "backend" | "herramientas" | "otros";
-  level: SkillLevel;
-  icon?: string;
+  icon?: string; // clave del mapa de iconos; sin ella se muestra solo texto
+};
+
+export type SkillGroup = {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  items: SkillItem[];
+};
+
+export type SkillsData = {
+  label: string;
+  headline: string;
+  subtitle: string;
+  hint: string;
+  groups: SkillGroup[];
 };
 
 export type SocialLink = {
