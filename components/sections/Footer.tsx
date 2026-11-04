@@ -1,6 +1,7 @@
 "use client";
 
 import { LuArrowUp } from "react-icons/lu";
+import CurrentYear from "@/components/CurrentYear";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { socialIcons } from "@/components/socialIcons";
 import { footer } from "@/data/footer";
@@ -22,7 +23,7 @@ export default function Footer() {
             </p>
             <p className="mt-2 text-sm text-muted">
               ©{" "}
-              <span suppressHydrationWarning>{new Date().getFullYear()}</span>{" "}
+              <CurrentYear />{" "}
               {profile.name}
             </p>
 
