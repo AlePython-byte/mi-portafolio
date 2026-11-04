@@ -126,6 +126,21 @@ export const projectsSection: ProjectsData = {
       // TODO: reemplazar por el enlace real del video.
       demoUrl: "#",
       demoLabel: "Ver video",
+      details: {
+        summary:
+          "Controla las luces de la casa desde la muñeca: enciende, apaga y ajusta el brillo. Tiene escenas, favoritos y un asistente al que le hablas en texto, por ejemplo «pon la sala tranquila».",
+        features: [
+          "Escenas: Descanso, Lectura, Concentración y Buenas noches, con sugerencia según la hora y Deshacer",
+          "Asistente con reglas locales y apoyo de IA; siempre pide confirmación antes de aplicar",
+          "Una luz real: un bombillo físico que se controla a través de un hub propio",
+          "Tema claro y oscuro, español e inglés",
+        ],
+        stack: [
+          { label: "App del reloj", items: ["Kotlin", "Jetpack Compose para Wear OS", "Wear Compose Material 3"] },
+          { label: "Hub", items: ["Python"] },
+          { label: "Diseño", items: ["Figma", "Sistema de tokens"] },
+        ],
+      },
     },
   ],
 };
