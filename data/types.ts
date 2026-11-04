@@ -22,6 +22,7 @@ export type Testimonial = {
 
 export type Experience = {
   id: string;
+  kind: "academic" | "work";
   role: string;
   company: string;
   location?: string;
