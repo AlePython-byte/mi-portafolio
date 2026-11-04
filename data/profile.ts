@@ -3,7 +3,7 @@ import type { LanguageOption, NavLink, Profile, UiLabels } from "./types";
 export const profile: Profile = {
   name: "Alejandro Parra",
   initials: "AP",
-  photo: "/images/profile-placeholder.svg",
+  photo: "/images/alejandro-parra.jpeg",
   photoAlt: {
     es: "Foto de perfil de Alejandro Parra",
     en: "Profile photo of Alejandro Parra",
@@ -70,4 +70,5 @@ export const ui: UiLabels = {
   viewProjects: { es: "Ver proyectos", en: "View projects" },
   projectsHref: "#proyectos",
   socialAriaLabel: { es: "Redes sociales", en: "Social links" },
+  profileCardLabel: { es: "Perfil", en: "Profile" },
 };

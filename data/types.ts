@@ -119,6 +119,7 @@ export type UiLabels = {
   viewProjects: LocalizedText;
   projectsHref: string;
   socialAriaLabel: LocalizedText;
+  profileCardLabel: LocalizedText;
 };
 
 export type Profile = {
