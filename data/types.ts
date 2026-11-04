@@ -4,6 +4,8 @@ export type Project = {
   description: string;
   image: string;
   imageAlt: string;
+  imageFit?: "cover" | "contain"; // por defecto "cover"
+  imagePosition?: "center" | "top"; // por defecto "center"
   tags: string[];
   githubUrl: string; // "#" = aún no disponible
   demoUrl: string; // "#" = aún no disponible
