@@ -93,8 +93,12 @@ export type NavLink = {
   href: string;
 };
 
-export type Language = {
-  code: string;
+export type Language = "es" | "en";
+
+export type LocalizedText = Record<Language, string>;
+
+export type LanguageOption = {
+  code: Language;
   label: string;
 };
 

@@ -1,4 +1,4 @@
-import type { Language, NavLink, Profile, UiLabels } from "./types";
+import type { LanguageOption, NavLink, Profile, UiLabels } from "./types";
 
 export const profile: Profile = {
   name: "Alejandro Parra",
@@ -32,7 +32,7 @@ export const navLinks: NavLink[] = [
   { label: "Contacto", href: "#contacto" },
 ];
 
-export const languages: Language[] = [
+export const languages: LanguageOption[] = [
   { code: "es", label: "ES" },
   { code: "en", label: "EN" },
 ];
