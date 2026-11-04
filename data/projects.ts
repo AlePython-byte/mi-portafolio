@@ -30,7 +30,9 @@ export const projectsSection: ProjectsData = {
       description:
         "Roguelike 3D de terror psicológico inspirado en The Binding of Isaac. Juego como Noah, un bebé atrapado en una pesadilla donde los juguetes y los recuerdos familiares se vuelven criaturas, y mi única defensa son sus lágrimas. En desarrollo.",
       image: "/images/projects/lullaby.png",
-      imageAlt: "Captura de LULLABY, roguelike 3D de terror psicológico",
+      imageAlt:
+        "Menú principal de LULLABY: una cuna con juguetes y un panel con las opciones Jugar, Dificultad, Controles y Salir",
+      imageFit: "cover",
       tags: ["Godot .NET", "C#", "Blender", "Krita"],
       githubUrl: "https://github.com/AlePython-byte/LULLABY",
       // TODO: reemplazar por el enlace real de la demo.
