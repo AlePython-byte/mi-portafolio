@@ -4,6 +4,7 @@ import Image from "next/image";
 import ProjectActionButton from "@/components/ProjectActionButton";
 import { projectsSection } from "@/data/projects";
 import { fillTemplate } from "@/lib/format";
+import ProjectDetail from "./ProjectDetail";
 
 // Si la imagen del proyecto aún no existe en public/, se usa el placeholder.
 function resolveImage(image: string): string {
@@ -13,6 +14,19 @@ function resolveImage(image: string): string {
 
 export default function Projects() {
   const { projects } = projectsSection;
+  const detailLabels = {
+    moreInfo: projectsSection.moreInfo,
+    moreInfoAria: projectsSection.moreInfoAria,
+    close: projectsSection.close,
+    whatItDoes: projectsSection.whatItDoes,
+    stackTitle: projectsSection.stackTitle,
+    detailsTitle: projectsSection.detailsTitle,
+    githubLabel: projectsSection.githubLabel,
+    comingSoon: projectsSection.comingSoon,
+    githubDisabledAria: projectsSection.githubDisabledAria,
+    demoDisabledAria: projectsSection.demoDisabledAria,
+    demoKinds: projectsSection.demoKinds,
+  };
   const count = `${String(projects.length).padStart(2, "0")} ${
     projects.length === 1
       ? projectsSection.countSingular
@@ -90,6 +104,11 @@ export default function Projects() {
                         },
                       )}
                       primary
+                    />
+                    <ProjectDetail
+                      project={project}
+                      image={image}
+                      labels={detailLabels}
                     />
                   </div>
                 </div>
