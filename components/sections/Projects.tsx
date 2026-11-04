@@ -28,7 +28,7 @@ function ActionButton({
         disabled
         className={`${buttonBase} cursor-not-allowed opacity-50 shadow-neu-inset`}
       >
-        {label} · {projectsSection.comingSoon}
+        {projectsSection.comingSoon}
       </button>
     );
   }
