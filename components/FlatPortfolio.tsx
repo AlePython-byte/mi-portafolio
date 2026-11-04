@@ -16,11 +16,11 @@ export default function FlatPortfolio() {
       <main>
         <Hero />
         <About />
-        <Personal />
         <Projects />
-        <Experience />
-        <Skills />
         <Testimonials />
+        <Experience />
+        <Personal />
+        <Skills />
         <Contact />
       </main>
       <Footer />
