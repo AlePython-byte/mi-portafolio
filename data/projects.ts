@@ -40,16 +40,15 @@ export const projectsSection: ProjectsData = {
     {
       id: "zerowaste-eats",
       title: "ZeroWaste Eats",
-      // TODO: escribir una línea sobre qué hace el proyecto.
-      description: "[TODO: una línea sobre qué hace]",
+      description:
+        "App Android de rescate de comida: los negocios publican a menor precio lo que les sobra al final del día y los compradores lo reservan y lo recogen con un código. Incluye una función de IA que sugiere la oferta a partir de una foto del excedente.",
       image: "/images/projects/zerowaste-eats.png",
       imageAlt: "Captura de ZeroWaste Eats",
-      // TODO: definir las etiquetas de tecnología.
-      tags: ["TODO"],
+      tags: ["Kotlin", "Jetpack Compose", "NestJS", "Supabase"],
       githubUrl: "https://github.com/AlePython-byte/zerowaste-eats",
-      // TODO: reemplazar por el enlace real de la demo.
+      // TODO: reemplazar por el enlace real del video.
       demoUrl: "#",
-      demoLabel: "Ver demo",
+      demoLabel: "Ver video",
     },
     {
       id: "luminawear",
