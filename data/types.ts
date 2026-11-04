@@ -1,14 +1,25 @@
 export type Project = {
   id: string;
   title: string;
-  summary: string;
-  description?: string;
-  image?: string;
+  description: string;
+  image: string;
+  imageAlt: string;
   tags: string[];
-  repoUrl?: string;
-  liveUrl?: string;
-  featured?: boolean;
-  year?: number;
+  githubUrl: string; // "#" = aún no disponible
+  demoUrl: string; // "#" = aún no disponible
+  demoLabel: "Ver demo" | "Ver video" | "Ver release";
+};
+
+export type ProjectsData = {
+  label: string;
+  headline: string;
+  subtitle: string;
+  countSingular: string;
+  countPlural: string;
+  githubLabel: string;
+  comingSoon: string;
+  placeholderImage: string;
+  projects: Project[];
 };
 
 export type Testimonial = {
