@@ -59,12 +59,12 @@ export type Testimonial = {
 export type Experience = {
   id: string;
   kind: "academic" | "work";
-  role: string;
+  role: LocalizedText;
   company: string;
-  location?: string;
+  location?: LocalizedText;
   startDate: string; // ISO "YYYY-MM"
   endDate?: string; // omitido = actual
-  highlights: string[];
+  highlights: LocalizedText[];
   stack?: string[];
 };
 

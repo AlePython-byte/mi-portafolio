@@ -4,20 +4,30 @@ export const experience: Experience[] = [
   {
     id: "experiencia-laboral-1",
     kind: "work",
-    role: "Cargo",
+    role: { es: "Cargo", en: "Role" },
     company: "Empresa",
-    location: "Ciudad, País",
+    location: { es: "Ciudad, País", en: "City, Country" },
     startDate: "2024-01",
-    highlights: ["Logro o responsabilidad principal."],
+    highlights: [
+      {
+        es: "Logro o responsabilidad principal.",
+        en: "Main achievement or responsibility.",
+      },
+    ],
     stack: ["TypeScript"],
   },
   {
     id: "experiencia-academica-1",
     kind: "academic",
-    role: "Carrera o programa",
+    role: { es: "Carrera o programa", en: "Degree or program" },
     company: "Institución",
-    location: "Ciudad, País",
+    location: { es: "Ciudad, País", en: "City, Country" },
     startDate: "2022-01",
-    highlights: ["Dato académico relevante."],
+    highlights: [
+      {
+        es: "Dato académico relevante.",
+        en: "Relevant academic detail.",
+      },
+    ],
   },
 ];
