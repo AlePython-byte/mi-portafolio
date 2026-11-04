@@ -47,8 +47,34 @@ export type SocialLink = {
   url: string;
 };
 
+export type NavLink = {
+  label: string;
+  href: string;
+};
+
+export type Language = {
+  code: string;
+  label: string;
+};
+
+export type UiLabels = {
+  navAriaLabel: string;
+  menuOpen: string;
+  menuClose: string;
+  themeToLight: string;
+  themeToDark: string;
+  languageGroup: string;
+  downloadCv: string;
+  viewProjects: string;
+  projectsHref: string;
+  socialAriaLabel: string;
+};
+
 export type Profile = {
   name: string;
+  initials: string;
+  photo: string;
+  photoAlt: string;
   role: string;
   tagline: string;
   location: string;
