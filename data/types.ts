@@ -160,24 +160,24 @@ export type AboutData = {
 export type PersonalCard = {
   id: string;
   image: string;
-  imageAlt: string;
-  title: string;
-  text: string;
-  badge?: string;
-  label?: string;
-  subtitle?: string;
-  note?: string;
+  imageAlt: LocalizedText;
+  title: LocalizedText;
+  text: LocalizedText;
+  badge?: LocalizedText;
+  label?: LocalizedText;
+  subtitle?: LocalizedText;
+  note?: LocalizedText;
   vinyl?: boolean;
 };
 
 export type PersonalData = {
-  label: string;
-  headline: string;
-  subtitle: string;
-  cardsLabel: string;
-  thumbnailsLabel: string;
-  backLabel: string;
-  pauseLabel: string;
-  resumeLabel: string;
+  label: LocalizedText;
+  headline: LocalizedText;
+  subtitle: LocalizedText;
+  cardsLabel: LocalizedText;
+  thumbnailsLabel: LocalizedText;
+  backLabel: LocalizedText;
+  pauseLabel: LocalizedText;
+  resumeLabel: LocalizedText;
   cards: PersonalCard[];
 };

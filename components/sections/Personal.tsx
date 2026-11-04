@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { usePreferences } from "@/components/PreferencesProvider";
 import { personal } from "@/data/personal";
 import type { PersonalCard } from "@/data/types";
 
@@ -32,6 +33,8 @@ function Vinyl({ paused }: { paused: boolean }) {
 }
 
 function Cover({ card, paused }: { card: PersonalCard; paused: boolean }) {
+  const { language } = usePreferences();
+
   return (
     <span className={`relative block ${card.vinyl ? "pr-[12%]" : ""}`}>
       <span className="relative block">
@@ -39,20 +42,20 @@ function Cover({ card, paused }: { card: PersonalCard; paused: boolean }) {
         <span className="relative z-10 block aspect-square overflow-hidden rounded-card shadow-neu-sm">
           <Image
             src={card.image}
-            alt={card.imageAlt}
+            alt={card.imageAlt[language]}
             fill
             sizes="(min-width: 768px) 24rem, 90vw"
             className="object-cover"
           />
           {card.badge && (
             <span className="absolute left-3 top-3 rounded-pill bg-accent px-3 py-1 text-xs font-bold uppercase tracking-widest text-accent-foreground">
-              {card.badge}
+              {card.badge[language]}
             </span>
           )}
         </span>
         {card.note && (
           <span className="absolute -bottom-3 right-2 z-20 block w-40 rotate-3 bg-[#f2d98d] p-3 text-sm font-medium leading-snug text-[#262a29] shadow-neu-sm">
-            {card.note}
+            {card.note[language]}
           </span>
         )}
       </span>
@@ -61,6 +64,7 @@ function Cover({ card, paused }: { card: PersonalCard; paused: boolean }) {
 }
 
 export default function Personal() {
+  const { language } = usePreferences();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [paused, setPaused] = useState(false);
   const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -89,11 +93,11 @@ export default function Personal() {
       className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24"
     >
       <p className="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
-        {personal.label}
+        {personal.label[language]}
       </p>
-      <h2 className="text-4xl sm:text-5xl lg:text-7xl">{personal.headline}</h2>
+      <h2 className="text-4xl sm:text-5xl lg:text-7xl">{personal.headline[language]}</h2>
       <p className="mt-6 max-w-2xl text-lg leading-relaxed opacity-80">
-        {personal.subtitle}
+        {personal.subtitle[language]}
       </p>
 
       {active ? (
@@ -103,7 +107,7 @@ export default function Personal() {
             <div>
               {active.label && (
                 <p className="mb-2 text-sm font-medium uppercase tracking-widest text-accent">
-                  {active.label}
+                  {active.label[language]}
                 </p>
               )}
               <h3
@@ -111,13 +115,13 @@ export default function Personal() {
                 tabIndex={-1}
                 className="text-3xl outline-none sm:text-4xl"
               >
-                {active.title}
+                {active.title[language]}
               </h3>
               {active.subtitle && (
-                <p className="mt-2 font-medium opacity-70">{active.subtitle}</p>
+                <p className="mt-2 font-medium opacity-70">{active.subtitle[language]}</p>
               )}
               <p className="mt-6 text-lg leading-relaxed opacity-80">
-                {active.text}
+                {active.text[language]}
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <button
@@ -125,7 +129,7 @@ export default function Personal() {
                   onClick={() => setActiveId(null)}
                   className={`rounded-pill bg-accent px-6 py-3 font-semibold text-accent-foreground shadow-neu-sm ${focusRing}`}
                 >
-                  {personal.backLabel}
+                  {personal.backLabel[language]}
                 </button>
                 {active.vinyl && (
                   <button
@@ -133,7 +137,9 @@ export default function Personal() {
                     onClick={() => setPaused((value) => !value)}
                     className={`rounded-pill px-6 py-3 font-semibold shadow-neu-sm ${focusRing}`}
                   >
-                    {paused ? personal.resumeLabel : personal.pauseLabel}
+                    {paused
+                      ? personal.resumeLabel[language]
+                      : personal.pauseLabel[language]}
                   </button>
                 )}
               </div>
@@ -141,7 +147,7 @@ export default function Personal() {
           </div>
 
           <ul
-            aria-label={personal.thumbnailsLabel}
+            aria-label={personal.thumbnailsLabel[language]}
             className="mt-12 grid grid-cols-4 gap-3 sm:gap-6"
           >
             {personal.cards.map((card) => {
@@ -151,7 +157,7 @@ export default function Personal() {
                   <button
                     type="button"
                     onClick={() => open(card.id)}
-                    aria-label={card.title}
+                    aria-label={card.title[language]}
                     aria-current={isActive ? "true" : undefined}
                     className={`relative block aspect-square w-full overflow-hidden rounded-2xl border-4 shadow-neu-sm ${
                       isActive ? "border-accent" : "border-transparent"
@@ -172,7 +178,7 @@ export default function Personal() {
         </div>
       ) : (
         <ul
-          aria-label={personal.cardsLabel}
+          aria-label={personal.cardsLabel[language]}
           className="mt-12 grid grid-cols-1 gap-8 md:flex md:justify-center md:gap-0 md:-space-x-6 md:py-8"
         >
           {personal.cards.map((card, index) => (
@@ -192,11 +198,11 @@ export default function Personal() {
                 <span className="mt-4 block px-2 pb-2">
                   {card.label && (
                     <span className="block text-xs font-medium uppercase tracking-widest text-accent">
-                      {card.label}
+                      {card.label[language]}
                     </span>
                   )}
                   <span className="mt-1 block font-display text-lg font-bold leading-tight tracking-tight">
-                    {card.title}
+                    {card.title[language]}
                   </span>
                 </span>
               </button>
