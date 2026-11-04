@@ -75,3 +75,20 @@ section[id] {
 body:has(dialog[open]) {
   overflow: hidden;
 }
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog[open].dialog-enter {
+    animation: dialog-in 0.25s ease-out;
+  }
+}
