@@ -50,6 +50,32 @@ export const projectsSection: ProjectsData = {
       // TODO: reemplazar por el enlace real del release.
       demoUrl: "#",
       demoLabel: "Ver release",
+      details: {
+        summary:
+          "Subes la captura de una interfaz y la app la convierte en un proyecto de código. La IA no escribe código: solo describe la interfaz como un esquema que se valida de forma estricta, y un generador determinista lo convierte en código. Así el resultado es predecible.",
+        features: [
+          "Captura de una imagen con fidelidad Rápido, Equilibrado o Preciso",
+          "Código en un editor con vista previa en vivo",
+          "Proyectos y Biblioteca para guardar y reabrir generaciones",
+          "Exportación a una carpeta para abrirla en VS Code",
+          "Cuentas, modo claro y oscuro, español e inglés",
+        ],
+        stack: [
+          {
+            label: "App de escritorio",
+            items: ["Tauri 2", "Rust", "React", "TypeScript", "Vite", "Tailwind 4", "Monaco", "i18next"],
+          },
+          {
+            label: "Servidor",
+            items: ["NestJS", "Prisma", "PostgreSQL", "Supabase Auth", "Zod"],
+          },
+        ],
+        highlights: [
+          "Cerca de 950 pruebas automáticas",
+          "CI en GitHub Actions",
+          "Vista previa aislada con su propia política de seguridad",
+        ],
+      },
     },
     {
       id: "zerowaste-eats",
