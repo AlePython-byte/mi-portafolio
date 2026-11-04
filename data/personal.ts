@@ -18,7 +18,7 @@ export const personal: PersonalData = {
   cards: [
     {
       id: "mullis",
-      image: "/images/mullis.jpg",
+      image: "/images/mullis.jpeg",
       imageAlt: {
         es: "Mullis, la gata de Alejandro, mirando a la cámara",
         en: "Mullis, Alejandro's cat, looking at the camera",
@@ -35,7 +35,7 @@ export const personal: PersonalData = {
     },
     {
       id: "feid",
-      image: "/images/feid.jpg",
+      image: "/images/feid.jpeg",
       imageAlt: {
         es: "Portada del álbum FERXXO VOL X: Sagrado, de Feid",
         en: "Cover of the album FERXXO VOL X: Sagrado, by Feid",
@@ -54,7 +54,7 @@ export const personal: PersonalData = {
     },
     {
       id: "resident-evil-7",
-      image: "/images/re7.jpg",
+      image: "/images/resident-evil-7.jpg",
       imageAlt: {
         es: "Imagen del videojuego Resident Evil 7",
         en: "Image from the video game Resident Evil 7",
@@ -74,7 +74,7 @@ export const personal: PersonalData = {
     },
     {
       id: "viajes",
-      image: "/images/viajes.jpg",
+      image: "/images/viaje.jpeg",
       imageAlt: {
         es: "Vista desde la ventana de un avión con montañas, nubes y caminos allá abajo",
         en: "View from an airplane window with mountains, clouds, and roads far below",
