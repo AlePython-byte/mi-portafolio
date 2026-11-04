@@ -5,6 +5,8 @@
   --foreground: #262a29;
   --accent: #a8431f;
   --accent-foreground: #ffffff;
+  --shadow-dark: rgba(38, 42, 41, 0.18);
+  --shadow-light: rgba(255, 255, 255, 0.85);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,6 +15,8 @@
     --foreground: #e6e8e7;
     --accent: #d4673f;
     --accent-foreground: #1d2120;
+    --shadow-dark: rgba(0, 0, 0, 0.55);
+    --shadow-light: rgba(255, 255, 255, 0.05);
   }
 }
 
@@ -21,6 +25,8 @@
   --foreground: #e6e8e7;
   --accent: #d4673f;
   --accent-foreground: #1d2120;
+  --shadow-dark: rgba(0, 0, 0, 0.55);
+  --shadow-light: rgba(255, 255, 255, 0.05);
 }
 
 @theme inline {
@@ -30,6 +36,16 @@
   --color-accent-foreground: var(--accent-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --radius-card: 2rem;
+  --radius-pill: 9999px;
+  --shadow-neu:
+    10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+  --shadow-neu-sm:
+    5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+  --shadow-neu-inset:
+    inset 5px 5px 10px var(--shadow-dark),
+    inset -5px -5px 10px var(--shadow-light);
 }
 
 body {
