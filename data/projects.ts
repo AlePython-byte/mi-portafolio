@@ -100,7 +100,9 @@ export const projectsSection: ProjectsData = {
       description:
         "App Android de rescate de comida: los negocios publican a menor precio lo que les sobra al final del día y los compradores lo reservan y lo recogen con un código. Incluye una función de IA que sugiere la oferta a partir de una foto del excedente.",
       image: "/images/projects/zerowaste-eats.png",
-      imageAlt: "Captura de ZeroWaste Eats",
+      imageAlt:
+        "Pantalla de inicio de ZeroWaste Eats con la oferta Croissants del día a 40 % menos",
+      imageFit: "contain",
       tags: ["Kotlin", "Jetpack Compose", "NestJS", "Supabase"],
       githubUrl: "https://github.com/AlePython-byte/zerowaste-eats",
       // TODO: reemplazar por el enlace real del video.
