@@ -56,3 +56,11 @@ export type Profile = {
   cvUrl: string;
   social: SocialLink[];
 };
+
+export type ExtraItem = {
+  id: string;
+  title: string;
+  description?: string;
+  url?: string;
+  icon?: string;
+};
