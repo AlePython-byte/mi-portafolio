@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import Image from "next/image";
 import ProjectActionButton from "@/components/ProjectActionButton";
+import ProjectImage from "@/components/ProjectImage";
 import { projectsSection } from "@/data/projects";
 import { fillTemplate } from "@/lib/format";
 import ProjectDetail from "./ProjectDetail";
@@ -59,16 +59,14 @@ export default function Projects() {
           return (
             <li key={project.id}>
               <article className="flex h-full flex-col rounded-card bg-background p-4 shadow-neu sm:p-5">
-                <div className="relative aspect-video overflow-hidden rounded-2xl shadow-neu-inset">
-                  <Image
-                    src={image}
-                    alt={project.imageAlt}
-                    fill
-                    unoptimized={image.endsWith(".svg")}
-                    sizes="(min-width: 1024px) 22rem, (min-width: 768px) 45vw, 90vw"
-                    className="object-cover"
-                  />
-                </div>
+                <ProjectImage
+                  src={image}
+                  alt={project.imageAlt}
+                  fit={project.imageFit}
+                  position={project.imagePosition}
+                  sizes="(min-width: 1024px) 22rem, (min-width: 768px) 45vw, 90vw"
+                  className="rounded-2xl shadow-neu-inset"
+                />
                 <div className="flex flex-1 flex-col px-2 pb-2 pt-5">
                   <h3 className="text-2xl">{project.title}</h3>
                   <p className="mt-2 opacity-80">{project.description}</p>
