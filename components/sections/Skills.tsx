@@ -74,7 +74,7 @@ export default function Skills() {
 
       <ul
         onMouseLeave={isDeck ? release : undefined}
-        className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:flex lg:items-start lg:gap-0 lg:px-8 lg:pb-12 lg:pt-6"
+        className="mt-12 grid grid-cols-1 gap-6 lg:flex lg:items-start lg:gap-0 lg:px-8 lg:pb-12 lg:pt-6"
       >
         {skills.groups.map((group, index) => (
           <motion.li
