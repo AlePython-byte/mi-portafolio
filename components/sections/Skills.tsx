@@ -1,20 +1,60 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { skills } from "@/data/skills";
 import { skillIcons } from "@/components/skillIcons";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
-// Abanico solo desde lg; por debajo no hay rotaciones ni solapes.
-const FAN_CLASSES = [
-  "lg:-rotate-6 lg:translate-y-8",
-  "lg:-rotate-3 lg:translate-y-3",
-  "lg:rotate-0",
-  "lg:rotate-3 lg:translate-y-3",
-  "lg:rotate-6 lg:translate-y-8",
-];
+// Reposo del mazo en escritorio: giro y desnivel de cada carta.
+const RESTING_ROTATE = [-6, -3, 0, 3, 6];
+const RESTING_Y = [32, 12, 0, 12, 32];
+const SEPARATION = 32; // px que se apartan las cartas vecinas
+const LIFT = -16; // px que se eleva la carta activa
 
 export default function Skills() {
   const { language } = usePreferences();
+  const shouldReduceMotion = useReducedMotion();
+  const isDeck = useMediaQuery("(min-width: 1024px)");
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [topIndex, setTopIndex] = useState<number | null>(null);
+  const releaseTimer = useRef<number | null>(null);
+
+  useEffect(
+    () => () => {
+      if (releaseTimer.current) window.clearTimeout(releaseTimer.current);
+    },
+    [],
+  );
+
+  function activate(index: number) {
+    if (releaseTimer.current) window.clearTimeout(releaseTimer.current);
+    setTopIndex(index);
+    setActiveIndex(index);
+  }
+
+  function release() {
+    setActiveIndex(null);
+    // La carta conserva su capa mientras vuelve a su sitio.
+    releaseTimer.current = window.setTimeout(() => setTopIndex(null), 360);
+  }
+
+  function animateFor(index: number) {
+    // Por debajo de lg no hay mazo: las cartas se apilan sin transformaciones.
+    if (!isDeck) return { x: 0, y: 0, rotate: 0, scale: 1 };
+    const rest = RESTING_ROTATE[index % RESTING_ROTATE.length];
+    const restY = RESTING_Y[index % RESTING_Y.length];
+    const isActive = index === activeIndex;
+    const side =
+      activeIndex === null || isActive ? 0 : index < activeIndex ? -1 : 1;
+    return {
+      x: shouldReduceMotion ? 0 : side * SEPARATION,
+      y: shouldReduceMotion ? restY : isActive ? LIFT : restY,
+      rotate: isActive ? 0 : rest,
+      scale: shouldReduceMotion ? 1 : isActive ? 1.04 : 1,
+    };
+  }
 
   return (
     <section
@@ -32,11 +72,35 @@ export default function Skills() {
         {skills.hint[language]}
       </p>
 
-      <ul className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:flex lg:min-h-[28rem] lg:items-start lg:gap-0 lg:px-4">
+      <ul
+        onMouseLeave={isDeck ? release : undefined}
+        className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:flex lg:items-start lg:gap-0 lg:px-8 lg:pb-12 lg:pt-6"
+      >
         {skills.groups.map((group, index) => (
-          <li
+          <motion.li
             key={group.id}
-            className={`group lg:-ml-8 lg:flex-1 lg:first:ml-0 motion-safe:lg:transition-[translate,rotate] motion-safe:lg:duration-300 lg:hover:z-20 lg:hover:-translate-y-4 lg:hover:rotate-0 lg:focus-within:z-20 lg:focus-within:-translate-y-4 lg:focus-within:rotate-0 ${FAN_CLASSES[index % FAN_CLASSES.length]}`}
+            className="lg:-ml-8 lg:min-w-0 lg:flex-1 lg:first:ml-0"
+            initial={false}
+            animate={animateFor(index)}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { type: "spring", stiffness: 250, damping: 25 }
+            }
+            style={{ zIndex: isDeck ? (topIndex === index ? 50 : index + 1) : 0 }}
+            onHoverStart={isDeck ? () => activate(index) : undefined}
+            onPointerDown={isDeck ? () => activate(index) : undefined}
+            onFocus={isDeck ? () => activate(index) : undefined}
+            onBlur={
+              isDeck
+                ? (event) => {
+                    // Solo suelta si el foco sale de la carta.
+                    if (!event.currentTarget.contains(event.relatedTarget)) {
+                      release();
+                    }
+                  }
+                : undefined
+            }
           >
             <article
               tabIndex={0}
@@ -51,7 +115,7 @@ export default function Skills() {
               </h3>
               <p className="mt-2 opacity-80">{group.description[language]}</p>
 
-              <ul className="mt-5 flex flex-wrap gap-2 overflow-hidden lg:max-h-0 lg:opacity-0 motion-safe:lg:transition-[max-height,opacity] motion-safe:lg:duration-300 lg:group-hover:max-h-64 lg:group-hover:opacity-100 lg:group-focus-within:max-h-64 lg:group-focus-within:opacity-100">
+              <ul className="mt-5 flex flex-wrap gap-2">
                 {group.items.map((item) => {
                   const Icon = item.icon ? skillIcons[item.icon] : undefined;
                   return (
@@ -66,7 +130,7 @@ export default function Skills() {
                 })}
               </ul>
             </article>
-          </li>
+          </motion.li>
         ))}
       </ul>
     </section>
