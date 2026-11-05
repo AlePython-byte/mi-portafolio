@@ -142,16 +142,7 @@ export default function Hero() {
             <p className="text-2xl font-bold tracking-[-0.04em]">
               {profile.name}
             </p>
-            <div className="mt-3 flex items-center justify-between gap-4">
-              <p className="text-sm text-muted">{profile.role[language]}</p>
-              <p className="hidden items-center gap-2 text-right text-[0.68rem] font-bold uppercase tracking-[0.12em] text-muted sm:flex">
-                <span
-                  aria-hidden="true"
-                  className="inline-block h-1.5 w-1.5 rounded-full bg-accent"
-                />
-                {profile.semester[language]}
-              </p>
-            </div>
+            <p className="mt-3 text-sm text-muted">{profile.role[language]}</p>
           </div>
         </motion.div>
       </motion.div>
