@@ -274,3 +274,23 @@ export type RetroData = {
   skillGroupsLabel: LocalizedText;
   apps: RetroApp[];
 };
+
+export type AssistantQuickQuestion = {
+  id: string;
+  question: LocalizedText; // texto del botón y de la pregunta enviada
+  answer: LocalizedText;
+};
+
+export type AssistantData = {
+  openLabel: LocalizedText; // aria-label del botón con la gata
+  bubble: LocalizedText;
+  chatTitle: LocalizedText;
+  greeting: LocalizedText;
+  historyLabel: LocalizedText;
+  quickLabel: LocalizedText;
+  inputLabel: LocalizedText;
+  send: LocalizedText;
+  typing: LocalizedText;
+  fallback: LocalizedText;
+  quickQuestions: AssistantQuickQuestion[];
+};
