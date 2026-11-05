@@ -16,6 +16,12 @@ export const experienceSection: ExperienceData = {
   workTitle: { es: "Experiencia laboral", en: "Work experience" },
   pending: { es: "Por completar", en: "To be completed" },
   ongoing: { es: "En curso", en: "Ongoing" },
+  viewBadge: { es: "Ver escarapela", en: "View badge" },
+  viewBadgeAria: {
+    es: "Ver escarapela de {title}",
+    en: "View badge for {title}",
+  },
+  close: { es: "Cerrar", en: "Close" },
   items: [
     {
       id: "iv-seminario",
@@ -29,6 +35,13 @@ export const experienceSection: ExperienceData = {
       role: participant,
       location: pasto,
       period: { es: "Segundo periodo de 2026", en: "Second term of 2026" },
+      badge: {
+        src: "/images/escarapelas/seminario-4.jpg",
+        alt: {
+          es: "Escarapela del IV Seminario de Ingeniería de Software",
+          en: "Badge from the 4th Software Engineering Seminar",
+        },
+      },
     },
     {
       id: "iii-seminario",
@@ -42,6 +55,13 @@ export const experienceSection: ExperienceData = {
       role: participant,
       location: pasto,
       period: { es: "Segundo periodo de 2025", en: "Second term of 2025" },
+      badge: {
+        src: "/images/escarapelas/seminario-3.jpg",
+        alt: {
+          es: "Escarapela del III Seminario de Ingeniería de Software",
+          en: "Badge from the 3rd Software Engineering Seminar",
+        },
+      },
     },
     {
       id: "ii-seminario",
@@ -55,6 +75,13 @@ export const experienceSection: ExperienceData = {
       role: participant,
       location: pasto,
       period: { es: "Primer periodo de 2025", en: "First term of 2025" },
+      badge: {
+        src: "/images/escarapelas/seminario-2.jpg",
+        alt: {
+          es: "Escarapela del II Seminario de Ingeniería de Software",
+          en: "Badge from the 2nd Software Engineering Seminar",
+        },
+      },
     },
     {
       id: "i-seminario-nacional",
@@ -70,6 +97,13 @@ export const experienceSection: ExperienceData = {
       // TODO: fecha del seminario.
       period: null,
       periodLabel: { es: "Fecha", en: "Date" },
+      badge: {
+        src: "/images/escarapelas/seminario-1.jpg",
+        alt: {
+          es: "Escarapela del I Seminario Nacional de Ingeniería de Software",
+          en: "Badge from the 1st National Software Engineering Seminar",
+        },
+      },
     },
     {
       id: "ingenieria-de-software",
