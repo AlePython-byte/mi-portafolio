@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Escritorio con ratón: abanico de tarjetas de Mi lado personal. */
+@custom-variant fan (@media (min-width: 768px) and (hover: hover) and (pointer: fine));
+
 :root {
   --page: #e6e8e7;
   --surface: #e6e8e7;
