@@ -6,6 +6,7 @@ import { usePreferences } from "@/components/PreferencesProvider";
 import ProjectActionButton from "@/components/ProjectActionButton";
 import { projectsSection as labels } from "@/data/projects";
 import { retro } from "@/data/retro";
+import { useRetroAssets } from "../RetroAssets";
 import type { Project } from "@/data/types";
 import { fillTemplate } from "@/lib/format";
 
@@ -27,16 +28,16 @@ function FileIcon() {
 
 function ProjectImage({ project }: { project: Project }) {
   const { language } = usePreferences();
-  const [failed, setFailed] = useState(false);
+  // La imagen (o el placeholder) ya viene comprobada desde el servidor.
+  const { projectImages } = useRetroAssets();
   return (
     <div className="retro-inset relative aspect-[16/10] w-full overflow-hidden">
       <Image
-        src={failed ? labels.placeholderImage : project.image}
+        src={projectImages[project.id] ?? labels.placeholderImage}
         alt={project.imageAlt[language]}
         fill
-        unoptimized={failed}
+        unoptimized={projectImages[project.id]?.endsWith(".svg")}
         sizes="30rem"
-        onError={() => setFailed(true)}
         className={`${
           project.imageFit === "contain" ? "object-contain p-2" : "object-cover"
         } ${project.imagePosition === "top" ? "object-top" : "object-center"}`}
