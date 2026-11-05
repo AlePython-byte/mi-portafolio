@@ -78,7 +78,7 @@ export default function About() {
         >
           {facts.map((fact) => (
             <div key={fact.label}>
-              <dt className="text-sm font-medium uppercase tracking-widest opacity-60">
+              <dt className="text-sm font-medium uppercase tracking-widest opacity-80">
                 {fact.label}
               </dt>
               <dd className="mt-1 text-xl font-semibold">{fact.value}</dd>

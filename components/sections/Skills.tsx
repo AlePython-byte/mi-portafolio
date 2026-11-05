@@ -68,7 +68,7 @@ export default function Skills() {
       <p className="mt-6 max-w-2xl text-lg leading-relaxed opacity-80">
         {skills.subtitle[language]}
       </p>
-      <p className="mt-4 hidden text-sm font-medium opacity-60 lg:block">
+      <p className="mt-4 hidden text-sm font-medium opacity-80 lg:block">
         {skills.hint[language]}
       </p>
 
