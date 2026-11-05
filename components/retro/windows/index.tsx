@@ -1,8 +1,10 @@
 import type { ComponentType } from "react";
+import { MULLIS_CHAT_ID } from "@/data/assistant";
 import ContactWindow from "./ContactWindow";
 import CvWindow from "./CvWindow";
 import ExperienceWindow from "./ExperienceWindow";
 import InterestsWindow from "./InterestsWindow";
+import MullisChatWindow from "./MullisChatWindow";
 import ProfileWindow from "./ProfileWindow";
 import ProjectsWindow from "./ProjectsWindow";
 import SkillsWindow from "./SkillsWindow";
@@ -18,6 +20,7 @@ export const windowSizes: Record<string, { width: string; height?: string }> =
     testimonios: { width: "30rem", height: "24rem" },
     contacto: { width: "32rem", height: "36rem" },
     cv: { width: "24rem" },
+    [MULLIS_CHAT_ID]: { width: "24rem", height: "30rem" },
   };
 
 // Contenido real de cada ventana; las que no están aquí muestran un aviso.
@@ -30,4 +33,5 @@ export const windowContents: Record<string, ComponentType> = {
   testimonios: TestimonialsWindow,
   contacto: ContactWindow,
   cv: CvWindow,
+  [MULLIS_CHAT_ID]: MullisChatWindow,
 };
