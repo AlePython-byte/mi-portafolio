@@ -2,16 +2,21 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { personal } from "@/data/personal";
 import type { PersonalCard } from "@/data/types";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
-// Rotaciones del abanico: solo desde md; en móvil no hay rotaciones.
-const FAN_CLASSES = [
-  "md:-rotate-6 md:translate-y-4",
-  "md:-rotate-2",
-  "md:rotate-2",
-  "md:rotate-6 md:translate-y-4",
+// Misma condición que la variante CSS "fan": escritorio con ratón.
+const FAN_QUERY = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
+
+// Rotación (grados) y desplazamiento vertical (px) de cada tarjeta del abanico.
+const FAN_POSITIONS = [
+  { rotate: -5, y: 26 },
+  { rotate: -1.7, y: 0 },
+  { rotate: 2, y: 6 },
+  { rotate: 5, y: 29 },
 ];
 
 const focusRing =
@@ -78,6 +83,8 @@ function Cover({ card, paused }: { card: PersonalCard; paused: boolean }) {
 
 export default function Personal() {
   const { language } = usePreferences();
+  const shouldReduceMotion = useReducedMotion();
+  const fanActive = useMediaQuery(FAN_QUERY) && !shouldReduceMotion;
   const [activeId, setActiveId] = useState<string | null>(null);
   const [paused, setPaused] = useState(false);
   const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -192,12 +199,29 @@ export default function Personal() {
       ) : (
         <ul
           aria-label={personal.cardsLabel[language]}
-          className="mt-12 grid grid-cols-1 gap-8 md:flex md:justify-center md:gap-0 md:-space-x-6 md:py-8"
+          className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 fan:flex fan:justify-center fan:gap-0 fan:-space-x-6 fan:pb-14 fan:pt-8"
         >
-          {personal.cards.map((card, index) => (
-            <li
+          {personal.cards.map((card, index) => {
+            const position = FAN_POSITIONS[index % FAN_POSITIONS.length];
+            return (
+            <motion.li
               key={card.id}
-              className={`md:w-1/4 motion-safe:md:transition-transform motion-safe:md:duration-300 md:hover:z-10 md:hover:rotate-0 md:focus-within:z-10 md:focus-within:rotate-0 ${FAN_CLASSES[index % FAN_CLASSES.length]}`}
+              className="fan:w-1/4 fan:hover:z-10 fan:focus-within:z-10"
+              initial={false}
+              animate={
+                fanActive
+                  ? { rotate: position.rotate, y: position.y }
+                  : { rotate: 0, y: 0 }
+              }
+              whileHover={
+                fanActive
+                  ? { y: position.y - 8, transition: { duration: 0.18 } }
+                  : undefined
+              }
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.4,
+                ease: "easeOut",
+              }}
             >
               <button
                 type="button"
@@ -219,8 +243,9 @@ export default function Personal() {
                   </span>
                 </span>
               </button>
-            </li>
-          ))}
+            </motion.li>
+            );
+          })}
         </ul>
       )}
     </section>
