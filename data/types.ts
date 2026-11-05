@@ -47,13 +47,21 @@ export type ProjectsData = {
   projects: Project[];
 };
 
+// Los testimonios no se traducen: son citas literales de otras personas.
 export type Testimonial = {
   id: string;
-  author: string;
+  name: string;
   role: string;
-  company?: string;
   quote: string;
   avatar?: string;
+  placeholder: boolean; // true = contenido de ejemplo
+};
+
+export type TestimonialsData = {
+  headline: LocalizedText;
+  listLabel: LocalizedText;
+  exampleBadge: LocalizedText;
+  items: Testimonial[];
 };
 
 // En los campos que admiten null, null significa "por completar" y se muestra
