@@ -321,7 +321,7 @@ export const projectsSection: ProjectsData = {
       },
       imageFit: "cover",
       imagePosition: "top",
-      tags: ["Java", "Spring Boot", "PostgreSQL", "Docker", "GitHub Actions"],
+      tags: ["React", "TypeScript", "Vite", "Zustand", "Spring Boot"],
       // Repositorio del backend (el único que figura en el portafolio anterior).
       githubUrl: "https://github.com/AlePython-byte/ganaderia-backend",
       demoUrl: "https://ganaderia-40.vercel.app/dashboard",
