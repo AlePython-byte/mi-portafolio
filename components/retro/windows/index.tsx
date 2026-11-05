@@ -2,12 +2,14 @@ import type { ComponentType } from "react";
 import InterestsWindow from "./InterestsWindow";
 import ProfileWindow from "./ProfileWindow";
 import ProjectsWindow from "./ProjectsWindow";
+import SkillsWindow from "./SkillsWindow";
 
 // Tamaño por defecto de cada ventana (por omisión: 30rem de ancho, alto libre).
 export const windowSizes: Record<string, { width: string; height?: string }> =
   {
     gustos: { width: "28rem", height: "30rem" },
     proyectos: { width: "46rem", height: "32rem" },
+    habilidades: { width: "28rem", height: "30rem" },
   };
 
 // Contenido real de cada ventana; las que no están aquí muestran un aviso.
@@ -15,4 +17,5 @@ export const windowContents: Record<string, ComponentType> = {
   perfil: ProfileWindow,
   gustos: InterestsWindow,
   proyectos: ProjectsWindow,
+  habilidades: SkillsWindow,
 };
