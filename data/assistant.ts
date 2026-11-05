@@ -52,26 +52,26 @@ export const assistant: AssistantData = {
       question: { es: "¿Qué estudia Alejandro?", en: "What does Alejandro study?" },
       answer: both((language) =>
         language === "es"
-          ? `Alejandro estudia ${about.education.degree.es} en la ${about.education.institution} (${about.education.campus.es.toLowerCase()}) y cursa el ${profile.semester.es.toLowerCase()}. Le interesan: ${interests("es")}.`
-          : `Alejandro studies ${about.education.degree.en} at ${about.education.institution} (${about.education.campus.en}) and is in his ${profile.semester.en.toLowerCase()}. He is interested in: ${interests("en")}.`,
+          ? `Alejandro estudia ${about.education.degree.es} en la ${about.education.institution} (${about.education.campus.es.toLowerCase()}) y cursa el ${profile.semester.es.toLowerCase()}. Áreas de interés: ${interests("es")}.`
+          : `Alejandro studies ${about.education.degree.en} at ${about.education.institution} (${about.education.campus.en}) and is in the ${profile.semester.en.toLowerCase()}. Areas of interest: ${interests("en")}.`,
       ),
     },
     {
       id: "proyectos",
-      question: { es: "¿Qué proyectos tiene?", en: "What projects does he have?" },
+      question: { es: "¿Qué proyectos tiene?", en: "What projects does Alejandro have?" },
       answer: both((language) =>
         language === "es"
-          ? `Estos son sus proyectos: ${projectTitles}. Puedes verlos con detalle en la carpeta Proyectos.`
-          : `These are his projects: ${projectTitles}. You can see them in detail in the Projects folder.`,
+          ? `Estos son los proyectos de Alejandro: ${projectTitles}. Puedes verlos con detalle en la carpeta Proyectos.`
+          : `These are Alejandro's projects: ${projectTitles}. You can see them in detail in the Projects folder.`,
       ),
     },
     {
       id: "contacto",
-      question: { es: "¿Cómo lo contacto?", en: "How do I contact him?" },
+      question: { es: "¿Cómo lo contacto?", en: "How do I contact Alejandro?" },
       answer: both((language) =>
         language === "es"
-          ? `Puedes escribirle a ${profile.email} o buscarlo en ${socialLabels("es")}. También está el formulario de la carpeta Contacto.`
-          : `You can write to ${profile.email} or find him on ${socialLabels("en")}. There is also the form in the Contact folder.`,
+          ? `Puedes escribir a ${profile.email} o buscar a Alejandro en ${socialLabels("es")}. También está el formulario de la carpeta Contacto.`
+          : `You can write to ${profile.email} or find Alejandro on ${socialLabels("en")}. There is also the form in the Contact folder.`,
       ),
     },
   ],
