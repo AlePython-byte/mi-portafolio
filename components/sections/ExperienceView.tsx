@@ -4,7 +4,8 @@ import { motion, useReducedMotion } from "motion/react";
 import ImageDialog from "@/components/ImageDialog";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { experienceSection } from "@/data/experience";
-import type { Experience as ExperienceItem } from "@/data/types";
+import { projectsSection } from "@/data/projects";
+import type { Experience as ExperienceItem, Project } from "@/data/types";
 import { fillTemplate } from "@/lib/format";
 
 type Props = {
@@ -39,6 +40,10 @@ export default function ExperienceView({ items }: Props) {
     const metaLine = [item.role?.[language], item.location?.[language]]
       .filter(Boolean)
       .join(" · ");
+    // Datos tomados de data/projects.ts; los ids que no existan se omiten.
+    const relatedProjects = (item.relatedProjectIds ?? [])
+      .map((id) => projectsSection.projects.find((p) => p.id === id))
+      .filter((p): p is Project => p !== undefined);
 
     return (
       <motion.li
@@ -85,6 +90,32 @@ export default function ExperienceView({ items }: Props) {
           <p className="mt-3 leading-relaxed opacity-80">
             {item.description === null ? pending : item.description[language]}
           </p>
+        )}
+
+        {relatedProjects.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold">
+              {data.featuredProjectsTitle[language]}
+            </p>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
+              {relatedProjects.map((project) => (
+                <li key={project.id}>
+                  {project.githubUrl !== "#" ? (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-accent underline-offset-4 hover:underline"
+                    >
+                      {project.title}
+                    </a>
+                  ) : (
+                    project.title
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
 
         {item.badge && (

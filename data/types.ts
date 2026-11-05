@@ -78,6 +78,8 @@ export type Experience = {
   periodLabel?: LocalizedText; // p. ej. "Fecha de inicio"
   ongoing?: boolean; // muestra la etiqueta "En curso"
   description?: LocalizedText | null;
+  // Ids de data/projects.ts; se muestran como "Proyectos destacados".
+  relatedProjectIds?: string[];
   // Solo se muestra si el archivo existe en public/ (se comprueba en el servidor).
   badge?: { src: string; alt: LocalizedText };
 };
@@ -88,6 +90,7 @@ export type ExperienceData = {
   workTitle: LocalizedText;
   pending: LocalizedText;
   ongoing: LocalizedText;
+  featuredProjectsTitle: LocalizedText;
   viewBadge: LocalizedText;
   viewBadgeAria: LocalizedText; // usa {title}
   close: LocalizedText;

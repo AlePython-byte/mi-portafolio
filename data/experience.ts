@@ -16,6 +16,10 @@ export const experienceSection: ExperienceData = {
   workTitle: { es: "Experiencia laboral", en: "Work experience" },
   pending: { es: "Por completar", en: "To be completed" },
   ongoing: { es: "En curso", en: "Ongoing" },
+  featuredProjectsTitle: {
+    es: "Proyectos destacados",
+    en: "Featured projects",
+  },
   viewBadge: { es: "Ver escarapela", en: "View badge" },
   viewBadgeAria: {
     es: "Ver escarapela de {title}",
