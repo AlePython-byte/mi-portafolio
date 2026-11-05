@@ -234,3 +234,38 @@ body:has(dialog[open]) {
 @media (prefers-reduced-motion: reduce) {
   .mullis-bob, .mullis-blink, .mullis-tail { animation: none; }
 }
+
+/* Burbuja de Mullis: pixel art con esquinas escalonadas y borde negro de 2 px. */
+.mullis-bubble {
+  background: #000;
+  padding: 2px;
+  clip-path: polygon(
+    0 6px, 2px 6px, 2px 4px, 4px 4px, 4px 2px, 6px 2px, 6px 0,
+    calc(100% - 6px) 0, calc(100% - 6px) 2px, calc(100% - 4px) 2px,
+    calc(100% - 4px) 4px, calc(100% - 2px) 4px, calc(100% - 2px) 6px, 100% 6px,
+    100% calc(100% - 6px), calc(100% - 2px) calc(100% - 6px),
+    calc(100% - 2px) calc(100% - 4px), calc(100% - 4px) calc(100% - 4px),
+    calc(100% - 4px) calc(100% - 2px), calc(100% - 6px) calc(100% - 2px),
+    calc(100% - 6px) 100%, 6px 100%, 6px calc(100% - 2px), 4px calc(100% - 2px),
+    4px calc(100% - 4px), 2px calc(100% - 4px), 2px calc(100% - 6px),
+    0 calc(100% - 6px)
+  );
+}
+
+.mullis-bubble > span {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  background: var(--retro-field);
+  color: var(--retro-text);
+  clip-path: polygon(
+    0 6px, 2px 6px, 2px 4px, 4px 4px, 4px 2px, 6px 2px, 6px 0,
+    calc(100% - 6px) 0, calc(100% - 6px) 2px, calc(100% - 4px) 2px,
+    calc(100% - 4px) 4px, calc(100% - 2px) 4px, calc(100% - 2px) 6px, 100% 6px,
+    100% calc(100% - 6px), calc(100% - 2px) calc(100% - 6px),
+    calc(100% - 2px) calc(100% - 4px), calc(100% - 4px) calc(100% - 4px),
+    calc(100% - 4px) calc(100% - 2px), calc(100% - 6px) calc(100% - 2px),
+    calc(100% - 6px) 100%, 6px 100%, 6px calc(100% - 2px), 4px calc(100% - 2px),
+    4px calc(100% - 4px), 2px calc(100% - 4px), 2px calc(100% - 6px),
+    0 calc(100% - 6px)
+  );
+}
