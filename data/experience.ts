@@ -3,6 +3,10 @@ import type { ExperienceData } from "./types";
 const organizer = { es: "Organizador", en: "Organizer" };
 const participant = { es: "Participante", en: "Participant" };
 const pasto = { es: "Pasto", en: "Pasto" };
+const ucc = {
+  es: "Universidad Cooperativa de Colombia",
+  en: "Universidad Cooperativa de Colombia",
+};
 
 // De lo más reciente a lo más antiguo dentro de cada bloque.
 // null = dato por completar (la página muestra "Por completar").
@@ -20,8 +24,7 @@ export const experienceSection: ExperienceData = {
         es: "IV Seminario de Ingeniería de Software",
         en: "4th Software Engineering Seminar",
       },
-      // TODO: nombre del organizador.
-      organization: null,
+      organization: ucc,
       organizationLabel: organizer,
       role: participant,
       location: pasto,
@@ -34,8 +37,7 @@ export const experienceSection: ExperienceData = {
         es: "III Seminario de Ingeniería de Software",
         en: "3rd Software Engineering Seminar",
       },
-      // TODO: nombre del organizador.
-      organization: null,
+      organization: ucc,
       organizationLabel: organizer,
       role: participant,
       location: pasto,
@@ -48,8 +50,7 @@ export const experienceSection: ExperienceData = {
         es: "II Seminario de Ingeniería de Software",
         en: "2nd Software Engineering Seminar",
       },
-      // TODO: nombre del organizador.
-      organization: null,
+      organization: ucc,
       organizationLabel: organizer,
       role: participant,
       location: pasto,
@@ -62,8 +63,7 @@ export const experienceSection: ExperienceData = {
         es: "I Seminario Nacional de Ingeniería de Software: “La industria del desarrollo del software en Colombia”",
         en: "1st National Software Engineering Seminar: “The software development industry in Colombia”",
       },
-      // TODO: nombre del organizador.
-      organization: null,
+      organization: ucc,
       organizationLabel: organizer,
       role: participant,
       location: pasto,
