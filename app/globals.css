@@ -128,3 +128,14 @@ body:has(dialog[open]) {
     animation: dialog-in 0.25s ease-out;
   }
 }
+
+@keyframes vinyl-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* El giro se activa o pausa con animation-play-state desde el componente. */
+.vinyl-spin {
+  animation: vinyl-spin 6s linear infinite;
+}
