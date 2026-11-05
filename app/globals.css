@@ -139,3 +139,88 @@ body:has(dialog[open]) {
 .vinyl-spin {
   animation: vinyl-spin 6s linear infinite;
 }
+
+/* ---------- Modo retro ---------- */
+.retro-root {
+  --retro-desktop: #007b7b;
+  --retro-window: #c8c8c8;
+  --retro-title: #000080;
+  --retro-title-text: #ffffff;
+  --retro-text: #000000;
+  --retro-field: #ffffff;
+  --retro-hi: #ffffff;
+  --retro-lo: #6b6b6b;
+  --retro-edge: #000000;
+  --retro-select: #000080;
+  --retro-select-text: #ffffff;
+}
+
+:root[data-theme="dark"] .retro-root {
+  --retro-desktop: #0b2e2e;
+  --retro-window: #2d2d33;
+  --retro-title: #1b1b6b;
+  --retro-title-text: #ffffff;
+  --retro-text: #e6e6e6;
+  --retro-field: #1a1d1f;
+  --retro-hi: #55555e;
+  --retro-lo: #0c0c0e;
+  --retro-edge: #000000;
+  --retro-select: #1b1b6b;
+  --retro-select-text: #ffffff;
+}
+
+.retro-root {
+  background: var(--retro-desktop);
+  color: var(--retro-text);
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+/* Relieve de 2 px: luz arriba a la izquierda, sombra abajo a la derecha. */
+.retro-raised {
+  background: var(--retro-window);
+  box-shadow:
+    0 0 0 1px var(--retro-edge),
+    inset 2px 2px 0 var(--retro-hi),
+    inset -2px -2px 0 var(--retro-lo);
+}
+
+.retro-inset {
+  background: var(--retro-field);
+  box-shadow:
+    inset 2px 2px 0 var(--retro-lo),
+    inset -2px -2px 0 var(--retro-hi),
+    0 0 0 1px var(--retro-edge);
+}
+
+.retro-button {
+  background: var(--retro-window);
+  color: var(--retro-text);
+  box-shadow:
+    0 0 0 1px var(--retro-edge),
+    inset 2px 2px 0 var(--retro-hi),
+    inset -2px -2px 0 var(--retro-lo);
+}
+
+.retro-button:active,
+.retro-button[aria-pressed="true"],
+.retro-button[aria-expanded="true"] {
+  box-shadow:
+    0 0 0 1px var(--retro-edge),
+    inset 2px 2px 0 var(--retro-lo),
+    inset -2px -2px 0 var(--retro-hi);
+}
+
+.retro-titlebar {
+  background: var(--retro-title);
+  color: var(--retro-title-text);
+}
+
+.retro-root :focus-visible {
+  outline: 2px dotted var(--retro-text);
+  outline-offset: 2px;
+}
+
+.retro-titlebar :focus-visible {
+  outline-color: var(--retro-title-text);
+}
