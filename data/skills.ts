@@ -43,6 +43,7 @@ export const skills: SkillsData = {
       items: [
         { name: "Node.js", icon: "nodejs" },
         { name: "NestJS", icon: "nestjs" },
+        { name: "Kotlin", icon: "kotlin" },
       ],
     },
     {
