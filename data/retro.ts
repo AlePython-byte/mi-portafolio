@@ -23,6 +23,9 @@ export const retro: RetroData = {
     es: "Esta ventana está en construcción.",
     en: "This window is under construction.",
   },
+  back: { es: "Volver", en: "Back" },
+  projectListLabel: { es: "Lista de proyectos", en: "Project list" },
+  skillGroupsLabel: { es: "Grupos de habilidades", en: "Skill groups" },
   apps: [
     { id: "perfil", label: { es: "Perfil", en: "Profile" }, icon: "folder" },
     { id: "gustos", label: { es: "Gustos", en: "Interests" }, icon: "folder" },

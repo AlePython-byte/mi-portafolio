@@ -269,5 +269,8 @@ export type RetroData = {
   languageToEn: LocalizedText;
   languageToEs: LocalizedText;
   placeholder: LocalizedText;
+  back: LocalizedText;
+  projectListLabel: LocalizedText;
+  skillGroupsLabel: LocalizedText;
   apps: RetroApp[];
 };

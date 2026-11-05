@@ -7,7 +7,11 @@ type Props = {
   disabledText: string;
   disabledAria: string;
   primary?: boolean;
+  // "retro" usa el relieve del escritorio retro en lugar del neumórfico.
+  variant?: "default" | "retro";
 };
+
+const retroButton = "retro-button inline-block px-4 py-1 no-underline";
 
 export default function ProjectActionButton({
   label,
@@ -15,7 +19,32 @@ export default function ProjectActionButton({
   disabledText,
   disabledAria,
   primary = false,
+  variant = "default",
 }: Props) {
+  if (variant === "retro") {
+    if (href === "#") {
+      return (
+        <button
+          type="button"
+          disabled
+          aria-label={disabledAria}
+          className={`${retroButton} cursor-not-allowed opacity-50`}
+        >
+          {disabledText}
+        </button>
+      );
+    }
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${retroButton} ${primary ? "font-bold" : ""}`}
+      >
+        {label}
+      </a>
+    );
+  }
   if (href === "#") {
     return (
       <button
