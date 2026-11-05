@@ -2,7 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+} from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { personal } from "@/data/personal";
 import type { PersonalCard } from "@/data/types";
@@ -18,6 +23,14 @@ const FAN_POSITIONS = [
   { rotate: 2, y: 6 },
   { rotate: 5, y: 29 },
 ];
+
+// Resorte de la transición compartida entre la tarjeta y el detalle.
+const layoutSpring = {
+  type: "spring" as const,
+  stiffness: 330,
+  damping: 34,
+  mass: 0.82,
+};
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
@@ -52,9 +65,15 @@ function Vinyl({ paused, cover }: { paused: boolean; cover?: string }) {
 
 function Cover({ card, paused }: { card: PersonalCard; paused: boolean }) {
   const { language } = usePreferences();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <span className={`relative block ${card.vinyl ? "pr-[12%]" : ""}`}>
+    <motion.span
+      // Comparte posición y tamaño entre la tarjeta del abanico y el detalle.
+      layoutId={`personal-media-${card.id}`}
+      transition={{ layout: shouldReduceMotion ? { duration: 0 } : layoutSpring }}
+      className={`relative block ${card.vinyl ? "pr-[12%]" : ""}`}
+    >
       <span className="relative block">
         {card.vinyl && <Vinyl paused={paused} cover={card.albumCover} />}
         <span className="relative z-10 block aspect-square overflow-hidden rounded-card shadow-neu-sm">
@@ -77,7 +96,7 @@ function Cover({ card, paused }: { card: PersonalCard; paused: boolean }) {
           </span>
         )}
       </span>
-    </span>
+    </motion.span>
   );
 }
 
@@ -90,22 +109,42 @@ export default function Personal() {
   const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const detailRef = useRef<HTMLHeadingElement | null>(null);
   const lastOpened = useRef<string | null>(null);
+  const previousActive = useRef<string | null>(null);
 
   const active = personal.cards.find((card) => card.id === activeId) ?? null;
 
-  // Mueve el foco al abrir el detalle y lo devuelve a la tarjeta al volver.
+  // Foco al título al abrir el detalle y de vuelta a la tarjeta al cerrarlo.
+  // Al cambiar de tarjeta con las miniaturas, el foco se queda en la miniatura.
   useEffect(() => {
-    if (activeId) {
+    const previous = previousActive.current;
+    previousActive.current = activeId;
+    if (activeId && previous === null) {
       detailRef.current?.focus();
-    } else if (lastOpened.current) {
+    } else if (!activeId && previous && lastOpened.current) {
       cardRefs.current[lastOpened.current]?.focus();
     }
+  }, [activeId]);
+
+  // Escape vuelve a las tarjetas (salvo que haya un diálogo modal abierto).
+  useEffect(() => {
+    if (!activeId) return;
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      if (document.querySelector("dialog[open]")) return;
+      setActiveId(null);
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [activeId]);
 
   function open(id: string) {
     lastOpened.current = id;
     setActiveId(id);
   }
+
+  const fade = (duration: number) => ({
+    duration: shouldReduceMotion ? 0 : duration,
+  });
 
   return (
     <section
@@ -115,139 +154,163 @@ export default function Personal() {
       <p className="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
         {personal.label[language]}
       </p>
-      <h2 className="text-4xl sm:text-5xl lg:text-7xl">{personal.headline[language]}</h2>
+      <h2 className="text-4xl sm:text-5xl lg:text-7xl">
+        {personal.headline[language]}
+      </h2>
       <p className="mt-6 max-w-2xl text-lg leading-relaxed opacity-80">
         {personal.subtitle[language]}
       </p>
 
-      {active ? (
-        <div className="mt-12">
-          <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-            <Cover card={active} paused={paused} />
-            <div>
-              {active.label && (
-                <p className="mb-2 text-sm font-medium uppercase tracking-widest text-accent">
-                  {active.label[language]}
-                </p>
-              )}
-              <h3
-                ref={detailRef}
-                tabIndex={-1}
-                className="text-3xl outline-none sm:text-4xl"
-              >
-                {active.title[language]}
-              </h3>
-              {active.subtitle && (
-                <p className="mt-2 font-medium opacity-70">{active.subtitle[language]}</p>
-              )}
-              <p className="mt-6 text-lg leading-relaxed opacity-80">
-                {active.text[language]}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <button
-                  type="button"
-                  onClick={() => setActiveId(null)}
-                  className={`rounded-pill bg-accent px-6 py-3 font-semibold text-accent-foreground shadow-neu-sm ${focusRing}`}
+      <LayoutGroup id="personal-layout">
+        <AnimatePresence mode="popLayout" initial={false}>
+          {active ? (
+            <motion.div key="detalle" className="mt-12">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={active.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={fade(0.15)}
+                  className="grid items-center gap-8 md:grid-cols-2 md:gap-12"
                 >
-                  {personal.backLabel[language]}
-                </button>
-                {active.vinyl && (
-                  <button
-                    type="button"
-                    onClick={() => setPaused((value) => !value)}
-                    className={`rounded-pill px-6 py-3 font-semibold shadow-neu-sm ${focusRing}`}
-                  >
-                    {paused
-                      ? personal.resumeLabel[language]
-                      : personal.pauseLabel[language]}
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
+                  <Cover card={active} paused={paused} />
+                  <div>
+                    {active.label && (
+                      <p className="mb-2 text-sm font-medium uppercase tracking-widest text-accent">
+                        {active.label[language]}
+                      </p>
+                    )}
+                    <h3
+                      ref={detailRef}
+                      tabIndex={-1}
+                      className="text-3xl outline-none sm:text-4xl"
+                    >
+                      {active.title[language]}
+                    </h3>
+                    {active.subtitle && (
+                      <p className="mt-2 font-medium opacity-70">
+                        {active.subtitle[language]}
+                      </p>
+                    )}
+                    <p className="mt-6 text-lg leading-relaxed opacity-80">
+                      {active.text[language]}
+                    </p>
+                    <div className="mt-8 flex flex-wrap gap-4">
+                      <button
+                        type="button"
+                        onClick={() => setActiveId(null)}
+                        className={`rounded-pill bg-accent px-6 py-3 font-semibold text-accent-foreground shadow-neu-sm ${focusRing}`}
+                      >
+                        {personal.backLabel[language]}
+                      </button>
+                      {active.vinyl && (
+                        <button
+                          type="button"
+                          onClick={() => setPaused((value) => !value)}
+                          className={`rounded-pill px-6 py-3 font-semibold shadow-neu-sm ${focusRing}`}
+                        >
+                          {paused
+                            ? personal.resumeLabel[language]
+                            : personal.pauseLabel[language]}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
 
-          <ul
-            aria-label={personal.thumbnailsLabel[language]}
-            className="mt-12 grid grid-cols-4 gap-3 sm:gap-6"
-          >
-            {personal.cards.map((card) => {
-              const isActive = card.id === activeId;
-              return (
-                <li key={card.id}>
-                  <button
-                    type="button"
-                    onClick={() => open(card.id)}
-                    aria-label={card.title[language]}
-                    aria-current={isActive ? "true" : undefined}
-                    className={`relative block aspect-square w-full overflow-hidden rounded-2xl border-4 shadow-neu-sm ${
-                      isActive ? "border-accent" : "border-transparent"
-                    } ${focusRing}`}
-                  >
-                    <Image
-                      src={card.image}
-                      alt=""
-                      fill
-                      sizes="(min-width: 1024px) 12rem, 25vw"
-                      className="object-cover"
-                    />
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ) : (
-        <ul
-          aria-label={personal.cardsLabel[language]}
-          className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 fan:flex fan:justify-center fan:gap-0 fan:-space-x-6 fan:pb-14 fan:pt-8"
-        >
-          {personal.cards.map((card, index) => {
-            const position = FAN_POSITIONS[index % FAN_POSITIONS.length];
-            return (
-            <motion.li
-              key={card.id}
-              className="fan:w-1/4 fan:hover:z-10 fan:focus-within:z-10"
-              initial={false}
-              animate={
-                fanActive
-                  ? { rotate: position.rotate, y: position.y }
-                  : { rotate: 0, y: 0 }
-              }
-              whileHover={
-                fanActive
-                  ? { y: position.y - 8, transition: { duration: 0.18 } }
-                  : undefined
-              }
-              transition={{
-                duration: shouldReduceMotion ? 0 : 0.4,
-                ease: "easeOut",
-              }}
-            >
-              <button
-                type="button"
-                ref={(el) => {
-                  cardRefs.current[card.id] = el;
-                }}
-                onClick={() => open(card.id)}
-                className={`block w-full rounded-card bg-background p-3 text-left shadow-neu ${focusRing}`}
+              <ul
+                aria-label={personal.thumbnailsLabel[language]}
+                className="mt-12 grid grid-cols-4 gap-3 sm:gap-6"
               >
-                <Cover card={card} paused={paused} />
-                <span className="mt-4 block px-2 pb-2">
-                  {card.label && (
-                    <span className="block text-xs font-medium uppercase tracking-widest text-accent">
-                      {card.label[language]}
-                    </span>
-                  )}
-                  <span className="mt-1 block font-display text-lg font-bold leading-tight tracking-tight">
-                    {card.title[language]}
-                  </span>
-                </span>
-              </button>
-            </motion.li>
-            );
-          })}
-        </ul>
-      )}
+                {personal.cards.map((card) => {
+                  const isActive = card.id === activeId;
+                  return (
+                    <li key={card.id}>
+                      <button
+                        type="button"
+                        onClick={() => open(card.id)}
+                        aria-label={card.title[language]}
+                        aria-current={isActive ? "true" : undefined}
+                        className={`relative block aspect-square w-full overflow-hidden rounded-2xl border-4 shadow-neu-sm motion-safe:transition-[border-color,transform] motion-safe:duration-200 ${
+                          isActive
+                            ? "border-accent"
+                            : "border-transparent motion-safe:hover:-translate-y-0.5"
+                        } ${focusRing}`}
+                      >
+                        <Image
+                          src={card.image}
+                          alt=""
+                          fill
+                          sizes="(min-width: 1024px) 12rem, 25vw"
+                          className="object-cover"
+                        />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </motion.div>
+          ) : (
+            <motion.ul
+              key="abanico"
+              aria-label={personal.cardsLabel[language]}
+              initial={shouldReduceMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={fade(0.18)}
+              className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 fan:flex fan:justify-center fan:gap-0 fan:-space-x-6 fan:pb-14 fan:pt-8"
+            >
+              {personal.cards.map((card, index) => {
+                const position = FAN_POSITIONS[index % FAN_POSITIONS.length];
+                return (
+                  <motion.li
+                    key={card.id}
+                    className="fan:w-1/4 fan:hover:z-10 fan:focus-within:z-10"
+                    initial={false}
+                    animate={
+                      fanActive
+                        ? { rotate: position.rotate, y: position.y }
+                        : { rotate: 0, y: 0 }
+                    }
+                    whileHover={
+                      fanActive
+                        ? { y: position.y - 8, transition: { duration: 0.18 } }
+                        : undefined
+                    }
+                    transition={{
+                      duration: shouldReduceMotion ? 0 : 0.4,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <button
+                      type="button"
+                      ref={(el) => {
+                        cardRefs.current[card.id] = el;
+                      }}
+                      onClick={() => open(card.id)}
+                      className={`block w-full rounded-card bg-background p-3 text-left shadow-neu ${focusRing}`}
+                    >
+                      <Cover card={card} paused={paused} />
+                      <span className="mt-4 block px-2 pb-2">
+                        {card.label && (
+                          <span className="block text-xs font-medium uppercase tracking-widest text-accent">
+                            {card.label[language]}
+                          </span>
+                        )}
+                        <span className="mt-1 block font-display text-lg font-bold leading-tight tracking-tight">
+                          {card.title[language]}
+                        </span>
+                      </span>
+                    </button>
+                  </motion.li>
+                );
+              })}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </LayoutGroup>
     </section>
   );
 }
