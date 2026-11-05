@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
+import { useRetroMode } from "@/components/RetroModeProvider";
 import { languages, navLinks, profile, ui } from "@/data/profile";
+import { retro } from "@/data/retro";
 
 const SECTION_IDS = navLinks.map((link) => link.href.slice(1));
 
@@ -12,6 +14,7 @@ export default function Navbar() {
   const [active, setActive] = useState(SECTION_IDS[0]);
   const { language, theme, setLanguage, toggleTheme } = usePreferences();
   const dark = theme === "dark";
+  const { available: retroAvailable, powerOn } = useRetroMode();
   const shouldReduceMotion = useReducedMotion();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const indicatorTransition = shouldReduceMotion
@@ -107,6 +110,27 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {retroAvailable && (
+            <button
+              type="button"
+              onClick={powerOn}
+              aria-label={retro.powerOn[language]}
+              className="flex h-10 items-center gap-2 rounded-pill px-3 text-sm font-bold shadow-neu-sm"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              >
+                <path d="M12 3v9M6.4 6.6a8 8 0 1 0 11.2 0" />
+              </svg>
+              <span className="hidden xl:inline">{retro.powerOn[language]}</span>
+            </button>
+          )}
           <button
             type="button"
             onClick={toggleTheme}
