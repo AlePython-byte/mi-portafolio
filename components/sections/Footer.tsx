@@ -14,7 +14,7 @@ export default function Footer() {
   const { language } = usePreferences();
 
   return (
-    <footer id="footer" className="mx-auto max-w-6xl px-4 pb-10 pt-6 sm:px-6">
+    <footer id="footer" className="mx-auto w-full max-w-6xl px-4 pb-10 pt-6 sm:px-6">
       <div className="rounded-card bg-background p-6 shadow-neu sm:p-10">
         <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-start">
           <div>
@@ -58,7 +58,7 @@ export default function Footer() {
             <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-muted">
               {footer.quickLinksLabel[language]}
             </p>
-            <ul className="mt-4 grid grid-cols-2 gap-x-8 gap-y-2 text-sm font-semibold">
+            <ul className="mt-4 grid grid-cols-2 gap-x-10 gap-y-2 text-sm font-semibold lg:grid-cols-4">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
