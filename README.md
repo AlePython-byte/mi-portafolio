@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portafolio de Alejandro Parra
 
-## Getting Started
+Portafolio personal de Alejandro Parra, estudiante de Ingeniería de Software. Reúne perfil, proyectos, experiencia, habilidades y contacto en un sitio bilingüe con dos formas de recorrerlo: una página clásica y un escritorio retro interactivo.
 
-First, run the development server:
+**Despliegue:** [pendiente]
+
+## Tecnologías
+
+- [Next.js](https://nextjs.org) (App Router)
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS](https://tailwindcss.com)
+- [motion](https://motion.dev) para las animaciones
+- Publicación en [Vercel](https://vercel.com)
+
+## Características
+
+- **Modo plano:** página con las secciones Acerca de mí, Proyectos, Testimonios, Experiencia, Mi lado personal, Habilidades y Contacto, con menú fijo, scroll suave y diseño adaptable a móvil, tablet y escritorio.
+- **Escritorio retro:** modo opcional para pantallas de escritorio con ratón, con ventanas arrastrables, barra de tareas y una vista compacta de cada sección. Se activa con el botón "Encender PC" y se apaga desde la barra de tareas.
+- **Asistente Mullis:** gata asistente del escritorio retro que responde preguntas sobre el portafolio. Si el servicio de IA no está disponible, usa respuestas de ejemplo.
+- **Bilingüe:** todos los textos están en español e inglés y se cambian desde la barra superior.
+- **Modo claro y oscuro:** la preferencia se guarda en el navegador.
+- **Accesibilidad:** navegación por teclado, foco visible, etiquetas accesibles y respeto de la preferencia de movimiento reducido.
+
+## Cómo ejecutarlo en local
+
+Requisitos: Node.js 20 o superior y npm.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+La aplicación queda disponible en [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Otros comandos:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Comando | Qué hace |
+| --- | --- |
+| `npm run build` | Genera la versión de producción |
+| `npm run start` | Sirve la versión de producción generada |
+| `npm run lint` | Revisa el código con ESLint |
+| `npx tsc --noEmit` | Comprueba los tipos de TypeScript |
 
-## Learn More
+## Variables de entorno
 
-To learn more about Next.js, take a look at the following resources:
+Se definen en un archivo `.env.local` (no se sube al repositorio). En `.env.example` hay una plantilla con los nombres, sin valores.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Variable | Para qué sirve |
+| --- | --- |
+| `NEXT_PUBLIC_FORM_ENDPOINT` | Dirección del servicio que recibe los mensajes del formulario de contacto (por ejemplo, un servicio de formularios). Se publica en el navegador. Si falta, el formulario muestra un aviso y el envío queda desactivado. |
+| `AI_API_KEY` | Clave de la API de IA que usa el chat de Mullis. Solo se lee en el servidor y nunca debe llevar el prefijo `NEXT_PUBLIC`. Si falta, el chat responde con textos de ejemplo. |
+| `AI_MODEL` | Modelo de IA que usa el chat. Es opcional: si está vacío se usa el modelo por defecto definido en `lib/ai.ts`. |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estructura de carpetas
 
-## Deploy on Vercel
+```text
+app/                  Rutas de Next.js, estilos globales y la API del chat (app/api/chat)
+components/
+  sections/           Un componente por sección del modo plano
+  retro/              Escritorio retro: ventanas, barra de tareas y Mullis
+  retro/windows/      Contenido de cada ventana del escritorio retro
+data/                 Contenido tipado y bilingüe (es/en); los tipos están en data/types.ts
+lib/                  Utilidades: asistente, llamada a la IA, límite de uso y hooks
+public/               Imágenes y archivos estáticos
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+El contenido del sitio vive en `data/`: para cambiar un texto, una fecha o un proyecto basta con editar el archivo correspondiente, sin tocar los componentes.
