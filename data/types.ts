@@ -248,3 +248,26 @@ export type ContactData = {
   socialLabel: LocalizedText;
   form: ContactFormData;
 };
+
+export type RetroApp = {
+  id: string;
+  label: LocalizedText;
+  icon: "folder" | "document";
+};
+
+export type RetroData = {
+  powerOn: LocalizedText; // botón del modo plano
+  desktopLabel: LocalizedText;
+  iconsLabel: LocalizedText;
+  windowsLabel: LocalizedText;
+  taskbarLabel: LocalizedText;
+  minimize: LocalizedText;
+  close: LocalizedText;
+  start: LocalizedText;
+  startMenuLabel: LocalizedText;
+  shutdown: LocalizedText;
+  languageToEn: LocalizedText;
+  languageToEs: LocalizedText;
+  placeholder: LocalizedText;
+  apps: RetroApp[];
+};
