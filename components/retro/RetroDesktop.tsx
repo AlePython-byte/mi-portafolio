@@ -5,6 +5,7 @@ import { VT323 } from "next/font/google";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { retro } from "@/data/retro";
 import type { RetroApp } from "@/data/types";
+import { RetroAssetsProvider, type RetroAssets } from "./RetroAssets";
 import TaskBar from "./TaskBar";
 import Window from "./Window";
 import { WindowManagerProvider, useWindowManager } from "./WindowManager";
@@ -110,7 +111,7 @@ function Desktop() {
   );
 }
 
-export default function RetroDesktop() {
+export default function RetroDesktop({ assets }: { assets: RetroAssets }) {
   const { language } = usePreferences();
 
   return (
@@ -120,9 +121,11 @@ export default function RetroDesktop() {
       aria-label={retro.desktopLabel[language]}
       className={`retro-root fixed inset-0 z-50 flex flex-col ${vt323.className}`}
     >
-      <WindowManagerProvider>
-        <Desktop />
-      </WindowManagerProvider>
+      <RetroAssetsProvider assets={assets}>
+        <WindowManagerProvider>
+          <Desktop />
+        </WindowManagerProvider>
+      </RetroAssetsProvider>
     </div>
   );
 }
