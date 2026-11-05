@@ -5,6 +5,7 @@ import { usePreferences } from "@/components/PreferencesProvider";
 import { useRetroMode } from "@/components/RetroModeProvider";
 import { ui } from "@/data/profile";
 import { retro } from "@/data/retro";
+import { windowTitle } from "./windowTitles";
 import { useWindowManager } from "./WindowManager";
 
 function useClock(locale: string) {
@@ -55,9 +56,6 @@ export default function TaskBar() {
       document.removeEventListener("pointerdown", onPointerDown);
     };
   }, [menuOpen]);
-
-  const labelOf = (id: string) =>
-    retro.apps.find((app) => app.id === id)?.label[language] ?? id;
 
   const button = "retro-button px-3 py-0.5";
 
@@ -114,7 +112,7 @@ export default function TaskBar() {
               aria-pressed={focusedId === win.id}
               className={`${button} w-full truncate text-left`}
             >
-              {labelOf(win.id)}
+              {windowTitle(win.id, language)}
             </button>
           </li>
         ))}

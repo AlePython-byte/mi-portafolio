@@ -9,6 +9,7 @@ import { RetroAssetsProvider, type RetroAssets } from "./RetroAssets";
 import TaskBar from "./TaskBar";
 import Window from "./Window";
 import { WindowManagerProvider, useWindowManager } from "./WindowManager";
+import { windowTitle } from "./windowTitles";
 import { windowContents, windowSizes } from "./windows";
 
 // La fuente pixelada solo se usa en el modo retro.
@@ -88,13 +89,12 @@ function Desktop() {
         </ul>
 
         {windows.map((win, index) => {
-          const app = retro.apps.find((a) => a.id === win.id);
           const Content = windowContents[win.id];
           return (
             <Window
               key={win.id}
               id={win.id}
-              title={app?.label[language] ?? win.id}
+              title={windowTitle(win.id, language)}
               zIndex={10 + index}
               minimized={win.minimized}
               spawn={win.spawn}
