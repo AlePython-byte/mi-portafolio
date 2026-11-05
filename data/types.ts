@@ -292,5 +292,6 @@ export type AssistantData = {
   send: LocalizedText;
   typing: LocalizedText;
   fallback: LocalizedText;
+  rateLimited: LocalizedText;
   quickQuestions: AssistantQuickQuestion[];
 };

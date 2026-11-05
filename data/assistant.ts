@@ -46,6 +46,10 @@ export const assistant: AssistantData = {
     es: "Todavía estoy aprendiendo a responder eso.",
     en: "I'm still learning how to answer that.",
   },
+  rateLimited: {
+    es: "¡Miau! Me están preguntando muchas cosas a la vez. Espera un momento y vuelve a intentarlo.",
+    en: "Meow! I'm getting lots of questions at once. Please wait a moment and try again.",
+  },
   quickQuestions: [
     {
       id: "estudios",
