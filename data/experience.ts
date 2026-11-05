@@ -11,6 +11,7 @@ const ucc = {
 // De lo más reciente a lo más antiguo dentro de cada bloque.
 // null = dato por completar (la página muestra "Por completar").
 export const experienceSection: ExperienceData = {
+  label: { es: "04 · Experiencia", en: "04 · Experience" },
   headline: { es: "Experiencia", en: "Experience" },
   academicTitle: { es: "Experiencia académica", en: "Academic experience" },
   workTitle: { es: "Experiencia laboral", en: "Work experience" },

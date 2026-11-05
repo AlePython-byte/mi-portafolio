@@ -30,6 +30,9 @@ export default function About() {
       id="acerca-de-mi"
       className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24"
     >
+      <p className="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
+        {about.label[language]}
+      </p>
       <motion.div
         {...reveal()}
         className="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-12"

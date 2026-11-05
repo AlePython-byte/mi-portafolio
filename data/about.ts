@@ -1,6 +1,7 @@
 import type { AboutData } from "./types";
 
 export const about: AboutData = {
+  label: { es: "01 · Acerca de mí", en: "01 · About me" },
   headline: {
     es: "Curiosidad técnica, intención humana.",
     en: "Technical curiosity, human intent.",

@@ -1,7 +1,7 @@
 import type { PersonalData } from "./types";
 
 export const personal: PersonalData = {
-  label: { es: "02 · Mi lado personal", en: "02 · Personal side" },
+  label: { es: "05 · Mi lado personal", en: "05 · Personal side" },
   headline: { es: "Fuera del código", en: "Beyond code" },
   subtitle: {
     es: "Un poco sobre mí y los pasatiempos que disfruto fuera del código: la compañía de mi gata, la música, los videojuegos y viajar para descubrir nuevas perspectivas.",

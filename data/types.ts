@@ -58,6 +58,7 @@ export type Testimonial = {
 };
 
 export type TestimonialsData = {
+  label: LocalizedText;
   headline: LocalizedText;
   listLabel: LocalizedText;
   exampleBadge: LocalizedText;
@@ -85,6 +86,7 @@ export type Experience = {
 };
 
 export type ExperienceData = {
+  label: LocalizedText;
   headline: LocalizedText;
   academicTitle: LocalizedText;
   workTitle: LocalizedText;
@@ -181,6 +183,7 @@ export type AboutEducation = {
 };
 
 export type AboutData = {
+  label: LocalizedText;
   headline: LocalizedText;
   paragraph: LocalizedText;
   interestsTitle: LocalizedText;

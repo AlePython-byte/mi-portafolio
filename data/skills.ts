@@ -1,7 +1,7 @@
 import type { SkillsData } from "./types";
 
 export const skills: SkillsData = {
-  label: { es: "03 · Habilidades", en: "03 · Skills" },
+  label: { es: "06 · Habilidades", en: "06 · Skills" },
   headline: {
     es: "Las herramientas con las que construyo.",
     en: "The tools I build with.",

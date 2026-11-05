@@ -1,7 +1,7 @@
 import type { ProjectsData } from "./types";
 
 export const projectsSection: ProjectsData = {
-  label: { es: "04 · Proyectos", en: "04 · Projects" },
+  label: { es: "02 · Proyectos", en: "02 · Projects" },
   headline: {
     es: "Una selección de mi trabajo.",
     en: "A selection of my work.",

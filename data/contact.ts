@@ -1,7 +1,7 @@
 import type { ContactData } from "./types";
 
 export const contact: ContactData = {
-  label: { es: "05 · Contacto", en: "05 · Contact" },
+  label: { es: "07 · Contacto", en: "07 · Contact" },
   headline: {
     es: "¿Tienes una idea? Hablemos",
     en: "Have an idea? Let’s talk",

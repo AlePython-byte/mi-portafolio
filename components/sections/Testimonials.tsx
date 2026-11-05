@@ -33,6 +33,9 @@ export default function Testimonials() {
       id="testimonios"
       className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24"
     >
+      <p className="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
+        {data.label[language]}
+      </p>
       <motion.h2 {...reveal()} className="text-4xl sm:text-5xl lg:text-7xl">
         {data.headline[language]}
       </motion.h2>
