@@ -184,6 +184,10 @@ export type AboutEducation = {
 
 export type AboutData = {
   label: LocalizedText;
+  technologiesTitle: LocalizedText;
+  technologies: string[]; // nombres de herramientas de data/skills.ts
+  allSkillsLabel: LocalizedText;
+  allSkillsHref: string;
   headline: LocalizedText;
   paragraph: LocalizedText;
   interestsTitle: LocalizedText;

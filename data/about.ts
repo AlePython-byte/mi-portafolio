@@ -10,6 +10,23 @@ export const about: AboutData = {
     es: "Soy estudiante de Ingeniería de Software de quinto semestre, con interés en backend, frontend, diseño UX/UI, bases de datos y desarrollo de software. Mi formación está enfocada en entender los sistemas con criterio, desde sus fundamentos hasta las personas que los utilizan.",
     en: "I am a fifth-semester Software Engineering student with an interest in backend, frontend, UX/UI design, databases, and software development. My training is focused on understanding systems with sound judgment, from their foundations to the people who use them.",
   },
+  technologiesTitle: { es: "Tecnologías", en: "Technologies" },
+  // Las 8 herramientas principales; los nombres vienen de data/skills.ts.
+  technologies: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Tailwind",
+    "Node.js",
+    "NestJS",
+    "PostgreSQL",
+    "Docker",
+  ],
+  allSkillsLabel: {
+    es: "Ver todas las habilidades",
+    en: "See all skills",
+  },
+  allSkillsHref: "#habilidades",
   interestsTitle: { es: "Áreas de interés", en: "Areas of interest" },
   interests: [
     { es: "Backend", en: "Backend" },
