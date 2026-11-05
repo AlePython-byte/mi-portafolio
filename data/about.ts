@@ -20,7 +20,7 @@ export const about: AboutData = {
     "Node.js",
     "NestJS",
     "PostgreSQL",
-    "Docker",
+    "Kotlin",
   ],
   allSkillsLabel: {
     es: "Ver todas las habilidades",
