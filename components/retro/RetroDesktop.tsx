@@ -8,7 +8,7 @@ import type { RetroApp } from "@/data/types";
 import TaskBar from "./TaskBar";
 import Window from "./Window";
 import { WindowManagerProvider, useWindowManager } from "./WindowManager";
-import { windowContents } from "./windows";
+import { windowContents, windowSizes } from "./windows";
 
 // La fuente pixelada solo se usa en el modo retro.
 const vt323 = VT323({ subsets: ["latin"], weight: "400", display: "swap" });
@@ -97,6 +97,8 @@ function Desktop() {
               zIndex={10 + index}
               minimized={win.minimized}
               spawn={win.spawn}
+              width={windowSizes[win.id]?.width}
+              height={windowSizes[win.id]?.height}
             >
               {Content ? <Content /> : <p>{retro.placeholder[language]}</p>}
             </Window>

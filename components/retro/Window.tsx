@@ -19,6 +19,9 @@ type Props = {
   zIndex: number;
   minimized: boolean;
   spawn: number;
+  // Tamaño por defecto; nunca excede el escritorio. Sin alto, se ajusta al contenido.
+  width?: string;
+  height?: string;
   children: ReactNode;
 };
 
@@ -32,6 +35,8 @@ export default function Window({
   zIndex,
   minimized,
   spawn,
+  width = "30rem",
+  height,
   children,
 }: Props) {
   const { language } = usePreferences();
@@ -39,10 +44,14 @@ export default function Window({
   const titleId = useId();
   const windowRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ dx: number; dy: number } | null>(null);
-  const [position, setPosition] = useState(() => ({
-    x: 130 + (spawn % 6) * 32,
-    y: 20 + (spawn % 6) * 32,
-  }));
+  // null = posición inicial escalonada, calculada con CSS para que quepa
+  // en el escritorio; al arrastrar pasa a coordenadas en píxeles.
+  const [position, setPosition] = useState<{ x: number; y: number } | null>(
+    null,
+  );
+  const cascade = (spawn % 6) * 32;
+  const widthCss = `min(${width}, calc(100% - 1rem))`;
+  const heightCss = height ? `min(${height}, calc(100% - 1rem))` : undefined;
 
   // Al abrirse o restaurarse, el foco pasa a la ventana.
   useEffect(() => {
@@ -65,12 +74,14 @@ export default function Window({
   function onTitlePointerDown(event: PointerEvent<HTMLDivElement>) {
     if (event.button !== 0) return;
     if ((event.target as HTMLElement).closest("button")) return;
-    const parent = windowRef.current?.offsetParent;
-    if (!parent) return;
+    const el = windowRef.current;
+    const parent = el?.offsetParent;
+    if (!el || !parent) return;
     const rect = parent.getBoundingClientRect();
+    const start = position ?? { x: el.offsetLeft, y: el.offsetTop };
     drag.current = {
-      dx: event.clientX - rect.left - position.x,
-      dy: event.clientY - rect.top - position.y,
+      dx: event.clientX - rect.left - start.x,
+      dy: event.clientY - rect.top - start.y,
     };
     event.currentTarget.setPointerCapture(event.pointerId);
   }
@@ -112,10 +123,14 @@ export default function Window({
       hidden={minimized}
       onKeyDown={onKeyDown}
       onPointerDownCapture={() => focus(id)}
-      className="retro-raised absolute flex max-h-[calc(100%-1rem)] w-[30rem] max-w-[calc(100%-1rem)] flex-col p-1 outline-none"
+      className="retro-raised absolute flex max-h-[calc(100%-1rem)] flex-col p-1 outline-none"
       style={{
-        left: position.x,
-        top: position.y,
+        width: widthCss,
+        height: heightCss,
+        left: position
+          ? position.x
+          : `max(0px, min(${130 + cascade}px, calc(100% - ${widthCss})))`,
+        top: position ? position.y : 20 + cascade,
         zIndex,
         display: minimized ? "none" : undefined,
       }}
