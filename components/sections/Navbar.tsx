@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { languages, navLinks, profile, ui } from "@/data/profile";
 
@@ -11,36 +12,61 @@ export default function Navbar() {
   const [active, setActive] = useState(SECTION_IDS[0]);
   const { language, theme, setLanguage, toggleTheme } = usePreferences();
   const dark = theme === "dark";
+  const shouldReduceMotion = useReducedMotion();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const indicatorTransition = shouldReduceMotion
+    ? { duration: 0 }
+    : { type: "spring" as const, stiffness: 420, damping: 35 };
 
-  // Cierra el menú con Escape.
+  // Cierra el menú con Escape y devuelve el foco al botón que lo abre.
   useEffect(() => {
     if (!open) return;
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  // Resalta el enlace de la sección visible.
+  // Resalta la última sección (en el orden real de la página) cuya parte
+  // superior ya pasó la línea de lectura.
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(entry.target.id);
+    let frame = 0;
+    function update() {
+      frame = 0;
+      const line = window.innerHeight * 0.4;
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2;
+      let current = SECTION_IDS[0];
+      if (atBottom) {
+        current = SECTION_IDS[SECTION_IDS.length - 1];
+      } else {
+        for (const id of SECTION_IDS) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= line) current = id;
         }
-      },
-      { rootMargin: "-40% 0px -55% 0px" },
-    );
-    for (const id of SECTION_IDS) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
+      }
+      setActive(current);
     }
-    return () => observer.disconnect();
+    function onScroll() {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    }
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const linkClass = (id: string) =>
-    `block rounded-pill px-3 py-2 text-sm font-medium transition-colors hover:text-accent ${
+    `relative block rounded-pill px-3 py-2 text-sm font-medium transition-colors hover:text-accent ${
       active === id ? "text-accent" : "text-foreground"
     }`;
 
@@ -65,7 +91,15 @@ export default function Navbar() {
                   }
                   className={linkClass(link.href.slice(1))}
                 >
-                  {link.label[language]}
+                  {active === link.href.slice(1) && (
+                    <motion.span
+                      layoutId="nav-activo-escritorio"
+                      aria-hidden="true"
+                      className="absolute inset-0 rounded-pill shadow-neu-inset"
+                      transition={indicatorTransition}
+                    />
+                  )}
+                  <span className="relative">{link.label[language]}</span>
                 </a>
               </li>
             ))}
@@ -123,6 +157,7 @@ export default function Navbar() {
           </div>
 
           <button
+            ref={menuButtonRef}
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
@@ -149,30 +184,53 @@ export default function Navbar() {
         </div>
       </div>
 
-      {open && (
-        <nav
-          id="menu-movil"
-          aria-label={ui.navAriaLabel[language]}
-          className="mx-4 mb-4 rounded-card bg-background p-3 shadow-neu lg:hidden"
-        >
-          <ul>
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  aria-current={
-                    active === link.href.slice(1) ? "true" : undefined
-                  }
-                  className={linkClass(link.href.slice(1))}
-                >
-                  {link.label[language]}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            key="menu-movil"
+            id="menu-movil"
+            aria-label={ui.navAriaLabel[language]}
+            className="mx-4 mb-4 rounded-card bg-background p-3 shadow-neu lg:hidden"
+            initial={
+              shouldReduceMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: -8, scale: 0.98 }
+            }
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: -8, scale: 0.98 }
+            }
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+          >
+            <ul>
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={
+                      active === link.href.slice(1) ? "true" : undefined
+                    }
+                    className={linkClass(link.href.slice(1))}
+                  >
+                    {active === link.href.slice(1) && (
+                      <motion.span
+                        layoutId="nav-activo-movil"
+                        aria-hidden="true"
+                        className="absolute inset-0 rounded-pill shadow-neu-inset"
+                        transition={indicatorTransition}
+                      />
+                    )}
+                    <span className="relative">{link.label[language]}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
