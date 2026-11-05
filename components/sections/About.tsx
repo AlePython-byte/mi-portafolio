@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { about } from "@/data/about";
@@ -42,9 +43,24 @@ export default function About() {
       </motion.div>
 
       <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <motion.article
+        <motion.figure
           {...reveal()}
-          className={`${cardClass} md:col-span-2 lg:col-span-1 lg:row-span-2`}
+          className={`${cardClass} lg:row-span-2`}
+        >
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl shadow-neu-inset">
+            <Image
+              src={profile.photo}
+              alt={profile.photoAlt[language]}
+              fill
+              sizes="(min-width: 1024px) 22rem, (min-width: 768px) 45vw, 90vw"
+              className="object-cover object-[50%_36%]"
+            />
+          </div>
+        </motion.figure>
+
+        <motion.article
+          {...reveal(0.03)}
+          className={`${cardClass} lg:row-span-2`}
         >
           <h3 className="text-2xl">{about.interestsTitle[language]}</h3>
           <ol className="mt-6 space-y-4">
@@ -77,7 +93,7 @@ export default function About() {
 
         <motion.dl
           {...reveal(0.14)}
-          className={`${cardClass} grid gap-6 sm:grid-cols-2 md:col-span-2`}
+          className={`${cardClass} grid gap-6 sm:grid-cols-2 md:col-span-2 lg:col-span-3`}
         >
           {facts.map((fact) => (
             <div key={fact.label}>
@@ -88,6 +104,30 @@ export default function About() {
             </div>
           ))}
         </motion.dl>
+
+        <motion.div
+          {...reveal(0.18)}
+          className={`${cardClass} md:col-span-2 lg:col-span-3`}
+        >
+          <h3 className="text-2xl">{about.technologiesTitle[language]}</h3>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {about.technologies.map((name) => (
+              <li
+                key={name}
+                className="rounded-pill px-4 py-1.5 text-sm font-medium shadow-neu-inset"
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+          <a
+            href={about.allSkillsHref}
+            className="mt-6 inline-flex items-center gap-2 rounded-pill px-5 py-2.5 text-sm font-semibold shadow-neu-sm transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          >
+            {about.allSkillsLabel[language]}
+            <span aria-hidden="true">→</span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );
