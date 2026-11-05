@@ -132,8 +132,17 @@ export const experienceSection: ExperienceData = {
         en: "From the second term of 2024 to today",
       },
       ongoing: true,
-      // TODO: dos o tres líneas con los tipos de proyectos y tecnologías.
-      description: null,
+      description: {
+        es: "Diseño y desarrollo de software: aplicaciones móviles, de escritorio, web y videojuegos, del backend a la interfaz.",
+        en: "Software design and development: mobile, desktop, and web applications and video games, from the backend to the interface.",
+      },
+      relatedProjectIds: [
+        "ganaderia-4",
+        "vision2code",
+        "luminawear",
+        "zerowaste-eats",
+        "lullaby",
+      ],
     },
   ],
 };
