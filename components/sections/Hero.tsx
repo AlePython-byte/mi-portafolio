@@ -112,7 +112,7 @@ export default function Hero() {
         transition={{ duration: 0.65, delay: 0.12, ease: entranceEase }}
       >
         <motion.div
-          className="relative aspect-[4/5] overflow-hidden rounded-[2.25rem] border border-line-strong bg-background p-6 shadow-neu sm:p-8"
+          className="relative flex flex-col gap-6 overflow-hidden rounded-[2.25rem] border border-line-strong bg-background p-6 shadow-neu sm:p-8"
           style={{ rotateX: smoothRotateX, rotateY: smoothRotateY }}
           onPointerMove={handlePointerMove}
           onPointerLeave={resetTilt}
@@ -127,20 +127,18 @@ export default function Hero() {
             />
           </div>
 
-          <div className="absolute inset-x-6 top-1/2 -translate-y-[56%] sm:inset-x-8">
-            <div className="relative mx-auto aspect-square w-[64%] overflow-hidden rounded-full border border-line-strong bg-surface-low shadow-neu-inset">
-              <Image
-                src={profile.photo}
-                alt={profile.photoAlt[language]}
-                fill
-                priority
-                sizes="(max-width: 639px) 15rem, 19rem"
-                className="object-cover object-[50%_36%]"
-              />
-            </div>
+          <div className="relative aspect-square w-full overflow-hidden rounded-xl border-2 border-line-strong bg-surface-low shadow-neu-inset">
+            <Image
+              src={profile.photo}
+              alt={profile.photoAlt[language]}
+              fill
+              priority
+              sizes="(max-width: 639px) 90vw, 25rem"
+              className="object-cover object-[50%_30%]"
+            />
           </div>
 
-          <div className="absolute inset-x-6 bottom-6 border-t border-line pt-5 sm:inset-x-8 sm:bottom-8">
+          <div className="border-t border-line pt-5">
             <p className="text-2xl font-bold tracking-[-0.04em]">
               {profile.name}
             </p>
