@@ -1,33 +1,101 @@
-import type { Experience } from "./types";
+import type { ExperienceData } from "./types";
 
-export const experience: Experience[] = [
-  {
-    id: "experiencia-laboral-1",
-    kind: "work",
-    role: { es: "Cargo", en: "Role" },
-    company: "Empresa",
-    location: { es: "Ciudad, País", en: "City, Country" },
-    startDate: "2024-01",
-    highlights: [
-      {
-        es: "Logro o responsabilidad principal.",
-        en: "Main achievement or responsibility.",
+const organizer = { es: "Organizador", en: "Organizer" };
+const participant = { es: "Participante", en: "Participant" };
+const pasto = { es: "Pasto", en: "Pasto" };
+
+// De lo más reciente a lo más antiguo dentro de cada bloque.
+// null = dato por completar (la página muestra "Por completar").
+export const experienceSection: ExperienceData = {
+  headline: { es: "Experiencia", en: "Experience" },
+  academicTitle: { es: "Experiencia académica", en: "Academic experience" },
+  workTitle: { es: "Experiencia laboral", en: "Work experience" },
+  pending: { es: "Por completar", en: "To be completed" },
+  ongoing: { es: "En curso", en: "Ongoing" },
+  items: [
+    {
+      id: "iv-seminario",
+      kind: "academic",
+      title: {
+        es: "IV Seminario de Ingeniería de Software",
+        en: "4th Software Engineering Seminar",
       },
-    ],
-    stack: ["TypeScript"],
-  },
-  {
-    id: "experiencia-academica-1",
-    kind: "academic",
-    role: { es: "Carrera o programa", en: "Degree or program" },
-    company: "Institución",
-    location: { es: "Ciudad, País", en: "City, Country" },
-    startDate: "2022-01",
-    highlights: [
-      {
-        es: "Dato académico relevante.",
-        en: "Relevant academic detail.",
+      // TODO: nombre del organizador.
+      organization: null,
+      organizationLabel: organizer,
+      role: participant,
+      location: pasto,
+      period: { es: "Segundo periodo de 2026", en: "Second term of 2026" },
+    },
+    {
+      id: "iii-seminario",
+      kind: "academic",
+      title: {
+        es: "III Seminario de Ingeniería de Software",
+        en: "3rd Software Engineering Seminar",
       },
-    ],
-  },
-];
+      // TODO: nombre del organizador.
+      organization: null,
+      organizationLabel: organizer,
+      role: participant,
+      location: pasto,
+      period: { es: "Segundo periodo de 2025", en: "Second term of 2025" },
+    },
+    {
+      id: "ii-seminario",
+      kind: "academic",
+      title: {
+        es: "II Seminario de Ingeniería de Software",
+        en: "2nd Software Engineering Seminar",
+      },
+      // TODO: nombre del organizador.
+      organization: null,
+      organizationLabel: organizer,
+      role: participant,
+      location: pasto,
+      period: { es: "Primer periodo de 2025", en: "First term of 2025" },
+    },
+    {
+      id: "i-seminario-nacional",
+      kind: "academic",
+      title: {
+        es: "I Seminario Nacional de Ingeniería de Software: “La industria del desarrollo del software en Colombia”",
+        en: "1st National Software Engineering Seminar: “The software development industry in Colombia”",
+      },
+      // TODO: nombre del organizador.
+      organization: null,
+      organizationLabel: organizer,
+      role: participant,
+      location: pasto,
+      // TODO: fecha del seminario.
+      period: null,
+      periodLabel: { es: "Fecha", en: "Date" },
+    },
+    {
+      id: "ingenieria-de-software",
+      kind: "academic",
+      title: { es: "Ingeniería de Software", en: "Software Engineering" },
+      organization: {
+        es: "Universidad Cooperativa de Colombia (sede Pasto)",
+        en: "Universidad Cooperativa de Colombia (Pasto campus)",
+      },
+      role: { es: "Quinto semestre", en: "Fifth semester" },
+      // TODO: fecha de inicio de la carrera.
+      period: null,
+      periodLabel: { es: "Fecha de inicio", en: "Start date" },
+      ongoing: true,
+    },
+    {
+      id: "desarrollador-freelance",
+      kind: "work",
+      title: { es: "Desarrollador freelance", en: "Freelance developer" },
+      period: {
+        es: "Desde el segundo periodo de 2024 hasta hoy",
+        en: "From the second term of 2024 to today",
+      },
+      ongoing: true,
+      // TODO: dos o tres líneas con los tipos de proyectos y tecnologías.
+      description: null,
+    },
+  ],
+};

@@ -56,16 +56,29 @@ export type Testimonial = {
   avatar?: string;
 };
 
+// En los campos que admiten null, null significa "por completar" y se muestra
+// como un texto neutro; undefined significa que el dato no se muestra.
 export type Experience = {
   id: string;
   kind: "academic" | "work";
-  role: LocalizedText;
-  company: string;
+  title: LocalizedText;
+  organization?: LocalizedText | null; // institución, empresa u organizador
+  organizationLabel?: LocalizedText; // p. ej. "Organizador"
+  role?: LocalizedText;
   location?: LocalizedText;
-  startDate: string; // ISO "YYYY-MM"
-  endDate?: string; // omitido = actual
-  highlights: LocalizedText[];
-  stack?: string[];
+  period?: LocalizedText | null;
+  periodLabel?: LocalizedText; // p. ej. "Fecha de inicio"
+  ongoing?: boolean; // muestra la etiqueta "En curso"
+  description?: LocalizedText | null;
+};
+
+export type ExperienceData = {
+  headline: LocalizedText;
+  academicTitle: LocalizedText;
+  workTitle: LocalizedText;
+  pending: LocalizedText;
+  ongoing: LocalizedText;
+  items: Experience[];
 };
 
 export type SkillItem = {
