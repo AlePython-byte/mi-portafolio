@@ -6,6 +6,7 @@ import { usePreferences } from "@/components/PreferencesProvider";
 import { retro } from "@/data/retro";
 import type { RetroApp } from "@/data/types";
 import { RetroAssetsProvider, type RetroAssets } from "./RetroAssets";
+import Mullis from "./Mullis";
 import TaskBar from "./TaskBar";
 import Window from "./Window";
 import { WindowManagerProvider, useWindowManager } from "./WindowManager";
@@ -87,6 +88,8 @@ function Desktop() {
             <DesktopIcon key={app.id} app={app} />
           ))}
         </ul>
+
+        <Mullis />
 
         {windows.map((win, index) => {
           const Content = windowContents[win.id];
