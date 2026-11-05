@@ -12,6 +12,7 @@ import { usePreferences } from "@/components/PreferencesProvider";
 import { personal } from "@/data/personal";
 import type { PersonalCard } from "@/data/types";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { usePageVisible } from "@/lib/usePageVisible";
 
 // Misma condición que la variante CSS "fan": escritorio con ratón.
 const FAN_QUERY = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
@@ -39,7 +40,7 @@ function Vinyl({ paused, cover }: { paused: boolean; cover?: string }) {
   return (
     <span
       aria-hidden="true"
-      className="absolute right-[-16%] top-1/2 block aspect-square w-[92%] -translate-y-1/2 rounded-pill motion-safe:animate-[spin_6s_linear_infinite]"
+      className="absolute right-[-16%] top-1/2 block aspect-square w-[92%] -translate-y-1/2 rounded-pill vinyl-spin"
       style={{
         animationPlayState: paused ? "paused" : "running",
         background:
@@ -105,11 +106,24 @@ export default function Personal() {
   const shouldReduceMotion = useReducedMotion();
   const fanActive = useMediaQuery(FAN_QUERY) && !shouldReduceMotion;
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [paused, setPaused] = useState(false);
+  const [spinMode, setSpinMode] = useState<"auto" | "paused" | "playing">(
+    "auto",
+  );
+  const [sectionVisible, setSectionVisible] = useState(false);
+  const pageVisible = usePageVisible();
+  const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const detailRef = useRef<HTMLHeadingElement | null>(null);
   const lastOpened = useRef<string | null>(null);
   const previousActive = useRef<string | null>(null);
+
+  // El disco gira solo si el usuario no lo pausó (o lo reanudó a propósito),
+  // la sección está en pantalla y la pestaña visible. Con movimiento reducido
+  // no gira por defecto (se asume reducido hasta saber la preferencia).
+  const vinylReduced = shouldReduceMotion !== false;
+  const rotationEnabled =
+    spinMode === "playing" || (spinMode === "auto" && !vinylReduced);
+  const paused = !(rotationEnabled && sectionVisible && pageVisible);
 
   const active = personal.cards.find((card) => card.id === activeId) ?? null;
 
@@ -124,6 +138,18 @@ export default function Personal() {
       cardRefs.current[lastOpened.current]?.focus();
     }
   }, [activeId]);
+
+  // Detiene el giro cuando la sección sale de pantalla.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setSectionVisible(entry.isIntersecting),
+      { threshold: 0.08 },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   // Escape vuelve a las tarjetas (salvo que haya un diálogo modal abierto).
   useEffect(() => {
@@ -148,6 +174,7 @@ export default function Personal() {
 
   return (
     <section
+      ref={sectionRef}
       id="mi-lado-personal"
       className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24"
     >
@@ -207,12 +234,14 @@ export default function Personal() {
                       {active.vinyl && (
                         <button
                           type="button"
-                          onClick={() => setPaused((value) => !value)}
+                          onClick={() =>
+                            setSpinMode(rotationEnabled ? "paused" : "playing")
+                          }
                           className={`rounded-pill px-6 py-3 font-semibold shadow-neu-sm ${focusRing}`}
                         >
-                          {paused
-                            ? personal.resumeLabel[language]
-                            : personal.pauseLabel[language]}
+                          {rotationEnabled
+                            ? personal.pauseLabel[language]
+                            : personal.resumeLabel[language]}
                         </button>
                       )}
                     </div>
