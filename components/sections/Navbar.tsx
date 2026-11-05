@@ -69,7 +69,7 @@ export default function Navbar() {
   }, []);
 
   const linkClass = (id: string) =>
-    `relative block rounded-pill px-3 py-2 text-sm font-medium transition-colors hover:text-accent ${
+    `relative block whitespace-nowrap rounded-pill px-3 py-2 text-sm font-medium transition-colors hover:text-accent ${
       active === id ? "text-accent" : "text-foreground"
     }`;
 
@@ -83,7 +83,7 @@ export default function Navbar() {
           {profile.initials}
         </a>
 
-        <nav aria-label={ui.navAriaLabel[language]} className="hidden lg:block">
+        <nav aria-label={ui.navAriaLabel[language]} className="hidden xl:block">
           <ul className="flex items-center gap-1">
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -92,7 +92,7 @@ export default function Navbar() {
                   aria-current={
                     active === link.href.slice(1) ? "true" : undefined
                   }
-                  className={linkClass(link.href.slice(1))}
+                  className={`${linkClass(link.href.slice(1))} xl:px-2 xl:text-[0.8125rem]`}
                 >
                   {active === link.href.slice(1) && (
                     <motion.span
@@ -115,7 +115,7 @@ export default function Navbar() {
               type="button"
               onClick={powerOn}
               aria-label={retro.powerOn[language]}
-              className="flex h-10 items-center gap-2 rounded-pill px-3 text-sm font-bold shadow-neu-sm"
+              className="flex h-10 items-center gap-2 whitespace-nowrap rounded-pill px-3 text-sm font-bold shadow-neu-sm"
             >
               <svg
                 aria-hidden="true"
@@ -128,7 +128,7 @@ export default function Navbar() {
               >
                 <path d="M12 3v9M6.4 6.6a8 8 0 1 0 11.2 0" />
               </svg>
-              <span className="hidden xl:inline">{retro.powerOn[language]}</span>
+              <span>{retro.powerOn[language]}</span>
             </button>
           )}
           <button
@@ -187,7 +187,7 @@ export default function Navbar() {
             aria-expanded={open}
             aria-controls="menu-movil"
             aria-label={open ? ui.menuClose[language] : ui.menuOpen[language]}
-            className="grid h-10 w-10 place-items-center rounded-pill shadow-neu-sm lg:hidden"
+            className="grid h-10 w-10 place-items-center rounded-pill shadow-neu-sm xl:hidden"
           >
             <svg
               aria-hidden="true"
@@ -214,7 +214,7 @@ export default function Navbar() {
             key="menu-movil"
             id="menu-movil"
             aria-label={ui.navAriaLabel[language]}
-            className="mx-4 mb-4 rounded-card bg-background p-3 shadow-neu lg:hidden"
+            className="mx-4 mb-4 rounded-card bg-background p-3 shadow-neu xl:hidden"
             initial={
               shouldReduceMotion
                 ? { opacity: 0 }
