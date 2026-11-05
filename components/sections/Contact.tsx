@@ -1,18 +1,13 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { useId } from "react";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { LuCheck, LuCopy } from "react-icons/lu";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { socialIcons } from "@/components/socialIcons";
 import { contact } from "@/data/contact";
 import { profile } from "@/data/profile";
-
-type CopyStatus = "idle" | "copied" | "error";
-type FormStatus = "idle" | "sending" | "success" | "error";
-
-// Se inyecta en el build; si falta, el formulario muestra un aviso.
-const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
+import { useContactForm } from "@/lib/useContactForm";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-contact-foreground";
@@ -21,77 +16,18 @@ const fieldClass = `w-full rounded-2xl border border-contact-foreground/30 bg-co
 
 export default function Contact() {
   const { language } = usePreferences();
-  const [copyStatus, setCopyStatus] = useState<CopyStatus>("idle");
-  const [formStatus, setFormStatus] = useState<FormStatus>("idle");
-  const resetTimer = useRef<number | null>(null);
+  const {
+    endpointMissing,
+    copyStatus,
+    formStatus,
+    copyMessage,
+    formMessage,
+    copyEmail,
+    handleSubmit,
+  } = useContactForm();
   const formId = useId();
   const noticeId = `${formId}-aviso`;
   const form = contact.form;
-
-  useEffect(
-    () => () => {
-      if (resetTimer.current) window.clearTimeout(resetTimer.current);
-    },
-    [],
-  );
-
-  async function copyEmail() {
-    if (resetTimer.current) window.clearTimeout(resetTimer.current);
-    try {
-      if (!navigator.clipboard) throw new Error("Clipboard API unavailable");
-      await navigator.clipboard.writeText(profile.email);
-      setCopyStatus("copied");
-      resetTimer.current = window.setTimeout(
-        () => setCopyStatus("idle"),
-        2400,
-      );
-    } catch {
-      setCopyStatus("error");
-    }
-  }
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!FORM_ENDPOINT) return; // el aviso ya está visible
-    const formElement = event.currentTarget;
-    const data = new FormData(formElement);
-
-    setFormStatus("sending");
-    try {
-      const response = await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          message: data.get("message"),
-        }),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      formElement.reset();
-      setFormStatus("success");
-    } catch {
-      setFormStatus("error");
-    }
-  }
-
-  const copyMessage =
-    copyStatus === "copied"
-      ? contact.copied[language]
-      : copyStatus === "error"
-        ? contact.copyError[language]
-        : "";
-  const formMessage =
-    formStatus === "sending"
-      ? form.sending[language]
-      : formStatus === "success"
-        ? form.success[language]
-        : formStatus === "error"
-          ? form.error[language]
-          : "";
 
   return (
     <section
@@ -177,7 +113,7 @@ export default function Contact() {
               {form.title[language]}
             </h3>
 
-            {!FORM_ENDPOINT && (
+            {endpointMissing && (
               <p
                 id={noticeId}
                 role="status"
@@ -239,8 +175,8 @@ export default function Contact() {
 
             <button
               type="submit"
-              disabled={!FORM_ENDPOINT || formStatus === "sending"}
-              aria-describedby={!FORM_ENDPOINT ? noticeId : undefined}
+              disabled={endpointMissing || formStatus === "sending"}
+              aria-describedby={endpointMissing ? noticeId : undefined}
               className={`rounded-2xl bg-contact-foreground px-6 py-3.5 text-sm font-extrabold text-contact transition-opacity disabled:cursor-not-allowed disabled:opacity-50 ${focusRing}`}
             >
               {formStatus === "sending"
