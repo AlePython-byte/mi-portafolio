@@ -383,6 +383,14 @@ export const projectsSection: ProjectsData = {
             es: "El backend en Spring Boot lo desarrolló un compañero",
             en: "A teammate built the Spring Boot backend",
           },
+          {
+            es: "Hash SHA-256 de contraseñas en el cliente con la Web Crypto API",
+            en: "SHA-256 password hashing on the client with the Web Crypto API",
+          },
+          {
+            es: "Paginación de registros",
+            en: "Record pagination",
+          },
         ],
       },
     },
