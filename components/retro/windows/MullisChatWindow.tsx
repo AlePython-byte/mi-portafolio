@@ -46,7 +46,13 @@ export default function MullisChatWindow() {
     setPending(true);
     let answer: string;
     try {
-      answer = await askAssistant(text, language);
+      // Historial reciente (sin el saludo) para que Mullis siga el hilo.
+      const history = messages.flatMap((message) =>
+        "greeting" in message
+          ? []
+          : [{ role: message.role, content: message.text }],
+      );
+      answer = await askAssistant(text, language, history);
     } catch {
       answer = assistant.fallback[language];
     }
