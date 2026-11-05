@@ -345,7 +345,26 @@ export const projectsSection: ProjectsData = {
         ],
         stack: [
           {
-            label: { es: "Backend", en: "Backend" },
+            label: {
+              es: "Frontend (mi parte)",
+              en: "Frontend (my part)",
+            },
+            items: [
+              "React 18",
+              "TypeScript 5",
+              "Vite 5",
+              "React Router 6",
+              "Zustand",
+              "React Hook Form",
+              "Zod",
+              "Axios con JWT",
+            ],
+          },
+          {
+            label: {
+              es: "Backend (de un compañero)",
+              en: "Backend (a teammate's)",
+            },
             items: [
               "Java",
               "Spring Boot",
