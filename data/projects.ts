@@ -307,5 +307,65 @@ export const projectsSection: ProjectsData = {
         ],
       },
     },
+    {
+      id: "ganaderia-4",
+      title: "Ganadería 4.0",
+      description: {
+        es: "Plataforma de monitoreo ganadero con collares IoT, telemetría GPS, geocercas y alertas operativas. Me encargué del frontend; el backend en Spring Boot lo desarrolló un compañero.",
+        en: "Livestock monitoring platform with IoT collars, GPS telemetry, geofences, and operational alerts. I built the frontend; a teammate built the Spring Boot backend.",
+      },
+      image: "/images/projects/ganaderia-4.png",
+      imageAlt: {
+        es: "Panel de Ganadería 4.0 con el centro de control, las alertas pendientes y los collares operativos",
+        en: "Ganadería 4.0 dashboard with the control center, pending alerts, and operational collars",
+      },
+      imageFit: "cover",
+      imagePosition: "top",
+      tags: ["Java", "Spring Boot", "PostgreSQL", "Docker", "GitHub Actions"],
+      // Repositorio del backend (el único que figura en el portafolio anterior).
+      githubUrl: "https://github.com/AlePython-byte/ganaderia-backend",
+      demoUrl: "https://ganaderia-40.vercel.app/dashboard",
+      demoLabel: "Ver demo",
+      details: {
+        summary: {
+          es: "Plataforma de monitoreo ganadero con collares IoT, telemetría GPS, geocercas y alertas operativas. Me encargué del frontend; el backend en Spring Boot lo desarrolló un compañero.",
+          en: "Livestock monitoring platform with IoT collars, GPS telemetry, geofences, and operational alerts. I built the frontend; a teammate built the Spring Boot backend.",
+        },
+        features: [
+          {
+            es: "Monitoreo del ganado con collares IoT",
+            en: "Livestock monitoring with IoT collars",
+          },
+          {
+            es: "Telemetría GPS",
+            en: "GPS telemetry",
+          },
+          { es: "Geocercas", en: "Geofences" },
+          { es: "Alertas operativas", en: "Operational alerts" },
+        ],
+        stack: [
+          {
+            label: { es: "Backend", en: "Backend" },
+            items: [
+              "Java",
+              "Spring Boot",
+              "PostgreSQL",
+              "Docker",
+              "GitHub Actions",
+            ],
+          },
+        ],
+        highlights: [
+          {
+            es: "Mi rol: frontend",
+            en: "My role: frontend",
+          },
+          {
+            es: "El backend en Spring Boot lo desarrolló un compañero",
+            en: "A teammate built the Spring Boot backend",
+          },
+        ],
+      },
+    },
   ],
 };
