@@ -311,8 +311,8 @@ export const projectsSection: ProjectsData = {
       id: "ganaderia-4",
       title: "Ganadería 4.0",
       description: {
-        es: "Plataforma de monitoreo ganadero con collares IoT, telemetría GPS, geocercas y alertas operativas. Me encargué del frontend; el backend en Spring Boot lo desarrolló un compañero.",
-        en: "Livestock monitoring platform with IoT collars, GPS telemetry, geofences, and operational alerts. I built the frontend; a teammate built the Spring Boot backend.",
+        es: "Plataforma de monitoreo ganadero con collares IoT, telemetría GPS, geocercas y alertas operativas. Colaboré en el frontend de este proyecto en equipo; el backend en Spring Boot lo desarrolló un compañero.",
+        en: "Livestock monitoring platform with IoT collars, GPS telemetry, geofences, and operational alerts. I collaborated on the frontend of this team project; a teammate built the Spring Boot backend.",
       },
       image: "/images/projects/ganaderia-4.png",
       imageAlt: {
@@ -328,8 +328,8 @@ export const projectsSection: ProjectsData = {
       demoLabel: "Ver demo",
       details: {
         summary: {
-          es: "Plataforma de monitoreo ganadero con collares IoT, telemetría GPS, geocercas y alertas operativas. Me encargué del frontend; el backend en Spring Boot lo desarrolló un compañero.",
-          en: "Livestock monitoring platform with IoT collars, GPS telemetry, geofences, and operational alerts. I built the frontend; a teammate built the Spring Boot backend.",
+          es: "Plataforma de monitoreo ganadero con collares IoT, telemetría GPS, geocercas y alertas operativas. Colaboré en el frontend de este proyecto en equipo; el backend en Spring Boot lo desarrolló un compañero.",
+          en: "Livestock monitoring platform with IoT collars, GPS telemetry, geofences, and operational alerts. I collaborated on the frontend of this team project; a teammate built the Spring Boot backend.",
         },
         features: [
           {
