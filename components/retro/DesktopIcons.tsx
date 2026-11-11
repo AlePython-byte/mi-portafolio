@@ -13,6 +13,7 @@ import { usePreferences } from "@/components/PreferencesProvider";
 import { retro } from "@/data/retro";
 import type { RetroApp } from "@/data/types";
 import {
+  blockedCells,
   cellToPx,
   gridFor,
   nearestFree,
@@ -24,6 +25,7 @@ import {
   type Cell,
   type Direction,
   type Metrics,
+  type Rect,
   type Saved,
 } from "@/lib/iconGrid";
 import { useWindowManager } from "./WindowManager";
@@ -47,6 +49,15 @@ function persist(positions: Saved) {
   } catch {
     // Sin localStorage la app funciona igual; solo no recuerda las posiciones.
   }
+}
+
+// Celdas no disponibles para un icono: las de los demás y las reservadas.
+function takenBy(id: string, positions: Saved, blocked: ReadonlySet<string>) {
+  const taken = new Set(blocked);
+  for (const [otherId, cell] of Object.entries(positions)) {
+    if (otherId !== id) taken.add(cellKey(cell));
+  }
+  return taken;
 }
 
 function FolderIcon({ kind }: { kind: RetroApp["icon"] }) {
@@ -246,11 +257,17 @@ export default function DesktopIcons() {
   const [saved, setSaved] = useState<Saved>(loadSaved);
 
   const ids = useMemo(() => retro.apps.map((app) => app.id), []);
+  const [mullisZone, setMullisZone] = useState<Rect | null>(null);
   const grid = useMemo(() => (metrics ? gridFor(metrics) : null), [metrics]);
+  // Celdas bajo Mullis (con su burbuja): ningún icono puede ocuparlas.
+  const blocked = useMemo(
+    () => (metrics && grid ? blockedCells(mullisZone, metrics, grid) : null),
+    [mullisZone, metrics, grid],
+  );
   // Posiciones finales: las guardadas recortadas al tamaño actual del escritorio.
   const positions = useMemo(
-    () => (grid ? resolveLayout(ids, saved, grid) : null),
-    [ids, saved, grid],
+    () => (grid && blocked ? resolveLayout(ids, saved, grid, blocked) : null),
+    [ids, saved, grid, blocked],
   );
 
   // Mide el icono (la celda) y el escritorio; se repite si cambian de tamaño.
@@ -271,6 +288,28 @@ export default function DesktopIcons() {
         width: area.clientWidth,
         height: area.clientHeight,
       };
+      const zone = area.parentElement?.querySelector("[data-mullis-zone]");
+      const areaBox = area.getBoundingClientRect();
+      const zoneBox = zone?.getBoundingClientRect();
+      const nextZone: Rect | null = zoneBox
+        ? {
+            x: Math.round(zoneBox.left - areaBox.left),
+            y: Math.round(zoneBox.top - areaBox.top),
+            width: Math.round(zoneBox.width),
+            height: Math.round(zoneBox.height),
+          }
+        : null;
+      setMullisZone((prev) =>
+        prev === nextZone ||
+        (prev &&
+          nextZone &&
+          prev.x === nextZone.x &&
+          prev.y === nextZone.y &&
+          prev.width === nextZone.width &&
+          prev.height === nextZone.height)
+          ? prev
+          : nextZone,
+      );
       setMetrics((prev) =>
         prev &&
         prev.cellW === next.cellW &&
@@ -285,6 +324,8 @@ export default function DesktopIcons() {
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(area);
+    const zone = area.parentElement?.querySelector("[data-mullis-zone]");
+    if (zone) observer.observe(zone);
     return () => observer.disconnect();
   }, [language]);
 
@@ -292,12 +333,8 @@ export default function DesktopIcons() {
   // (Lo usan el arrastre y el teclado.)
   const moveTo = useCallback(
     (id: string, wanted: Cell) => {
-      if (!grid || !positions) return;
-      const taken = new Set(
-        Object.entries(positions)
-          .filter(([otherId]) => otherId !== id)
-          .map(([, cell]) => cellKey(cell)),
-      );
+      if (!grid || !positions || !blocked) return;
+      const taken = takenBy(id, positions, blocked);
       const target = taken.has(cellKey(wanted))
         ? nearestFree(wanted, taken, grid)
         : wanted;
@@ -306,7 +343,7 @@ export default function DesktopIcons() {
       setSaved(next);
       persist(next);
     },
-    [grid, positions],
+    [grid, positions, blocked],
   );
 
   // Al soltar: la celda más cercana a donde quedó el icono.
@@ -317,12 +354,8 @@ export default function DesktopIcons() {
 
   // Ctrl + flecha: la siguiente celda libre en esa dirección (salta las ocupadas).
   function onStep(id: string, direction: Direction) {
-    if (!grid || !positions) return;
-    const taken = new Set(
-      Object.entries(positions)
-        .filter(([otherId]) => otherId !== id)
-        .map(([, cell]) => cellKey(cell)),
-    );
+    if (!grid || !positions || !blocked) return;
+    const taken = takenBy(id, positions, blocked);
     const target = stepFree(positions[id], direction, taken, grid);
     if (target) moveTo(id, target);
   }
