@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import LanyardBadge from "@/components/LanyardBadge";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { experienceSection as data } from "@/data/experience";
 import { projectsSection } from "@/data/projects";
@@ -147,15 +147,14 @@ function BadgePanel({
       >
         {item.title[language]}
       </h3>
-      <div className="retro-inset relative mx-auto aspect-[3/4] w-full max-w-64 overflow-hidden">
-        <Image
-          src={item.badge.src}
-          alt={item.badge.alt[language]}
-          fill
-          sizes="16rem"
-          className="object-contain"
-        />
-      </div>
+      <LanyardBadge
+        src={item.badge.src}
+        alt={item.badge.alt[language]}
+        label={item.title[language]}
+        hint={data.badgeHint[language]}
+        missingLabel={data.badgeMissing[language]}
+        variant="retro"
+      />
       <button
         type="button"
         ref={closeRef}
