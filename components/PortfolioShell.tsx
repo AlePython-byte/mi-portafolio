@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import dynamic from "next/dynamic";
 import { useEffect, type ReactNode } from "react";
 import type { RetroAssets } from "./retro/RetroAssets";
@@ -24,6 +25,7 @@ function Shell({
 }) {
   const { active, phase, enterDesktop } = useRetroMode();
 
+  const reduceMotion = useReducedMotion();
   const canUse3D = useCanUse3D();
   const showRoom = ROOM_3D_ENABLED && canUse3D;
 
@@ -54,8 +56,21 @@ function Shell({
       <div className="contents" inert={active} aria-hidden={active || undefined}>
         {children}
       </div>
-      {active && phase === "room" && showRoom && <RoomStage />}
       {active && phase === "desktop" && <RetroDesktop assets={assets} />}
+      {/* Al salir, el escritorio ya está montado debajo y la habitación se
+          desvanece por encima (z mayor) antes de desmontarse. */}
+      <AnimatePresence>
+        {active && phase === "room" && showRoom && (
+          <motion.div
+            key="room"
+            className="fixed inset-0 z-[60]"
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.25 }}
+          >
+            <RoomStage />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
