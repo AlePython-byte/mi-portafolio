@@ -322,10 +322,8 @@ export const projectsSection: ProjectsData = {
       imageFit: "cover",
       imagePosition: "top",
       tags: ["React", "TypeScript", "Vite", "Zustand", "Spring Boot"],
-      // TODO: sustituir por el repositorio del frontend cuando esté disponible
-      // y restaurar el texto "GitHub" (quitar githubLabel).
-      githubUrl: "https://github.com/AlePython-byte/ganaderia-backend",
-      githubLabel: { es: "Repositorio (backend)", en: "Backend repository" },
+      githubUrl: "https://github.com/David-Cabrera00/ganaderia-frontend",
+      githubLabel: { es: "Repositorio (frontend)", en: "Frontend repository" },
       demoUrl: "https://ganaderia-40.vercel.app/dashboard",
       demoLabel: "Ver demo",
       details: {
