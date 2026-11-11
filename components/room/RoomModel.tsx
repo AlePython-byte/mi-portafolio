@@ -4,6 +4,7 @@ import { RoundedBox, useCursor } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Color, Object3D, type InstancedMesh } from "three";
+import MullisFigure from "./MullisFigure";
 
 // ---------- Medidas compartidas (metros; Y hacia arriba) ----------
 
@@ -358,6 +359,10 @@ export default function RoomModel({
       <Keyboard />
       <Mouse />
       <Lamp />
+      <MullisFigure
+        position={[-0.32, DESK_TOP, -1.38]}
+        facing={ROOM_CAMERA.position}
+      />
       <DevStats />
     </>
   );
