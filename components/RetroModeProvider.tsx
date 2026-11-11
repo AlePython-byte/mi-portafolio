@@ -15,10 +15,14 @@ const STORAGE_KEY = "portfolio-mode";
 const RETRO_QUERY =
   "(min-width: 768px) and (hover: hover) and (pointer: fine)";
 
+type Phase = "flat" | "room" | "desktop";
+
 type RetroModeValue = {
   available: boolean; // este dispositivo admite el modo retro
-  active: boolean; // el escritorio retro está encendido
-  powerOn: () => void;
+  active: boolean; // el modo retro está encendido (habitación o escritorio)
+  phase: Phase;
+  powerOn: () => void; // pasa a la habitación, sin guardar
+  enterDesktop: () => void; // pasa al escritorio y guarda "retro"
   powerOff: () => void;
 };
 
@@ -34,7 +38,7 @@ function save(mode: "retro" | "flat") {
 
 export function RetroModeProvider({ children }: { children: ReactNode }) {
   // Por defecto, modo plano.
-  const [wanted, setWanted] = useState(false);
+  const [phase, setPhase] = useState<Phase>("flat");
   const available = useMediaQuery(RETRO_QUERY);
 
   useEffect(() => {
@@ -45,18 +49,20 @@ export function RetroModeProvider({ children }: { children: ReactNode }) {
       // localStorage no disponible: se usa el valor por defecto.
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setWanted(saved === "retro");
+    setPhase(saved === "retro" ? "desktop" : "flat");
   }, []);
 
   const value: RetroModeValue = {
     available,
-    active: available && wanted,
-    powerOn: () => {
-      setWanted(true);
+    active: available && phase !== "flat",
+    phase,
+    powerOn: () => setPhase("room"),
+    enterDesktop: () => {
+      setPhase("desktop");
       save("retro");
     },
     powerOff: () => {
-      setWanted(false);
+      setPhase("flat");
       save("flat");
     },
   };

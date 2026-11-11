@@ -17,7 +17,12 @@ function Shell({
   assets: RetroAssets;
   children: ReactNode;
 }) {
-  const { active } = useRetroMode();
+  const { active, phase, enterDesktop } = useRetroMode();
+
+  // Por ahora la habitación no existe: se pasa directo al escritorio.
+  useEffect(() => {
+    if (phase === "room") enterDesktop();
+  }, [phase, enterDesktop]);
 
   // Con el escritorio encendido, el fondo no hace scroll.
   useEffect(() => {
@@ -36,7 +41,7 @@ function Shell({
       <div className="contents" inert={active} aria-hidden={active || undefined}>
         {children}
       </div>
-      {active && <RetroDesktop assets={assets} />}
+      {active && phase === "desktop" && <RetroDesktop assets={assets} />}
     </>
   );
 }
