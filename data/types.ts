@@ -164,7 +164,8 @@ export type Profile = {
   location: LocalizedText;
   semester: LocalizedText;
   email: string;
-  cvUrl: string;
+  cvUrl: LocalizedText; // ruta del PDF por idioma
+  cvFileName: LocalizedText; // nombre de descarga por idioma
   social: SocialLink[];
 };
 

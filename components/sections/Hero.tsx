@@ -68,8 +68,8 @@ export default function Hero() {
 
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
           <a
-            href={profile.cvUrl}
-            download
+            href={profile.cvUrl[language]}
+            download={profile.cvFileName[language]}
             className={`inline-flex min-h-14 items-center justify-center rounded-2xl bg-accent px-6 font-extrabold text-accent-foreground shadow-neu-sm transition-transform hover:-translate-y-0.5 ${focusRing}`}
           >
             {ui.downloadCv[language]}

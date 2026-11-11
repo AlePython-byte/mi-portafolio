@@ -23,7 +23,11 @@ export const profile: Profile = {
   location: { es: "Pasto, Colombia", en: "Pasto, Colombia" },
   semester: { es: "Quinto semestre", en: "Fifth semester" },
   email: "jorgealejandroparrab@outlook.com",
-  cvUrl: "/cv.pdf",
+  cvUrl: { es: "/cv-es.pdf", en: "/cv-en.pdf" },
+  cvFileName: {
+    es: "CV-Alejandro-Parra-ES.pdf",
+    en: "CV-Alejandro-Parra-EN.pdf",
+  },
   social: [
     { label: "GitHub", url: "https://github.com/AlePython-byte" },
     {
