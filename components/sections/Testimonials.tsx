@@ -42,7 +42,7 @@ export default function Testimonials() {
 
       <ul
         aria-label={data.listLabel[language]}
-        className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2"
+        className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
       >
         {data.items.map((item, index) => (
           <motion.li
