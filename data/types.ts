@@ -48,7 +48,7 @@ export type ProjectsData = {
   projects: Project[];
 };
 
-// Los testimonios no se traducen: son citas literales de otras personas.
+// Los testimonios se traducen (ES y EN) y son citas de otras personas: la traducción debe ser fiel al original.
 export type Testimonial = {
   id: string;
   name: string;
