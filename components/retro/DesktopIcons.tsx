@@ -7,6 +7,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type PointerEvent,
 } from "react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { retro } from "@/data/retro";
@@ -16,6 +17,7 @@ import {
   gridFor,
   nearestFree,
   parseSaved,
+  pxToCell,
   resolveLayout,
   cellKey,
   type Cell,
@@ -68,35 +70,134 @@ function FolderIcon({ kind }: { kind: RetroApp["icon"] }) {
   );
 }
 
+// Movimiento mínimo (px) para que un gesto cuente como arrastre y no como clic.
+const DRAG_THRESHOLD = 5;
+
+type Point = { x: number; y: number };
+
+type Drag = {
+  pointerId: number;
+  startX: number;
+  startY: number;
+  origin: Point;
+  active: boolean;
+};
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), Math.max(min, max));
+}
+
 type IconProps = {
   app: RetroApp;
   helpId: string;
   // null = aún sin medir: el icono fluye en la columna original.
-  position: { x: number; y: number } | null;
+  position: Point | null;
+  // Esquina máxima (px) dentro del escritorio, sin pasar bajo la barra de tareas.
+  max: Point | null;
+  onDrop: (id: string, x: number, y: number) => void;
 };
 
-function DesktopIcon({ app, helpId, position }: IconProps) {
+function DesktopIcon({ app, helpId, position, max, onDrop }: IconProps) {
   const { language } = usePreferences();
   const { open } = useWindowManager();
   const [selected, setSelected] = useState(false);
+  // Coordenadas en píxeles mientras se arrastra; null = en su celda.
+  const [dragPoint, setDragPoint] = useState<Point | null>(null);
+  const drag = useRef<Drag | null>(null);
+  // Tras un arrastre el navegador emite un clic: se ignora.
+  const suppressClick = useRef(false);
+
+  function pointFor(event: PointerEvent<HTMLButtonElement>, d: Drag): Point {
+    return {
+      x: clamp(d.origin.x + event.clientX - d.startX, 0, max?.x ?? 0),
+      y: clamp(d.origin.y + event.clientY - d.startY, 0, max?.y ?? 0),
+    };
+  }
+
+  function onPointerDown(event: PointerEvent<HTMLButtonElement>) {
+    if (event.button !== 0 || !event.isPrimary || !position || !max) return;
+    drag.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      origin: position,
+      active: false,
+    };
+  }
+
+  function onPointerMove(event: PointerEvent<HTMLButtonElement>) {
+    const d = drag.current;
+    if (!d || d.pointerId !== event.pointerId) return;
+    if (!d.active) {
+      const moved = Math.hypot(
+        event.clientX - d.startX,
+        event.clientY - d.startY,
+      );
+      if (moved < DRAG_THRESHOLD) return;
+      d.active = true;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      setSelected(true);
+    }
+    setDragPoint(pointFor(event, d));
+  }
+
+  function endDrag(event: PointerEvent<HTMLButtonElement>, commit: boolean) {
+    const d = drag.current;
+    if (!d || d.pointerId !== event.pointerId) return;
+    drag.current = null;
+    if (!d.active) return;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    if (commit) {
+      suppressClick.current = true;
+      setTimeout(() => {
+        suppressClick.current = false;
+      }, 0);
+      const point = pointFor(event, d);
+      onDrop(app.id, point.x, point.y);
+    }
+    setDragPoint(null);
+  }
+
+  const dragging = dragPoint !== null;
+  const shown = dragPoint ?? position;
 
   return (
     <li
-      className={position ? "absolute" : undefined}
-      style={position ? { left: position.x, top: position.y } : undefined}
+      className={
+        shown
+          ? `absolute ${
+              dragging
+                ? "z-[4] opacity-80 drop-shadow-[3px_3px_0_rgba(0,0,0,0.45)]"
+                : "transition-[left,top] duration-100 motion-reduce:transition-none"
+            }`
+          : undefined
+      }
+      style={shown ? { left: shown.x, top: shown.y } : undefined}
     >
       <button
         type="button"
         id={`retro-icono-${app.id}`}
         aria-describedby={helpId}
         onClick={(event) => {
+          if (suppressClick.current) {
+            suppressClick.current = false;
+            return;
+          }
           // El clic de ratón solo selecciona; Enter y Espacio (detail 0) abren.
           if (event.detail === 0) open(app.id);
           else setSelected(true);
         }}
         onDoubleClick={() => open(app.id)}
         onBlur={() => setSelected(false)}
-        className="flex w-24 flex-col items-center gap-1 p-1 text-center text-white"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={(event) => endDrag(event, true)}
+        onPointerCancel={(event) => endDrag(event, false)}
+        className={`flex w-24 touch-none select-none flex-col items-center gap-1 p-1 text-center text-white ${
+          dragging ? "cursor-grabbing" : ""
+        }`}
       >
         <FolderIcon kind={app.icon} />
         <span
@@ -183,7 +284,12 @@ export default function DesktopIcons() {
     },
     [grid, positions],
   );
-  void moveTo;
+
+  // Al soltar: la celda más cercana a donde quedó el icono.
+  function onDrop(id: string, x: number, y: number) {
+    if (!metrics || !grid) return;
+    moveTo(id, pxToCell(x, y, metrics, grid));
+  }
 
   return (
     <div ref={areaRef} className="absolute inset-0">
@@ -204,6 +310,15 @@ export default function DesktopIcons() {
             position={
               metrics && positions ? cellToPx(positions[app.id], metrics) : null
             }
+            max={
+              metrics
+                ? {
+                    x: metrics.width - metrics.cellW,
+                    y: metrics.height - metrics.cellH,
+                  }
+                : null
+            }
+            onDrop={onDrop}
           />
         ))}
       </ul>
