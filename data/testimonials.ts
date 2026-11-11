@@ -1,6 +1,5 @@
 import type { TestimonialsData } from "./types";
 
-// TODO: falta un tercer testimonio para completar la sección.
 export const testimonialsSection: TestimonialsData = {
   label: { es: "03 · Testimonios", en: "03 · Testimonials" },
   headline: { es: "Testimonios", en: "Testimonials" },
@@ -21,6 +20,18 @@ export const testimonialsSection: TestimonialsData = {
       quote: {
         es: "Trabajar con Alejandro fue una experiencia muy positiva. Tiene la habilidad de transformar ideas complejas en aplicaciones intuitivas y funcionales, manteniendo una comunicación clara y cuidando tanto la experiencia del usuario como los detalles técnicos.",
         en: "Working with Alejandro was a very positive experience. He has the ability to turn complex ideas into intuitive and functional applications, maintaining clear communication and caring about both the user experience and the technical details.",
+      },
+    },
+    {
+      id: "carlos-eduardo-gomez",
+      name: "Carlos Eduardo Gómez",
+      role: {
+        es: "Estudiante de Ingeniería de Software",
+        en: "Software Engineering student",
+      },
+      quote: {
+        es: "Lo que más valoro de Alejandro es su compromiso con la calidad. No se limita a entregar funcionalidades: analiza los problemas, propone mejoras y verifica que cada componente funcione correctamente. Su iniciativa y capacidad de aprendizaje son cualidades que aportan mucho a cualquier equipo.",
+        en: "What I value most about Alejandro is his commitment to quality. He doesn't just deliver features: he analyzes problems, proposes improvements, and verifies that each component works correctly. His initiative and ability to learn are qualities that bring a lot to any team.",
       },
     },
   ],
