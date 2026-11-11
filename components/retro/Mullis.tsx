@@ -37,15 +37,21 @@ export default function Mullis() {
   const chatOpen = windows.some((win) => win.id === MULLIS_CHAT_ID);
 
   return (
-    <div className="pointer-events-none absolute bottom-2 right-3 z-[5] flex flex-col items-end">
-      {!chatOpen && (
-        <>
-          <p id={bubbleId} className="mullis-bubble mb-1 max-w-56 text-lg">
-            <span>{assistant.bubble[language]}</span>
-          </p>
-          <BubbleTail />
-        </>
-      )}
+    <div
+      // Los iconos del escritorio miden esta zona para no quedar debajo.
+      data-mullis-zone
+      className="pointer-events-none absolute bottom-2 right-3 z-[5] flex flex-col items-end"
+    >
+      {/* Con el chat abierto la burbuja se oculta pero sigue ocupando su sitio. */}
+      <div
+        aria-hidden={chatOpen || undefined}
+        className={`flex flex-col items-end ${chatOpen ? "invisible" : ""}`}
+      >
+        <p id={bubbleId} className="mullis-bubble mb-1 max-w-56 text-lg">
+          <span>{assistant.bubble[language]}</span>
+        </p>
+        <BubbleTail />
+      </div>
       <button
         type="button"
         // El chat devuelve el foco a este botón al cerrarse.
