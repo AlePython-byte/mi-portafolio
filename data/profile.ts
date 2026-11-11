@@ -34,7 +34,6 @@ export const profile: Profile = {
       label: "LinkedIn",
       url: "https://www.linkedin.com/in/alejandro-parra-91ab55319/",
     },
-    { label: "Instagram", url: "https://www.instagram.com/aleeee.p_m/" },
   ],
 };
 
