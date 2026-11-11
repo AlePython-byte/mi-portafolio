@@ -125,9 +125,7 @@ export const experienceSection: ExperienceData = {
         en: "Universidad Cooperativa de Colombia (Pasto campus)",
       },
       role: { es: "Quinto semestre", en: "Fifth semester" },
-      // TODO: fecha de inicio de la carrera.
-      period: null,
-      periodLabel: { es: "Fecha de inicio", en: "Start date" },
+      period: { es: "Segundo periodo de 2024", en: "Second term of 2024" },
       ongoing: true,
     },
     {
