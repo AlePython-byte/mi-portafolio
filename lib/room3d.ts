@@ -1,6 +1,11 @@
 // Interruptor de emergencia: en false, la habitación 3D nunca se muestra.
 export const ROOM_3D_ENABLED = true;
 
+// Color de la pantalla del monitor 3D: el mismo fondo de .retro-root (--retro-desktop
+// en app/globals.css), para que la pantalla y el escritorio se fundan al hacer zoom.
+export const ROOM_SCREEN_COLOR = "#007b7b"; // tema claro
+export const ROOM_SCREEN_COLOR_DARK = "#0b2e2e"; // tema oscuro
+
 type NavigatorExtra = Navigator & {
   deviceMemory?: number;
   connection?: { saveData?: boolean };

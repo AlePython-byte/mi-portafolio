@@ -2,6 +2,9 @@
 
 import { Canvas, useThree } from "@react-three/fiber";
 import { useEffect } from "react";
+import { usePreferences } from "@/components/PreferencesProvider";
+import { ROOM_SCREEN_COLOR, ROOM_SCREEN_COLOR_DARK } from "@/lib/room3d";
+import RoomModel, { ROOM_CAMERA } from "./RoomModel";
 
 // Avisa si el navegador pierde el contexto WebGL; el listener se quita al desmontar.
 function ContextWatcher({ onLost }: { onLost: () => void }) {
@@ -20,25 +23,35 @@ type RoomCanvasProps = {
   onContextLost: () => void;
 };
 
-// Escena 3D provisional: un cubo y una luz.
 export default function RoomCanvas({ onReady, onContextLost }: RoomCanvasProps) {
+  // El contexto de React no cruza el Canvas: el tema se lee aquí y baja por props.
+  const { theme } = usePreferences();
+  const screenColor =
+    theme === "dark" ? ROOM_SCREEN_COLOR_DARK : ROOM_SCREEN_COLOR;
+
   return (
     <div aria-hidden="true" className="absolute inset-0">
       <Canvas
         dpr={[1, 1.5]}
         frameloop="demand"
         gl={{ antialias: true, powerPreference: "default" }}
-        camera={{ fov: 45, position: [0, 0, 4] }}
-        onCreated={onReady}
+        camera={{ fov: ROOM_CAMERA.fov, position: [...ROOM_CAMERA.position] }}
+        onCreated={({ camera }) => {
+          camera.lookAt(...ROOM_CAMERA.target);
+          onReady();
+        }}
       >
         <ContextWatcher onLost={onContextLost} />
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[3, 4, 5]} intensity={1.5} />
-        <mesh rotation={[0.5, 0.6, 0]}>
-          <boxGeometry args={[1.5, 1.5, 1.5]} />
-          <meshStandardMaterial color="#7a8cff" />
-        </mesh>
+        <RoomModel screenColor={screenColor} />
       </Canvas>
+      {/* Viñeta nocturna hacia los bordes */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%)",
+        }}
+      />
     </div>
   );
 }
