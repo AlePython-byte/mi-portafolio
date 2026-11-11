@@ -51,10 +51,10 @@ export type ProjectsData = {
 export type Testimonial = {
   id: string;
   name: string;
-  role: string;
-  quote: string;
+  role?: LocalizedText; // cargo o relación; opcional, no se muestra si falta
+  quote: LocalizedText;
   avatar?: string;
-  placeholder: boolean; // true = contenido de ejemplo
+  placeholder?: boolean; // true = contenido de ejemplo
 };
 
 export type TestimonialsData = {

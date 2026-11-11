@@ -42,7 +42,7 @@ export default function Testimonials() {
 
       <ul
         aria-label={data.listLabel[language]}
-        className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3"
+        className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2"
       >
         {data.items.map((item, index) => (
           <motion.li
@@ -58,7 +58,7 @@ export default function Testimonials() {
               )}
 
               <blockquote className="mt-8 flex-1 text-lg leading-relaxed [overflow-wrap:anywhere]">
-                <p>{item.quote}</p>
+                <p>{item.quote[language]}</p>
               </blockquote>
 
               <figcaption className="mt-8 flex items-center gap-4">
@@ -84,7 +84,11 @@ export default function Testimonials() {
                   <span className="block font-bold [overflow-wrap:anywhere]">
                     {item.name}
                   </span>
-                  <span className="block text-sm text-muted">{item.role}</span>
+                  {item.role && (
+                    <span className="block text-sm text-muted">
+                      {item.role[language]}
+                    </span>
+                  )}
                 </span>
               </figcaption>
             </figure>

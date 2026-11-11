@@ -31,14 +31,18 @@ export default function TestimonialsWindow() {
           <figure className="min-w-0">
             <figcaption>
               <span className="font-bold">{item.name}</span>
-              <span className="opacity-80"> · {item.role}</span>
+              {item.role && (
+                <span className="opacity-80"> · {item.role[language]}</span>
+              )}
               {item.placeholder && (
                 <span className="retro-button ml-2 px-1 text-sm uppercase">
                   {data.exampleBadge[language]}
                 </span>
               )}
             </figcaption>
-            <blockquote className="mt-1 leading-snug">{item.quote}</blockquote>
+            <blockquote className="mt-1 leading-snug">
+              {item.quote[language]}
+            </blockquote>
           </figure>
         </li>
       ))}
