@@ -105,11 +105,7 @@ export function stepFree(
 
 // Posición final de cada icono: las guardadas (recortadas al escritorio) y,
 // para el resto, la columna original de arriba abajo. Sin solapamientos.
-export function resolveLayout(
-  ids: string[],
-  saved: Saved,
-  grid: Grid,
-): Saved {
+export function resolveLayout(ids: string[], saved: Saved, grid: Grid): Saved {
   const taken = new Set<string>();
   const result: Saved = {};
 
