@@ -95,6 +95,8 @@ export type ExperienceData = {
   featuredProjectsTitle: LocalizedText;
   viewBadge: LocalizedText;
   viewBadgeAria: LocalizedText; // usa {title}
+  badgeHint: LocalizedText; // cómo mover la escarapela (arrastre o flechas)
+  badgeMissing: LocalizedText; // si la imagen no carga
   close: LocalizedText;
   items: Experience[];
 };

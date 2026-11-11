@@ -26,6 +26,14 @@ export const experienceSection: ExperienceData = {
     es: "Ver escarapela de {title}",
     en: "View badge for {title}",
   },
+  badgeHint: {
+    es: "Arrastra la escarapela de lado a lado o usa las flechas ← y →.",
+    en: "Drag the badge from side to side or use the ← and → arrow keys.",
+  },
+  badgeMissing: {
+    es: "No se pudo cargar la imagen de la escarapela.",
+    en: "The badge image could not be loaded.",
+  },
   close: { es: "Cerrar", en: "Close" },
   items: [
     {
