@@ -26,8 +26,8 @@ export default function CvWindow() {
       </dl>
 
       <a
-        href="/cv.pdf"
-        download
+        href={profile.cvUrl[language]}
+        download={profile.cvFileName[language]}
         className="retro-button inline-block px-4 py-1 no-underline"
       >
         {ui.downloadCv[language]}
