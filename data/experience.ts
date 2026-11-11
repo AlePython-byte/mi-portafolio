@@ -41,7 +41,7 @@ export const experienceSection: ExperienceData = {
       location: pasto,
       period: { es: "Segundo periodo de 2026", en: "Second term of 2026" },
       badge: {
-        src: "/images/escarapelas/seminario-4.jpg",
+        src: "/images/escarapelas/seminario-4.png",
         alt: {
           es: "Escarapela del IV Seminario de Ingeniería de Software",
           en: "Badge from the 4th Software Engineering Seminar",
@@ -61,7 +61,7 @@ export const experienceSection: ExperienceData = {
       location: pasto,
       period: { es: "Segundo periodo de 2025", en: "Second term of 2025" },
       badge: {
-        src: "/images/escarapelas/seminario-3.jpg",
+        src: "/images/escarapelas/seminario-3.png",
         alt: {
           es: "Escarapela del III Seminario de Ingeniería de Software",
           en: "Badge from the 3rd Software Engineering Seminar",
@@ -81,7 +81,7 @@ export const experienceSection: ExperienceData = {
       location: pasto,
       period: { es: "Primer periodo de 2025", en: "First term of 2025" },
       badge: {
-        src: "/images/escarapelas/seminario-2.jpg",
+        src: "/images/escarapelas/seminario-2.png",
         alt: {
           es: "Escarapela del II Seminario de Ingeniería de Software",
           en: "Badge from the 2nd Software Engineering Seminar",
@@ -101,7 +101,7 @@ export const experienceSection: ExperienceData = {
       location: pasto,
       period: { es: "Segundo periodo de 2024", en: "Second term of 2024" },
       badge: {
-        src: "/images/escarapelas/seminario-1.jpg",
+        src: "/images/escarapelas/seminario-1.png",
         alt: {
           es: "Escarapela del I Seminario Nacional de Ingeniería de Software",
           en: "Badge from the 1st National Software Engineering Seminar",
