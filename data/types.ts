@@ -212,6 +212,7 @@ export type PersonalCard = {
   note?: LocalizedText;
   vinyl?: boolean;
   albumCover?: string; // etiqueta central del vinilo
+  albumCoverAlt?: LocalizedText; // texto alternativo de la etiqueta
 };
 
 export type PersonalData = {

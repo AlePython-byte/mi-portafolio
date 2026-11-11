@@ -36,7 +36,15 @@ const layoutSpring = {
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
-function Vinyl({ paused, cover }: { paused: boolean; cover?: string }) {
+function Vinyl({
+  paused,
+  cover,
+  coverAlt,
+}: {
+  paused: boolean;
+  cover?: string;
+  coverAlt?: string;
+}) {
   return (
     <span
       aria-hidden="true"
@@ -52,7 +60,7 @@ function Vinyl({ paused, cover }: { paused: boolean; cover?: string }) {
         <span className="absolute inset-[27%] block overflow-hidden rounded-pill border border-white/20">
           <Image
             src={cover}
-            alt=""
+            alt={coverAlt ?? ""}
             fill
             sizes="10rem"
             className="object-cover"
@@ -76,7 +84,13 @@ function Cover({ card, paused }: { card: PersonalCard; paused: boolean }) {
       className={`relative block ${card.vinyl ? "pr-[12%]" : ""}`}
     >
       <span className="relative block">
-        {card.vinyl && <Vinyl paused={paused} cover={card.albumCover} />}
+        {card.vinyl && (
+          <Vinyl
+            paused={paused}
+            cover={card.albumCover}
+            coverAlt={card.albumCoverAlt?.[language]}
+          />
+        )}
         <span className="relative z-10 block aspect-square overflow-hidden rounded-card shadow-neu-sm">
           <Image
             src={card.image}

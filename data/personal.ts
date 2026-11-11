@@ -52,6 +52,10 @@ export const personal: PersonalData = {
       },
       vinyl: true,
       albumCover: "/images/ferxxo-vol-x.jpg",
+      albumCoverAlt: {
+        es: "Portada del álbum FERXXO VOL X: Sagrado de Feid",
+        en: "Cover of the album FERXXO VOL X: Sagrado by Feid",
+      },
     },
     {
       id: "resident-evil-7",
