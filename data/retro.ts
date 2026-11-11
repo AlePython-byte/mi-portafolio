@@ -4,6 +4,10 @@ export const retro: RetroData = {
   powerOn: { es: "Encender PC", en: "Turn on PC" },
   desktopLabel: { es: "Escritorio retro", en: "Retro desktop" },
   iconsLabel: { es: "Iconos del escritorio", en: "Desktop icons" },
+  iconMoveHelp: {
+    es: "Enter abre. Arrastra el icono o usa Ctrl y las flechas para moverlo una celda.",
+    en: "Enter opens. Drag the icon or use Ctrl and the arrow keys to move it one cell.",
+  },
   windowsLabel: { es: "Ventanas abiertas", en: "Open windows" },
   taskbarLabel: { es: "Barra de tareas", en: "Taskbar" },
   minimize: { es: "Minimizar", en: "Minimize" },

@@ -271,6 +271,7 @@ export type RetroData = {
   powerOn: LocalizedText; // botón del modo plano
   desktopLabel: LocalizedText;
   iconsLabel: LocalizedText;
+  iconMoveHelp: LocalizedText; // ayuda accesible para mover los iconos
   windowsLabel: LocalizedText;
   taskbarLabel: LocalizedText;
   minimize: LocalizedText;
