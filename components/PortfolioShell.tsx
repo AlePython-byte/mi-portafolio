@@ -4,11 +4,16 @@ import dynamic from "next/dynamic";
 import { useEffect, type ReactNode } from "react";
 import type { RetroAssets } from "./retro/RetroAssets";
 import { RetroModeProvider, useRetroMode } from "./RetroModeProvider";
+import { ROOM_3D_ENABLED } from "@/lib/room3d";
+import { useCanUse3D } from "@/lib/useCanUse3D";
 
 // La capa retro solo existe en el cliente y se descarga bajo demanda.
 const RetroDesktop = dynamic(() => import("./retro/RetroDesktop"), {
   ssr: false,
 });
+
+// La habitación solo existe en el cliente y nunca entra en el bundle del modo plano.
+const RoomStage = dynamic(() => import("./room/RoomStage"), { ssr: false });
 
 function Shell({
   assets,
@@ -19,10 +24,18 @@ function Shell({
 }) {
   const { active, phase, enterDesktop } = useRetroMode();
 
-  // Por ahora la habitación no existe: se pasa directo al escritorio.
+  const canUse3D = useCanUse3D();
+  const showRoom = ROOM_3D_ENABLED && canUse3D;
+
+  // Sin soporte 3D no hay habitación: se pasa directo al escritorio.
   useEffect(() => {
-    if (phase === "room") enterDesktop();
-  }, [phase, enterDesktop]);
+    if (phase === "room" && !showRoom) enterDesktop();
+  }, [phase, showRoom, enterDesktop]);
+
+  // Mientras se está en la habitación, se precarga el escritorio retro.
+  useEffect(() => {
+    if (phase === "room" && showRoom) void import("./retro/RetroDesktop");
+  }, [phase, showRoom]);
 
   // Con el escritorio encendido, el fondo no hace scroll.
   useEffect(() => {
@@ -41,6 +54,7 @@ function Shell({
       <div className="contents" inert={active} aria-hidden={active || undefined}>
         {children}
       </div>
+      {active && phase === "room" && showRoom && <RoomStage />}
       {active && phase === "desktop" && <RetroDesktop assets={assets} />}
     </>
   );
