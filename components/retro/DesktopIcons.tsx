@@ -19,8 +19,10 @@ import {
   parseSaved,
   pxToCell,
   resolveLayout,
+  stepFree,
   cellKey,
   type Cell,
+  type Direction,
   type Metrics,
   type Saved,
 } from "@/lib/iconGrid";
@@ -95,9 +97,24 @@ type IconProps = {
   // Esquina máxima (px) dentro del escritorio, sin pasar bajo la barra de tareas.
   max: Point | null;
   onDrop: (id: string, x: number, y: number) => void;
+  onStep: (id: string, direction: Direction) => void;
 };
 
-function DesktopIcon({ app, helpId, position, max, onDrop }: IconProps) {
+const ARROWS: Record<string, Direction> = {
+  ArrowLeft: { dc: -1, dr: 0 },
+  ArrowRight: { dc: 1, dr: 0 },
+  ArrowUp: { dc: 0, dr: -1 },
+  ArrowDown: { dc: 0, dr: 1 },
+};
+
+function DesktopIcon({
+  app,
+  helpId,
+  position,
+  max,
+  onDrop,
+  onStep,
+}: IconProps) {
   const { language } = usePreferences();
   const { open } = useWindowManager();
   const [selected, setSelected] = useState(false);
@@ -191,6 +208,13 @@ function DesktopIcon({ app, helpId, position, max, onDrop }: IconProps) {
         }}
         onDoubleClick={() => open(app.id)}
         onBlur={() => setSelected(false)}
+        onKeyDown={(event) => {
+          // Alternativa al arrastre: Ctrl + flechas mueve una celda.
+          const direction = ARROWS[event.key];
+          if (!direction || !event.ctrlKey) return;
+          event.preventDefault();
+          onStep(app.id, direction);
+        }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={(event) => endDrag(event, true)}
@@ -291,6 +315,18 @@ export default function DesktopIcons() {
     moveTo(id, pxToCell(x, y, metrics, grid));
   }
 
+  // Ctrl + flecha: la siguiente celda libre en esa dirección (salta las ocupadas).
+  function onStep(id: string, direction: Direction) {
+    if (!grid || !positions) return;
+    const taken = new Set(
+      Object.entries(positions)
+        .filter(([otherId]) => otherId !== id)
+        .map(([, cell]) => cellKey(cell)),
+    );
+    const target = stepFree(positions[id], direction, taken, grid);
+    if (target) moveTo(id, target);
+  }
+
   return (
     <div ref={areaRef} className="absolute inset-0">
       <p id={helpId} className="sr-only">
@@ -319,6 +355,7 @@ export default function DesktopIcons() {
                 : null
             }
             onDrop={onDrop}
+            onStep={onStep}
           />
         ))}
       </ul>
