@@ -82,7 +82,10 @@ export default function ProjectsView({ images }: Props) {
                   </ul>
                   <div className="mt-auto flex flex-wrap gap-3 pt-6">
                     <ProjectActionButton
-                      label={projectsSection.githubLabel[language]}
+                      label={
+                        project.githubLabel?.[language] ??
+                        projectsSection.githubLabel[language]
+                      }
                       href={project.githubUrl}
                       disabledText={projectsSection.comingSoon[language]}
                       disabledAria={fillTemplate(

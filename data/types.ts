@@ -10,6 +10,7 @@ export type Project = {
   imagePosition?: "center" | "top"; // por defecto "center"
   tags: string[];
   githubUrl: string; // "#" = aún no disponible
+  githubLabel?: LocalizedText; // texto propio del enlace; por defecto el de la sección
   demoUrl: string; // "#" = aún no disponible
   demoLabel: DemoLabel;
   details: ProjectDetails;

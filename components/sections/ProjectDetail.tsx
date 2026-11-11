@@ -133,7 +133,9 @@ export default function ProjectDetail({ project, image }: Props) {
 
           <div className="flex flex-wrap gap-3">
             <ProjectActionButton
-              label={labels.githubLabel[language]}
+              label={
+                project.githubLabel?.[language] ?? labels.githubLabel[language]
+              }
               href={project.githubUrl}
               disabledText={labels.comingSoon[language]}
               disabledAria={fillTemplate(labels.githubDisabledAria[language], {

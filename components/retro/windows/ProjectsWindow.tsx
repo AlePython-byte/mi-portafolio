@@ -108,7 +108,9 @@ function Detail({ project }: { project: Project }) {
       <div className="flex flex-wrap gap-2">
         <ProjectActionButton
           variant="retro"
-          label={labels.githubLabel[language]}
+          label={
+            project.githubLabel?.[language] ?? labels.githubLabel[language]
+          }
           href={project.githubUrl}
           disabledText={labels.comingSoon[language]}
           disabledAria={fillTemplate(labels.githubDisabledAria[language], {
