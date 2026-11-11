@@ -66,7 +66,10 @@ export const ui: UiLabels = {
     en: "Switch to dark theme",
   },
   languageGroup: { es: "Idioma", en: "Language" },
-  downloadCv: { es: "Descargar CV", en: "Download CV" },
+  downloadCv: {
+    es: "Descargar CV en español",
+    en: "Download CV in English",
+  },
   viewProjects: { es: "Ver proyectos", en: "View projects" },
   projectsHref: "#proyectos",
   socialAriaLabel: { es: "Redes sociales", en: "Social links" },
