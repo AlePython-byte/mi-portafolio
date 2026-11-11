@@ -99,9 +99,7 @@ export const experienceSection: ExperienceData = {
       organizationLabel: organizer,
       role: participant,
       location: pasto,
-      // TODO: fecha del seminario.
-      period: null,
-      periodLabel: { es: "Fecha", en: "Date" },
+      period: { es: "Segundo periodo de 2024", en: "Second term of 2024" },
       badge: {
         src: "/images/escarapelas/seminario-1.jpg",
         alt: {
