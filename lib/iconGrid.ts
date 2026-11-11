@@ -14,6 +14,9 @@ export type Metrics = {
 
 export type Grid = { cols: number; rows: number };
 
+// Rectángulo en píxeles dentro del escritorio.
+export type Rect = { x: number; y: number; width: number; height: number };
+
 // Mismos valores que el diseño original (left-2 top-2 gap-2).
 export const ICON_ORIGIN = 8;
 export const ICON_GAP = 8;
@@ -64,6 +67,30 @@ export function cellKey(cell: Cell) {
   return `${cell.col},${cell.row}`;
 }
 
+// Celdas que toca un rectángulo (p. ej. Mullis con su burbuja): quedan reservadas.
+export function blockedCells(
+  rect: Rect | null,
+  m: Metrics,
+  grid: Grid,
+): Set<string> {
+  const blocked = new Set<string>();
+  if (!rect) return blocked;
+  for (let row = 0; row < grid.rows; row++) {
+    for (let col = 0; col < grid.cols; col++) {
+      const { x, y } = cellToPx({ col, row }, m);
+      if (
+        x < rect.x + rect.width &&
+        x + m.cellW > rect.x &&
+        y < rect.y + rect.height &&
+        y + m.cellH > rect.y
+      ) {
+        blocked.add(cellKey({ col, row }));
+      }
+    }
+  }
+  return blocked;
+}
+
 // Celda libre más próxima al objetivo; null si el escritorio está lleno.
 export function nearestFree(
   target: Cell,
@@ -104,9 +131,15 @@ export function stepFree(
 }
 
 // Posición final de cada icono: las guardadas (recortadas al escritorio) y,
-// para el resto, la columna original de arriba abajo. Sin solapamientos.
-export function resolveLayout(ids: string[], saved: Saved, grid: Grid): Saved {
-  const taken = new Set<string>();
+// para el resto, la columna original de arriba abajo. Sin solapamientos ni
+// iconos en las celdas reservadas (blocked).
+export function resolveLayout(
+  ids: string[],
+  saved: Saved,
+  grid: Grid,
+  blocked: ReadonlySet<string> = new Set(),
+): Saved {
+  const taken = new Set<string>(blocked);
   const result: Saved = {};
 
   function place(id: string, wanted: Cell) {
