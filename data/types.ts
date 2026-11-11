@@ -308,3 +308,15 @@ export type AssistantData = {
   rateLimited: LocalizedText;
   quickQuestions: AssistantQuickQuestion[];
 };
+
+// Textos de la habitación 3D (components/room/).
+export type RoomData = {
+  sceneLabel: LocalizedText;
+  usePc: LocalizedText;
+  usePcHint: LocalizedText;
+  zoomOutHint: LocalizedText;
+  skip: LocalizedText; // enlace para saltar al escritorio retro
+  exit: LocalizedText; // volver al modo plano
+  loading: LocalizedText;
+  mullisLabel: LocalizedText; // aria-label del personaje
+};
