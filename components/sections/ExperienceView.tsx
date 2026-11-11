@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import ImageDialog from "@/components/ImageDialog";
+import BadgeDialog from "@/components/BadgeDialog";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { experienceSection } from "@/data/experience";
 import { projectsSection } from "@/data/projects";
@@ -120,7 +120,7 @@ export default function ExperienceView({ items }: Props) {
 
         {item.badge && (
           <div className="mt-4">
-            <ImageDialog
+            <BadgeDialog
               src={item.badge.src}
               alt={item.badge.alt[language]}
               title={item.title[language]}
@@ -129,6 +129,8 @@ export default function ExperienceView({ items }: Props) {
                 title: item.title[language],
               })}
               closeLabel={data.close[language]}
+              hint={data.badgeHint[language]}
+              missingLabel={data.badgeMissing[language]}
             />
           </div>
         )}
