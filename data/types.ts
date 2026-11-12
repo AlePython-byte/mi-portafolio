@@ -69,6 +69,8 @@ export type TestimonialsData = {
   label: LocalizedText;
   headline: LocalizedText;
   listLabel: LocalizedText;
+  readMore: LocalizedText; // botón de las citas largas
+  readLess: LocalizedText;
   exampleBadge: LocalizedText;
   items: Testimonial[];
 };

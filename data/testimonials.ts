@@ -4,6 +4,8 @@ export const testimonialsSection: TestimonialsData = {
   label: { es: "03 · Testimonios", en: "03 · Testimonials" },
   headline: { es: "Testimonios", en: "Testimonials" },
   listLabel: { es: "Lista de testimonios", en: "List of testimonials" },
+  readMore: { es: "Leer más", en: "Read more" },
+  readLess: { es: "Leer menos", en: "Read less" },
   exampleBadge: { es: "Ejemplo", en: "Example" },
   items: [
     {
