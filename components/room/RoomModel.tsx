@@ -2,8 +2,9 @@
 
 import { RoundedBox, useCursor } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { Color, Object3D, type InstancedMesh } from "three";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Object3D, type InstancedMesh } from "three";
+import CrtScreen from "./CrtScreen";
 import MullisFigure from "./MullisFigure";
 
 // ---------- Medidas compartidas (metros; Y hacia arriba) ----------
@@ -177,12 +178,6 @@ function Monitor({ screenColor, interactive, onActivate }: MonitorProps) {
   const lit = hovered && interactive;
   useCursor(lit);
 
-  // Con el cursor encima, la pantalla se aclara un poco.
-  const brighter = useMemo(
-    () => new Color(screenColor).lerp(new Color("#ffffff"), 0.18),
-    [screenColor],
-  );
-
   return (
     <group
       position={MONITOR_POSITION as unknown as [number, number, number]}
@@ -216,14 +211,12 @@ function Monitor({ screenColor, interactive, onActivate }: MonitorProps) {
         position={[0, SCREEN_LOCAL[1], 0.08]}
         color={C.bezel}
       />
-      <mesh position={SCREEN_LOCAL as unknown as [number, number, number]}>
-        <planeGeometry args={SCREEN_SIZE as unknown as [number, number]} />
-        {/* Sin tone mapping para que el color coincida con el escritorio retro */}
-        <meshBasicMaterial
-          color={lit ? brighter : screenColor}
-          toneMapped={false}
-        />
-      </mesh>
+      <CrtScreen
+        size={SCREEN_SIZE}
+        position={SCREEN_LOCAL}
+        screenColor={screenColor}
+        lit={lit}
+      />
     </group>
   );
 }
