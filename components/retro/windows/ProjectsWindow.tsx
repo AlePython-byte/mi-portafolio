@@ -1,14 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import ProjectActionButton from "@/components/ProjectActionButton";
+import VideoPlayer from "@/components/VideoPlayer";
 import { projectsSection as labels } from "@/data/projects";
 import { retro } from "@/data/retro";
 import { useRetroAssets } from "../RetroAssets";
 import type { Project } from "@/data/types";
 import { fillTemplate } from "@/lib/format";
+import { youtubeWatchUrl } from "@/lib/youtube";
 
 const heading = "text-xl font-normal tracking-normal underline";
 
@@ -46,7 +48,72 @@ function ProjectImage({ project }: { project: Project }) {
   );
 }
 
-function Detail({ project }: { project: Project }) {
+// Vista del video dentro de la ventana; el iframe vive solo mientras se muestra.
+function VideoView({
+  project,
+  videoId,
+  onBack,
+}: {
+  project: Project;
+  videoId: string;
+  onBack: () => void;
+}) {
+  const { language } = usePreferences();
+  const values = { title: project.title };
+  const backRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    backRef.current?.focus();
+  }, []);
+
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h3
+          className="text-2xl font-normal tracking-normal"
+          style={{ letterSpacing: "normal" }}
+        >
+          {project.title}
+        </h3>
+        <div className="flex gap-2">
+          <a
+            href={youtubeWatchUrl(videoId)}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={fillTemplate(labels.watchOnYoutubeAria[language], values)}
+            className="retro-button inline-block px-3 py-1 no-underline"
+          >
+            {labels.watchOnYoutube[language]}
+          </a>
+          <button
+            ref={backRef}
+            type="button"
+            onClick={onBack}
+            className="retro-button px-3 py-1"
+          >
+            {retro.back[language]}
+          </button>
+        </div>
+      </div>
+      <div className="retro-inset relative aspect-video w-full bg-black">
+        <VideoPlayer
+          videoId={videoId}
+          title={fillTemplate(labels.videoTitle[language], values)}
+        />
+      </div>
+    </div>
+  );
+}
+
+function Detail({
+  project,
+  onWatch,
+  watchRef,
+}: {
+  project: Project;
+  onWatch: () => void;
+  watchRef: RefObject<HTMLButtonElement | null>;
+}) {
   const { language } = usePreferences();
   const { details } = project;
 
@@ -117,17 +184,32 @@ function Detail({ project }: { project: Project }) {
             title: project.title,
           })}
         />
-        <ProjectActionButton
-          variant="retro"
-          primary
-          label={labels.demoLabels[project.demoLabel][language]}
-          href={project.demoUrl}
-          disabledText={labels.comingSoon[language]}
-          disabledAria={fillTemplate(labels.demoDisabledAria[language], {
-            kind: labels.demoKinds[project.demoLabel][language],
-            title: project.title,
-          })}
-        />
+        {project.videoId ? (
+          <button
+            ref={watchRef}
+            type="button"
+            onClick={onWatch}
+            aria-haspopup="true"
+            aria-label={fillTemplate(labels.demoOpenAria[language], {
+              title: project.title,
+            })}
+            className="retro-button px-4 py-1 font-bold"
+          >
+            {labels.demoLabels[project.demoLabel][language]}
+          </button>
+        ) : (
+          <ProjectActionButton
+            variant="retro"
+            primary
+            label={labels.demoLabels[project.demoLabel][language]}
+            href={project.demoUrl}
+            disabledText={labels.comingSoon[language]}
+            disabledAria={fillTemplate(labels.demoDisabledAria[language], {
+              kind: labels.demoKinds[project.demoLabel][language],
+              title: project.title,
+            })}
+          />
+        )}
       </div>
     </div>
   );
@@ -137,6 +219,18 @@ function Detail({ project }: { project: Project }) {
 export default function ProjectsWindow() {
   const { language } = usePreferences();
   const [selectedId, setSelectedId] = useState(labels.projects[0]?.id);
+  // Proyecto cuyo video se muestra en lugar del detalle.
+  const [videoFor, setVideoFor] = useState<string | null>(null);
+  const watchRef = useRef<HTMLButtonElement>(null);
+  const returnFocus = useRef(false);
+
+  // Al volver del video, el foco regresa al botón "Ver demo".
+  useEffect(() => {
+    if (videoFor === null && returnFocus.current) {
+      returnFocus.current = false;
+      watchRef.current?.focus();
+    }
+  }, [videoFor]);
   const selected =
     labels.projects.find((project) => project.id === selectedId) ??
     labels.projects[0];
@@ -153,7 +247,10 @@ export default function ProjectsWindow() {
             <li key={project.id}>
               <button
                 type="button"
-                onClick={() => setSelectedId(project.id)}
+                onClick={() => {
+                  setSelectedId(project.id);
+                  setVideoFor(null);
+                }}
                 aria-current={isSelected ? "true" : undefined}
                 className={`flex w-full items-start gap-2 p-1.5 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)] ${
                   isSelected
@@ -175,7 +272,24 @@ export default function ProjectsWindow() {
       </ul>
 
       <div className="retro-inset min-w-0 flex-1 overflow-y-auto p-3">
-        {selected && <Detail project={selected} />}
+        {selected && videoFor === selected.id && selected.videoId ? (
+          <VideoView
+            project={selected}
+            videoId={selected.videoId[language]}
+            onBack={() => {
+              returnFocus.current = true;
+              setVideoFor(null);
+            }}
+          />
+        ) : (
+          selected && (
+            <Detail
+              project={selected}
+              onWatch={() => setVideoFor(selected.id)}
+              watchRef={watchRef}
+            />
+          )
+        )}
       </div>
     </div>
   );

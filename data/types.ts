@@ -12,6 +12,9 @@ export type Project = {
   githubUrl: string; // "#" = aún no disponible
   githubLabel?: LocalizedText; // texto propio del enlace; por defecto el de la sección
   demoUrl: string; // "#" = aún no disponible
+  // ID de YouTube por idioma. Con videoId, "Ver demo" abre el video ampliado;
+  // sin él, demoUrl es un enlace externo ("#" = próximamente).
+  videoId?: LocalizedText;
   demoLabel: DemoLabel;
   details: ProjectDetails;
 };
@@ -43,6 +46,10 @@ export type ProjectsData = {
   detailsTitle: LocalizedText;
   githubDisabledAria: LocalizedText; // usa {title}
   demoDisabledAria: LocalizedText; // usa {kind} y {title}
+  demoOpenAria: LocalizedText; // usa {title}
+  videoTitle: LocalizedText; // título del iframe; usa {title}
+  watchOnYoutube: LocalizedText;
+  watchOnYoutubeAria: LocalizedText; // usa {title}
   demoKinds: Record<DemoLabel, LocalizedText>;
   demoLabels: Record<DemoLabel, LocalizedText>;
   projects: Project[];
@@ -62,6 +69,8 @@ export type TestimonialsData = {
   label: LocalizedText;
   headline: LocalizedText;
   listLabel: LocalizedText;
+  readMore: LocalizedText; // botón de las citas largas
+  readLess: LocalizedText;
   exampleBadge: LocalizedText;
   items: Testimonial[];
 };

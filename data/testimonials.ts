@@ -4,6 +4,8 @@ export const testimonialsSection: TestimonialsData = {
   label: { es: "03 · Testimonios", en: "03 · Testimonials" },
   headline: { es: "Testimonios", en: "Testimonials" },
   listLabel: { es: "Lista de testimonios", en: "List of testimonials" },
+  readMore: { es: "Leer más", en: "Read more" },
+  readLess: { es: "Leer menos", en: "Read less" },
   exampleBadge: { es: "Ejemplo", en: "Example" },
   items: [
     {
@@ -23,15 +25,15 @@ export const testimonialsSection: TestimonialsData = {
       },
     },
     {
-      id: "carlos-eduardo-gomez",
-      name: "Carlos Eduardo Gómez",
+      id: "javier-lexander-mendieta",
+      name: "Javier Lexander Mendieta",
       role: {
-        es: "Estudiante de Ingeniería de Software",
-        en: "Software Engineering student",
+        es: "Docente de Arquitectura de Software y Arquitectura Computacional · Universidad Cooperativa de Colombia",
+        en: "Lecturer in Software Architecture and Computer Architecture · Universidad Cooperativa de Colombia",
       },
       quote: {
-        es: "Lo que más valoro de Alejandro es su compromiso con la calidad. No se limita a entregar funcionalidades: analiza los problemas, propone mejoras y verifica que cada componente funcione correctamente. Su iniciativa y capacidad de aprendizaje son cualidades que aportan mucho a cualquier equipo.",
-        en: "What I value most about Alejandro is his commitment to quality. He doesn't just deliver features: he analyzes problems, proposes improvements, and verifies that each component works correctly. His initiative and ability to learn are qualities that bring a lot to any team.",
+        es: "Alejandro demuestra un gran interés por comprender el software más allá del código. Destaco su capacidad para abordar problemas desde una perspectiva arquitectónica, proponer soluciones bien estructuradas y aplicar sus conocimientos en proyectos de desarrollo. Su iniciativa, curiosidad técnica y compromiso con la calidad reflejan un perfil con un gran potencial de crecimiento profesional.",
+        en: "Alejandro shows a great interest in understanding software beyond the code. I highlight his ability to approach problems from an architectural perspective, propose well-structured solutions, and apply his knowledge in development projects. His initiative, technical curiosity, and commitment to quality reflect a profile with great potential for professional growth.",
       },
     },
   ],
