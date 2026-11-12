@@ -129,6 +129,7 @@ export default function RoomStage() {
           target={target}
           onArrive={goDesktop}
           onUsePc={zoomIn}
+          onFail={goDesktop}
         />
       </RoomErrorBoundary>
 

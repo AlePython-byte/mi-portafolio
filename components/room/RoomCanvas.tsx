@@ -1,7 +1,8 @@
 "use client";
 
+import { PerformanceMonitor } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { ROOM_SCREEN_COLOR, ROOM_SCREEN_COLOR_DARK } from "@/lib/room3d";
 import CameraRig, { type CameraTarget } from "./CameraRig";
@@ -19,12 +20,34 @@ function ContextWatcher({ onLost }: { onLost: () => void }) {
   return null;
 }
 
+// Duración del zoom de CameraRig (1200 ms) más un pequeño margen.
+const ANIMATION_WINDOW_MS = 1300;
+
+// Con frameloop="demand" solo hay fotogramas seguidos mientras la cámara se
+// anima. Fuera de esa ventana el monitor se desmonta (y pierde su muestra
+// parcial), para que los huecos del reposo no se lean como FPS bajos.
+function useAnimationWindow(target: CameraTarget): boolean {
+  const [measuring, setMeasuring] = useState(false);
+  const previous = useRef<CameraTarget>("room"); // la cámara siempre nace en "room"
+
+  useEffect(() => {
+    if (target === previous.current) return;
+    previous.current = target;
+    setMeasuring(true);
+    const timer = setTimeout(() => setMeasuring(false), ANIMATION_WINDOW_MS);
+    return () => clearTimeout(timer);
+  }, [target]);
+
+  return measuring;
+}
+
 type RoomCanvasProps = {
   onReady: () => void; // el renderer se creó
   onContextLost: () => void;
   target: CameraTarget; // hacia dónde mira la cámara
   onArrive: () => void; // la cámara llegó a la pantalla
   onUsePc: () => void; // clic en el monitor
+  onFail: () => void; // el equipo es demasiado lento: al escritorio
 };
 
 export default function RoomCanvas({
@@ -33,16 +56,28 @@ export default function RoomCanvas({
   target,
   onArrive,
   onUsePc,
+  onFail,
 }: RoomCanvasProps) {
   // El contexto de React no cruza el Canvas: el tema se lee aquí y baja por props.
   const { theme } = usePreferences();
   const screenColor =
     theme === "dark" ? ROOM_SCREEN_COLOR_DARK : ROOM_SCREEN_COLOR;
 
+  const measuring = useAnimationWindow(target);
+  const [lowDpr, setLowDpr] = useState(false);
+  const declines = useRef(0);
+
+  // Primer descenso de FPS: se baja la resolución; el segundo, al escritorio.
+  const handleDecline = () => {
+    declines.current += 1;
+    if (declines.current === 1) setLowDpr(true);
+    else onFail();
+  };
+
   return (
     <div aria-hidden="true" className="absolute inset-0">
       <Canvas
-        dpr={[1, 1.5]}
+        dpr={lowDpr ? 1 : [1, 1.5]}
         frameloop="demand"
         gl={{ antialias: true, powerPreference: "default" }}
         camera={{ fov: ROOM_CAMERA.fov, position: [...ROOM_CAMERA.position] }}
@@ -52,6 +87,15 @@ export default function RoomCanvas({
         }}
       >
         <ContextWatcher onLost={onContextLost} />
+        {measuring && (
+          <PerformanceMonitor
+            iterations={4}
+            ms={150}
+            flipflops={2}
+            onDecline={handleDecline}
+            onFallback={onFail}
+          />
+        )}
         <CameraRig target={target} onArrive={onArrive} />
         <RoomModel
           screenColor={screenColor}
