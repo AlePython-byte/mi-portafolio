@@ -5,6 +5,7 @@ import { usePreferences } from "@/components/PreferencesProvider";
 import ProjectActionButton, {
   projectButtonBase,
 } from "@/components/ProjectActionButton";
+import ProjectDemoButton from "@/components/ProjectDemoButton";
 import ProjectImage from "@/components/ProjectImage";
 import { projectsSection as labels } from "@/data/projects";
 import { fillTemplate } from "@/lib/format";
@@ -142,16 +143,7 @@ export default function ProjectDetail({ project, image }: Props) {
                 title: project.title,
               })}
             />
-            <ProjectActionButton
-              label={labels.demoLabels[project.demoLabel][language]}
-              href={project.demoUrl}
-              disabledText={labels.comingSoon[language]}
-              disabledAria={fillTemplate(labels.demoDisabledAria[language], {
-                kind: labels.demoKinds[project.demoLabel][language],
-                title: project.title,
-              })}
-              primary
-            />
+            <ProjectDemoButton project={project} />
           </div>
         </div>
       </dialog>

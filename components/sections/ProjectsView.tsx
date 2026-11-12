@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import ProjectActionButton from "@/components/ProjectActionButton";
+import ProjectDemoButton from "@/components/ProjectDemoButton";
 import ProjectImage from "@/components/ProjectImage";
 import { projectsSection } from "@/data/projects";
 import { fillTemplate } from "@/lib/format";
@@ -93,19 +94,7 @@ export default function ProjectsView({ images }: Props) {
                         { title: project.title },
                       )}
                     />
-                    <ProjectActionButton
-                      label={projectsSection.demoLabels[project.demoLabel][language]}
-                      href={project.demoUrl}
-                      disabledText={projectsSection.comingSoon[language]}
-                      disabledAria={fillTemplate(
-                        projectsSection.demoDisabledAria[language],
-                        {
-                          kind: projectsSection.demoKinds[project.demoLabel][language],
-                          title: project.title,
-                        },
-                      )}
-                      primary
-                    />
+                    <ProjectDemoButton project={project} />
                     <ProjectDetail project={project} image={image} />
                   </div>
                 </div>
