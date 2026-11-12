@@ -37,6 +37,19 @@ export const projectsSection: ProjectsData = {
     "Ver video": { es: "Video", en: "Video" },
     "Ver release": { es: "Release", en: "Release" },
   },
+  demoOpenAria: {
+    es: "Ver demo de {title}",
+    en: "View demo of {title}",
+  },
+  videoTitle: {
+    es: "Video de demostración de {title}",
+    en: "Demo video of {title}",
+  },
+  watchOnYoutube: { es: "Ver en YouTube", en: "Watch on YouTube" },
+  watchOnYoutubeAria: {
+    es: "Ver el video de {title} en YouTube (se abre en otra pestaña)",
+    en: "Watch the {title} video on YouTube (opens in a new tab)",
+  },
   demoLabels: {
     "Ver demo": { es: "Ver demo", en: "View demo" },
     "Ver video": { es: "Ver video", en: "Watch video" },
@@ -58,8 +71,8 @@ export const projectsSection: ProjectsData = {
       imageFit: "cover",
       tags: ["Godot .NET", "C#", "Blender", "Krita"],
       githubUrl: "https://github.com/AlePython-byte/LULLABY",
-      // TODO: reemplazar por el enlace real de la demo.
       demoUrl: "#",
+      videoId: { es: "iVkHxuRo3QQ", en: "Ev14OoWuPrE" },
       demoLabel: "Ver demo",
       details: {
         summary: {
@@ -105,9 +118,9 @@ export const projectsSection: ProjectsData = {
       imagePosition: "top",
       tags: ["Tauri", "Rust", "React", "TypeScript", "NestJS"],
       githubUrl: "https://github.com/AlePython-byte/vision2code",
-      // TODO: reemplazar por el enlace real del release.
       demoUrl: "#",
-      demoLabel: "Ver release",
+      videoId: { es: "kRCJ8uxwQP0", en: "k6aK5noqEOA" },
+      demoLabel: "Ver demo",
       details: {
         summary: {
           es: "Subes la captura de una interfaz y la app la convierte en un proyecto de código. La IA no escribe código: solo describe la interfaz como un esquema que se valida de forma estricta, y un generador determinista lo convierte en código. Así el resultado es predecible.",
@@ -182,9 +195,9 @@ export const projectsSection: ProjectsData = {
       imageFit: "contain",
       tags: ["Kotlin", "Jetpack Compose", "NestJS", "Supabase"],
       githubUrl: "https://github.com/AlePython-byte/zerowaste-eats",
-      // TODO: reemplazar por el enlace real del video.
       demoUrl: "#",
-      demoLabel: "Ver video",
+      videoId: { es: "Ljf7hbApC4g", en: "pl07tTZ_ZJs" },
+      demoLabel: "Ver demo",
       details: {
         summary: {
           es: "App Android nativa de rescate de comida. Los negocios publican a menor precio lo que les sobra al final del día; los compradores lo descubren, lo reservan y lo recogen en el local con un código corto.",
@@ -258,9 +271,9 @@ export const projectsSection: ProjectsData = {
       imageFit: "contain",
       tags: ["Kotlin", "Jetpack Compose", "Wear OS", "Python"],
       githubUrl: "https://github.com/AlePython-byte/lumina-wear",
-      // TODO: reemplazar por el enlace real del video.
       demoUrl: "#",
-      demoLabel: "Ver video",
+      videoId: { es: "TY1oPoaheK4", en: "s7rMek7BTMY" },
+      demoLabel: "Ver demo",
       details: {
         summary: {
           es: "Controla las luces de la casa desde la muñeca: enciende, apaga y ajusta el brillo. Tiene escenas, favoritos y un asistente al que le hablas en texto, por ejemplo «pon la sala tranquila».",
