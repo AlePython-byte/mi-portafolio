@@ -168,6 +168,23 @@ body:has(dialog[open]) {
   --retro-edge: #000000;
   --retro-select: #000080;
   --retro-select-text: #ffffff;
+
+  /* Paleta de los iconos en píxeles (15 colores + transparente). */
+  --retro-px-ink: #000000;
+  --retro-px-white: #ffffff;
+  --retro-px-light: #c8c8c8;
+  --retro-px-gray: #808080;
+  --retro-px-yellow: #f4d03f;
+  --retro-px-brown: #8b5a2b;
+  --retro-px-umber: #4a2e14;
+  --retro-px-red: #c8322a;
+  --retro-px-green: #3fae4a;
+  --retro-px-forest: #1d6b2f;
+  --retro-px-cyan: #6cd0ec;
+  --retro-px-blue: #2a5db0;
+  --retro-px-purple: #8f4fc8;
+  --retro-px-violet: #5a2f8a;
+  --retro-px-skin: #f2b994;
 }
 
 :root[data-theme="dark"] .retro-root {
@@ -182,6 +199,9 @@ body:has(dialog[open]) {
   --retro-edge: #000000;
   --retro-select: #1b1b6b;
   --retro-select-text: #ffffff;
+  /* Iconos: el blanco y el gris claro bajan para no deslumbrar. */
+  --retro-px-white: #dcdce4;
+  --retro-px-light: #a0a0ac;
 }
 
 .retro-root {
