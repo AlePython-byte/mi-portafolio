@@ -118,7 +118,7 @@ export default function Hero() {
           onPointerLeave={resetTilt}
         >
           <div className="flex items-start justify-between">
-            <p className="text-[0.66rem] font-extrabold uppercase tracking-[0.22em] text-muted">
+            <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-muted">
               {ui.profileCardLabel[language]} / 01
             </p>
             <span

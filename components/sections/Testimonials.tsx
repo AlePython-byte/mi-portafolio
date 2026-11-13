@@ -35,7 +35,7 @@ function TestimonialCard({
   return (
     <figure className="relative flex flex-col rounded-card bg-background p-6 shadow-neu sm:p-8">
       {item.placeholder && (
-        <span className="absolute right-5 top-5 rounded-pill border border-dashed border-line-strong px-3 py-1 text-[0.65rem] font-extrabold uppercase tracking-widest text-muted">
+        <span className="absolute right-5 top-5 rounded-pill border border-dashed border-line-strong px-3 py-1 text-xs font-extrabold uppercase tracking-widest text-muted">
           {data.exampleBadge[language]}
         </span>
       )}
