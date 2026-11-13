@@ -11,6 +11,10 @@ export const testimonialsSection: TestimonialsData = {
     {
       id: "andres-felipe-benavides",
       name: "Andrés Felipe Benavides",
+      role: {
+        es: "Estudiante · Universidad Cooperativa de Colombia",
+        en: "Student · Universidad Cooperativa de Colombia",
+      },
       quote: {
         es: "Alejandro destaca por su capacidad para diseñar soluciones bien estructuradas. Su atención a la arquitectura, la calidad del código y la seguridad demuestra una visión técnica que va más allá de simplemente hacer funcionar una aplicación.",
         en: "Alejandro stands out for his ability to design well-structured solutions. His attention to architecture, code quality, and security demonstrates a technical vision that goes beyond simply making an application work.",
@@ -19,6 +23,10 @@ export const testimonialsSection: TestimonialsData = {
     {
       id: "nicolas-ramos",
       name: "Nicolás Ramos",
+      role: {
+        es: "Estudiante · Universidad Cooperativa de Colombia",
+        en: "Student · Universidad Cooperativa de Colombia",
+      },
       quote: {
         es: "Trabajar con Alejandro fue una experiencia muy positiva. Tiene la habilidad de transformar ideas complejas en aplicaciones intuitivas y funcionales, manteniendo una comunicación clara y cuidando tanto la experiencia del usuario como los detalles técnicos.",
         en: "Working with Alejandro was a very positive experience. He has the ability to turn complex ideas into intuitive and functional applications, maintaining clear communication and caring about both the user experience and the technical details.",

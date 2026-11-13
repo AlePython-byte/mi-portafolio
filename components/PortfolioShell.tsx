@@ -8,10 +8,12 @@ import { RetroModeProvider, useRetroMode } from "./RetroModeProvider";
 import { ROOM_3D_ENABLED } from "@/lib/room3d";
 import { useCanUse3D } from "@/lib/useCanUse3D";
 
-// La capa retro solo existe en el cliente y se descarga bajo demanda.
-const RetroDesktop = dynamic(() => import("./retro/RetroDesktop"), {
-  ssr: false,
-});
+// La capa retro solo existe en el cliente y se descarga bajo demanda. El
+// import() vive en una sola función: la precarga y el dynamic comparten así
+// exactamente los mismos chunks (con dos import() distintos el compilador
+// genera dos cargadores y el dynamic pide un chunk extra al montar).
+const loadRetroDesktop = () => import("./retro/RetroDesktop");
+const RetroDesktop = dynamic(loadRetroDesktop, { ssr: false });
 
 // La habitación solo existe en el cliente y nunca entra en el bundle del modo plano.
 const RoomStage = dynamic(() => import("./room/RoomStage"), { ssr: false });
@@ -36,7 +38,7 @@ function Shell({
 
   // Mientras se está en la habitación, se precarga el escritorio retro.
   useEffect(() => {
-    if (phase === "room" && showRoom) void import("./retro/RetroDesktop");
+    if (phase === "room" && showRoom) void loadRetroDesktop();
   }, [phase, showRoom]);
 
   // Con el escritorio encendido, el fondo no hace scroll.
