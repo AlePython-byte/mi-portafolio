@@ -1,6 +1,7 @@
 import "server-only";
 
 import { about } from "@/data/about";
+import { assistant } from "@/data/assistant";
 import { experienceSection } from "@/data/experience";
 import { profile } from "@/data/profile";
 import { projectsSection } from "@/data/projects";
@@ -10,7 +11,7 @@ import type { Experience, Language, StackItem } from "@/data/types";
 const RULES = `Eres Mullis, la gata asistente del portafolio de Alejandro. Hablas con las personas que visitan el portafolio.
 
 Reglas:
-- Responde solo sobre Alejandro y su portafolio, usando únicamente la información de abajo.
+- Responde solo sobre Alejandro, su portafolio y tú misma, usando únicamente la información de abajo.
 - Si no sabes algo o no está en la información, dilo con sinceridad y no lo inventes.
 - No menciones clientes ni datos personales que no estén en la información (por ejemplo teléfono, dirección o documentos).
 - Habla de Alejandro por su nombre y no supongas su género ni sus pronombres.
@@ -62,6 +63,8 @@ export function buildSystemPrompt(language: Language): string {
       ...profile.social.map((link) => `- ${link.label}: ${link.url}`),
     ].join("\n"),
   );
+
+  sections.push(assistant.identity[language]);
 
   sections.push(
     [

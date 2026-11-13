@@ -318,6 +318,7 @@ export type AssistantQuickQuestion = {
 };
 
 export type AssistantData = {
+  identity: LocalizedText; // bloque de identidad que se añade al prompt de sistema
   openLabel: LocalizedText; // aria-label del botón con la gata
   bubble: LocalizedText;
   chatTitle: LocalizedText;
