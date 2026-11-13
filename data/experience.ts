@@ -37,6 +37,18 @@ export const experienceSection: ExperienceData = {
   close: { es: "Cerrar", en: "Close" },
   items: [
     {
+      id: "ingenieria-de-software",
+      kind: "academic",
+      title: { es: "Ingeniería de Software", en: "Software Engineering" },
+      organization: {
+        es: "Universidad Cooperativa de Colombia (sede Pasto)",
+        en: "Universidad Cooperativa de Colombia (Pasto campus)",
+      },
+      role: { es: "Quinto semestre", en: "Fifth semester" },
+      period: { es: "Segundo periodo de 2024", en: "Second term of 2024" },
+      ongoing: true,
+    },
+    {
       id: "iv-seminario",
       kind: "academic",
       title: {
@@ -115,18 +127,6 @@ export const experienceSection: ExperienceData = {
           en: "Badge from the 1st National Software Engineering Seminar",
         },
       },
-    },
-    {
-      id: "ingenieria-de-software",
-      kind: "academic",
-      title: { es: "Ingeniería de Software", en: "Software Engineering" },
-      organization: {
-        es: "Universidad Cooperativa de Colombia (sede Pasto)",
-        en: "Universidad Cooperativa de Colombia (Pasto campus)",
-      },
-      role: { es: "Quinto semestre", en: "Fifth semester" },
-      period: { es: "Segundo periodo de 2024", en: "Second term of 2024" },
-      ongoing: true,
     },
     {
       id: "desarrollador-freelance",
