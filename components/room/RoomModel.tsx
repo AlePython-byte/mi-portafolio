@@ -272,7 +272,7 @@ function Mouse() {
   );
 }
 
-function Lamp() {
+function Lamp({ palette }: { palette: RoomPalette }) {
   return (
     <group position={[-0.7, DESK_TOP, -1.75]}>
       <mesh position={[0, 0.015, 0]}>
@@ -288,7 +288,7 @@ function Lamp() {
         <meshStandardMaterial
           color={C.lamp}
           emissive={C.lampLight}
-          emissiveIntensity={0.6}
+          emissiveIntensity={palette.lamp.emissive}
           flatShading
         />
       </mesh>
@@ -296,7 +296,7 @@ function Lamp() {
       <pointLight
         position={[0, 0.38, 0.05]}
         color={C.lampLight}
-        intensity={4}
+        intensity={palette.lamp.intensity}
         decay={2}
       />
     </group>
@@ -346,8 +346,19 @@ export default function RoomModel({
 
   return (
     <>
-      <hemisphereLight args={["#34467a", "#0a1410", 1.75]} />
-      <Shell palette={palette} />
+      <hemisphereLight
+        args={[
+          palette.hemisphere.sky,
+          palette.hemisphere.ground,
+          palette.hemisphere.intensity,
+        ]}
+      />
+      {/* Sol por la ventana: sin sombras; apagado (0) en el tema oscuro */}
+      <directionalLight
+        position={[-1.4, 2.6, -2.6]}
+        color={palette.sun.color}
+        intensity={palette.sun.intensity}
+      />      <Shell palette={palette} />
       <Window palette={palette} />
       <Desk />
       <Monitor
@@ -357,7 +368,7 @@ export default function RoomModel({
       />
       <Keyboard />
       <Mouse />
-      <Lamp />
+      <Lamp palette={palette} />
       <MullisFigure
         position={[-0.32, DESK_TOP, -1.38]}
         facing={ROOM_CAMERA.position}
