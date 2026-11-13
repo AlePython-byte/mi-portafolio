@@ -346,3 +346,18 @@ export type RoomData = {
   loading: LocalizedText;
   mullisLabel: LocalizedText; // aria-label del personaje
 };
+
+// Metadatos del sitio (title, Open Graph) y textos de la imagen para compartir.
+export type SiteData = {
+  url: string;
+  title: string;
+  description: string;
+  siteName: string;
+  locale: string; // idioma por defecto del sitio, p. ej. es_CO
+  alternateLocale: string;
+  ogImage: {
+    windowTitle: string; // barra de título de la ventana retro
+    subtitle: string;
+    alt: string;
+  };
+};

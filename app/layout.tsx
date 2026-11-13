@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
 import { PreferencesProvider } from "@/components/PreferencesProvider";
+import { site } from "@/data/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,9 +16,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alejandro Parra · Portafolio",
-  description:
-    "Estudiante de Ingeniería de Software. Backend, interfaces y datos.",
+  metadataBase: new URL(site.url),
+  title: site.title,
+  description: site.description,
+  openGraph: {
+    type: "website",
+    locale: site.locale,
+    alternateLocale: site.alternateLocale,
+    url: "/",
+    siteName: site.siteName,
+    title: site.title,
+    description: site.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.title,
+    description: site.description,
+  },
 };
 
 const themeScript = `
