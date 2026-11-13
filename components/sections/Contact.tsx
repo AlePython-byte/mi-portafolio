@@ -11,7 +11,7 @@ import { useContactForm } from "@/lib/useContactForm";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-contact-foreground";
-const actionClass = `inline-flex min-h-14 max-w-full items-center gap-3 rounded-2xl border border-contact-foreground/30 bg-white/15 px-5 text-sm font-extrabold [overflow-wrap:anywhere] transition-colors hover:bg-white/25 ${focusRing}`;
+const actionClass = `press inline-flex min-h-14 max-w-full items-center gap-3 rounded-2xl border border-contact-foreground/30 bg-white/15 px-5 text-sm font-extrabold [overflow-wrap:anywhere] transition-colors hover:bg-white/25 ${focusRing}`;
 const fieldClass = `w-full rounded-2xl border border-contact-foreground/30 bg-contact-foreground/10 px-4 py-3 text-contact-foreground placeholder:text-contact-foreground/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-contact-foreground`;
 
 export default function Contact() {

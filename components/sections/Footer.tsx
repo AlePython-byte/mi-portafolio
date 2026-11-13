@@ -40,7 +40,7 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={link.label}
-                      className={`grid h-11 w-11 place-items-center rounded-pill shadow-neu-sm transition-colors hover:text-accent ${focusRing}`}
+                      className={`press grid h-11 w-11 place-items-center rounded-pill shadow-neu-sm transition-colors hover:text-accent ${focusRing}`}
                     >
                       {Icon ? (
                         <Icon aria-hidden="true" className="h-5 w-5" />
@@ -77,7 +77,7 @@ export default function Footer() {
           <p>{footer.credits[language]}</p>
           <a
             href="#inicio"
-            className={`inline-flex items-center gap-2 self-start rounded-pill px-4 py-2 font-semibold text-foreground shadow-neu-sm transition-colors hover:text-accent sm:self-auto ${focusRing}`}
+            className={`press inline-flex items-center gap-2 self-start rounded-pill px-4 py-2 font-semibold text-foreground shadow-neu-sm transition-colors hover:text-accent sm:self-auto ${focusRing}`}
           >
             <LuArrowUp aria-hidden="true" className="h-4 w-4" />
             {footer.backToTop[language]}

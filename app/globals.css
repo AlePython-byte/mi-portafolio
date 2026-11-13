@@ -129,6 +129,21 @@ body:has(dialog[open]) {
   }
 }
 
+/* Respuesta al presionar en el modo plano: botones y enlaces con aspecto de botón
+   (clase .press). Sin animar si hay prefers-reduced-motion; los desactivados y todo
+   lo que vive dentro del modo retro quedan fuera (ahí manda .retro-button). */
+@media (prefers-reduced-motion: no-preference) {
+  :where(button, [role="button"], .press):not(:disabled, [aria-disabled="true"], .retro-root *) {
+    transition-property: color, background-color, border-color, opacity, box-shadow, translate, scale;
+    transition-duration: 100ms;
+    transition-timing-function: ease-out;
+  }
+
+  :where(button, [role="button"], .press):not(:disabled, [aria-disabled="true"], .retro-root *):active {
+    scale: 0.97;
+  }
+}
+
 @keyframes vinyl-spin {
   to {
     transform: rotate(1turn);

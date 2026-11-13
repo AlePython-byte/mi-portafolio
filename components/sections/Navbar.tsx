@@ -69,7 +69,7 @@ export default function Navbar() {
   }, []);
 
   const linkClass = (id: string) =>
-    `relative block whitespace-nowrap rounded-pill px-3 py-2 text-sm font-medium transition-colors hover:text-accent ${
+    `press relative block whitespace-nowrap rounded-pill px-3 py-2 text-sm font-medium transition-colors hover:text-accent ${
       active === id ? "text-accent" : "text-foreground"
     }`;
 

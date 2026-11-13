@@ -122,7 +122,7 @@ export default function About() {
           </ul>
           <a
             href={about.allSkillsHref}
-            className="mt-6 inline-flex items-center gap-2 rounded-pill px-5 py-2.5 text-sm font-semibold shadow-neu-sm transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            className="press mt-6 inline-flex items-center gap-2 rounded-pill px-5 py-2.5 text-sm font-semibold shadow-neu-sm transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           >
             {about.allSkillsLabel[language]}
             <span aria-hidden="true">→</span>

@@ -1,5 +1,5 @@
 export const projectButtonBase =
-  "rounded-pill px-5 py-2.5 text-sm font-semibold shadow-neu-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
+  "press rounded-pill px-5 py-2.5 text-sm font-semibold shadow-neu-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 type Props = {
   label: string;

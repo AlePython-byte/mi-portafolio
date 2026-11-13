@@ -70,13 +70,13 @@ export default function Hero() {
           <a
             href={profile.cvUrl[language]}
             download={profile.cvFileName[language]}
-            className={`inline-flex min-h-14 items-center justify-center rounded-2xl bg-accent px-6 font-extrabold text-accent-foreground shadow-neu-sm transition-transform hover:-translate-y-0.5 ${focusRing}`}
+            className={`press inline-flex min-h-14 items-center justify-center rounded-2xl bg-accent px-6 font-extrabold text-accent-foreground shadow-neu-sm transition-transform hover:-translate-y-0.5 ${focusRing}`}
           >
             {ui.downloadCv[language]}
           </a>
           <a
             href={ui.projectsHref}
-            className={`inline-flex min-h-14 items-center justify-center rounded-2xl px-6 font-extrabold shadow-neu-sm transition-transform hover:-translate-y-0.5 ${focusRing}`}
+            className={`press inline-flex min-h-14 items-center justify-center rounded-2xl px-6 font-extrabold shadow-neu-sm transition-transform hover:-translate-y-0.5 ${focusRing}`}
           >
             {ui.viewProjects[language]}
           </a>
@@ -94,7 +94,7 @@ export default function Hero() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-xs font-extrabold text-muted shadow-neu-sm transition-colors hover:text-accent ${focusRing}`}
+                  className={`press inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-xs font-extrabold text-muted shadow-neu-sm transition-colors hover:text-accent ${focusRing}`}
                 >
                   {Icon && <Icon aria-hidden="true" className="h-4 w-4" />}
                   {link.label}
