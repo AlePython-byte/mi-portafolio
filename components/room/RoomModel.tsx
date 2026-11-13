@@ -42,6 +42,8 @@ const C = {
   rugOuter: "#93493a",
   rugInner: "#7a3829",
   moon: "#f1ecd2",
+  sun: "#ffd447",
+  sunRay: "#ffe58a",
   wood: "#6b4a2f",
   woodDark: "#55391f",
   beige: "#cfc6a8",
@@ -117,7 +119,51 @@ function Shell({ palette }: { palette: RoomPalette }) {
   );
 }
 
-function Window({ palette }: { palette: RoomPalette }) {
+const SUN_RAYS = 10;
+
+// Sol procedural: esfera emisiva y diez rayos en un solo InstancedMesh.
+function Sun() {
+  const rays = useRef<InstancedMesh>(null);
+
+  useLayoutEffect(() => {
+    const mesh = rays.current;
+    if (!mesh) return;
+    const dummy = new Object3D();
+    for (let i = 0; i < SUN_RAYS; i++) {
+      const angle = (i / SUN_RAYS) * Math.PI * 2;
+      dummy.position.set(Math.cos(angle) * 0.19, Math.sin(angle) * 0.19, 0);
+      dummy.rotation.set(0, 0, angle);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(i, dummy.matrix);
+    }
+    mesh.instanceMatrix.needsUpdate = true;
+  }, []);
+
+  return (
+    <group position={[0.3, 0.2, 0.012]}>
+      <mesh>
+        <sphereGeometry args={[0.1, 14, 10]} />
+        <meshStandardMaterial
+          color="#000000"
+          emissive={C.sun}
+          emissiveIntensity={1}
+        />
+      </mesh>
+      <instancedMesh ref={rays} args={[undefined, undefined, SUN_RAYS]}>
+        <boxGeometry args={[0.09, 0.022, 0.01]} />
+        <meshBasicMaterial color={C.sunRay} />
+      </instancedMesh>
+    </group>
+  );
+}
+
+function Window({
+  palette,
+  theme,
+}: {
+  palette: RoomPalette;
+  theme: RoomTheme;
+}) {
   const frame = palette.windowFrame;
   return (
     <group position={[-1.4, 1.75, -2.19]}>
@@ -126,14 +172,18 @@ function Window({ palette }: { palette: RoomPalette }) {
         <planeGeometry args={[1.28, 0.98]} />
         <meshBasicMaterial color={palette.sky} />
       </mesh>
-      <mesh position={[0.3, 0.2, 0.01]}>
-        <circleGeometry args={[0.13, 24]} />
-        <meshStandardMaterial
-          color="#000000"
-          emissive={C.moon}
-          emissiveIntensity={1}
-        />
-      </mesh>
+      {theme === "dark" ? (
+        <mesh position={[0.3, 0.2, 0.01]}>
+          <circleGeometry args={[0.13, 24]} />
+          <meshStandardMaterial
+            color="#000000"
+            emissive={C.moon}
+            emissiveIntensity={1}
+          />
+        </mesh>
+      ) : (
+        <Sun />
+      )}
       {/* Marco y travesaños */}
       <Box size={[1.4, 0.06, 0.06]} position={[0, 0.52, 0.02]} color={frame} />
       <Box size={[1.4, 0.06, 0.06]} position={[0, -0.52, 0.02]} color={frame} />
@@ -359,7 +409,7 @@ export default function RoomModel({
         color={palette.sun.color}
         intensity={palette.sun.intensity}
       />      <Shell palette={palette} />
-      <Window palette={palette} />
+      <Window palette={palette} theme={theme} />
       <Desk />
       <Monitor
         screenColor={screenColor}
