@@ -3,6 +3,7 @@ import "server-only";
 import { about } from "@/data/about";
 import { assistant } from "@/data/assistant";
 import { experienceSection } from "@/data/experience";
+import { personal } from "@/data/personal";
 import { profile } from "@/data/profile";
 import { projectsSection } from "@/data/projects";
 import { skills } from "@/data/skills";
@@ -101,6 +102,7 @@ export function buildSystemPrompt(language: Language): string {
           lines.push(`  GitHub: ${project.githubUrl}`);
         }
         if (project.demoUrl !== "#") lines.push(`  Demo: ${project.demoUrl}`);
+        if (project.videoId) lines.push("  Tiene video demo en el portafolio.");
         return lines.join("\n");
       }),
     ].join("\n"),
@@ -132,6 +134,10 @@ export function buildSystemPrompt(language: Language): string {
           `- ${group.title[language]}: ${group.items.map((i) => i.name).join(", ")}`,
       ),
     ].join("\n"),
+  );
+
+  sections.push(
+    `${personal.headline[language]}: ${personal.subtitle[language]}`,
   );
 
   // Los testimonios de ejemplo (placeholder) no se citan como reales.
