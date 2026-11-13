@@ -50,6 +50,8 @@ export const assistant: AssistantData = {
     es: "¡Miau! Me están preguntando muchas cosas a la vez. Espera un momento y vuelve a intentarlo.",
     en: "Meow! I'm getting lots of questions at once. Please wait a moment and try again.",
   },
+  voiceOn: { es: "Silenciar la voz de Mullis", en: "Mute Mullis's voice" },
+  voiceOff: { es: "Activar la voz de Mullis", en: "Turn on Mullis's voice" },
   quickQuestions: [
     {
       id: "estudios",

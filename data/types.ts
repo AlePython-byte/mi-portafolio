@@ -247,6 +247,7 @@ export type FooterData = {
   socialLabel: LocalizedText;
   backToTop: LocalizedText;
   credits: LocalizedText;
+  voiceCredit: LocalizedText;
 };
 
 export type ContactFormData = {
@@ -328,6 +329,8 @@ export type AssistantData = {
   typing: LocalizedText;
   fallback: LocalizedText;
   rateLimited: LocalizedText;
+  voiceOn: LocalizedText; // aria-label del altavoz cuando la voz está activa
+  voiceOff: LocalizedText; // aria-label cuando está silenciada
   quickQuestions: AssistantQuickQuestion[];
 };
 

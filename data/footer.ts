@@ -8,4 +8,5 @@ export const footer: FooterData = {
     es: "Hecho con Next.js + Tailwind",
     en: "Built with Next.js + Tailwind",
   },
+  voiceCredit: { es: "Voz: ElevenLabs", en: "Voice: ElevenLabs" },
 };

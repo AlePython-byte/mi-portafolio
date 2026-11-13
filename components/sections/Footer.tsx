@@ -74,7 +74,12 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col gap-4 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>{footer.credits[language]}</p>
+          <p>
+            {footer.credits[language]}
+            {process.env.NEXT_PUBLIC_MULLIS_VOICE === "1" && (
+              <> · {footer.voiceCredit[language]}</>
+            )}
+          </p>
           <a
             href="#inicio"
             className={`press inline-flex items-center gap-2 self-start rounded-pill px-4 py-2 font-semibold text-foreground shadow-neu-sm transition-colors hover:text-accent sm:self-auto ${focusRing}`}
