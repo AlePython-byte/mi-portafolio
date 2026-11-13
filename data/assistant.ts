@@ -1,6 +1,7 @@
 import { about } from "./about";
 import { profile } from "./profile";
 import { projectsSection } from "./projects";
+import { testimonialsSection } from "./testimonials";
 import type { AssistantData, Language, LocalizedText } from "./types";
 
 // Id de la ventana del chat en el gestor de ventanas del escritorio retro.
@@ -23,6 +24,11 @@ const socialLabels = (language: Language) => {
   const names = profile.social.map((link) => link.label);
   const last = names[names.length - 1];
   return `${names.slice(0, -1).join(", ")} ${language === "es" ? "e" : "and"} ${last}`;
+};
+
+const fallback: LocalizedText = {
+  es: "Todavía estoy aprendiendo a responder eso.",
+  en: "I'm still learning how to answer that.",
 };
 
 // Respuestas de ejemplo: mientras no haya un servidor, salen de los datos reales.
@@ -48,10 +54,7 @@ Facts about you (given by Alejandro): you are his cat, you live with Alejandro, 
   inputLabel: { es: "Escribe tu pregunta", en: "Type your question" },
   send: { es: "Enviar", en: "Send" },
   typing: { es: "Mullis está escribiendo…", en: "Mullis is typing…" },
-  fallback: {
-    es: "Todavía estoy aprendiendo a responder eso.",
-    en: "I'm still learning how to answer that.",
-  },
+  fallback,
   rateLimited: {
     es: "¡Miau! Me están preguntando muchas cosas a la vez. Espera un momento y vuelve a intentarlo.",
     en: "Meow! I'm getting lots of questions at once. Please wait a moment and try again.",
@@ -59,6 +62,24 @@ Facts about you (given by Alejandro): you are his cat, you live with Alejandro, 
   voiceOn: { es: "Silenciar la voz de Mullis", en: "Mute Mullis's voice" },
   voiceOff: { es: "Activar la voz de Mullis", en: "Turn on Mullis's voice" },
   quickQuestions: [
+    {
+      id: "quien-eres",
+      question: { es: "¿Quién eres?", en: "Who are you?" },
+      answer: {
+        es: "¡Miau! Soy Mullis, la mascota pixel-art del portafolio de Alejandro y su asistente. Estoy inspirada en su gata real, y soy muy juguetona y dormilona.",
+        en: "Meow! I'm Mullis, the pixel-art mascot of Alejandro's portfolio and its assistant. I'm inspired by his real cat, and I'm very playful and sleepy.",
+      },
+    },
+    {
+      id: "testimonio",
+      question: { es: "Dame un testimonio", en: "Give me a testimonial" },
+      answer: both((language) => {
+        const item = testimonialsSection.items.find((t) => !t.placeholder);
+        if (!item) return fallback[language];
+        const by = item.role ? `${item.name}, ${item.role[language]}` : item.name;
+        return `“${item.quote[language]}” — ${by}`;
+      }),
+    },
     {
       id: "estudios",
       question: { es: "¿Qué estudia Alejandro?", en: "What does Alejandro study?" },
