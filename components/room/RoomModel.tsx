@@ -150,15 +150,11 @@ function Sun() {
     <group position={[0.3, 0.2, 0.012]}>
       <mesh>
         <sphereGeometry args={[0.1, 14, 10]} />
-        <meshStandardMaterial
-          color="#000000"
-          emissive={C.sun}
-          emissiveIntensity={1}
-        />
+        <meshBasicMaterial color={C.sun} toneMapped={false} />
       </mesh>
       <instancedMesh ref={rays} args={[undefined, undefined, SUN_RAYS]}>
         <boxGeometry args={[0.09, 0.022, 0.01]} />
-        <meshBasicMaterial color={C.sunRay} />
+        <meshBasicMaterial color={C.sunRay} toneMapped={false} />
       </instancedMesh>
     </group>
   );
@@ -187,7 +183,7 @@ function SunBeam() {
         <meshBasicMaterial
           color="#fff0c0"
           transparent
-          opacity={0.1}
+          opacity={0.07}
           blending={AdditiveBlending}
           side={DoubleSide}
           depthWrite={false}

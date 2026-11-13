@@ -5,6 +5,7 @@ import { VT323 } from "next/font/google";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { useRetroMode } from "@/components/RetroModeProvider";
+import { ROOM_PALETTE } from "@/data/roomPalette";
 import { MULLIS_CHAT_ID } from "@/data/assistant";
 import { room } from "@/data/room";
 import type { CameraTarget } from "./CameraRig";
@@ -18,13 +19,17 @@ const READY_TIMEOUT_MS = 5000;
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 
+// Textos HTML sobre la escena: sobre una banda oscura para leerse en ambos temas.
 function CanvasLoading() {
-  const { language } = usePreferences();
+  const { language, theme } = usePreferences();
   return (
     <p
       role="status"
-      style={{ color: "#c8d0e0" }}
-      className="absolute inset-x-0 top-1/2 text-center text-xl"
+      style={{
+        color: "#c8d0e0",
+        background: ROOM_PALETTE[theme].hintBackground,
+      }}
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 px-3 py-1 text-xl"
     >
       {room.loading[language]}
     </p>
@@ -41,7 +46,7 @@ const button = "retro-button px-4 py-1";
 
 // Escenario de la habitación: capa DOM sobre el canvas 3D.
 export default function RoomStage() {
-  const { language } = usePreferences();
+  const { language, theme } = usePreferences();
   const { phase, enterDesktop, powerOff } = useRetroMode();
   const [target, setTarget] = useState<CameraTarget>("room");
   const targetRef = useRef<CameraTarget>("room");
@@ -132,7 +137,7 @@ export default function RoomStage() {
       // Durante el desvanecimiento, el escritorio ya es el dueño del foco.
       inert={phase !== "room"}
       className={`retro-root fixed inset-0 z-50 ${vt323.className}`}
-      style={{ background: "#070b16" }}
+      style={{ background: ROOM_PALETTE[theme].stage }}
     >
       <RoomErrorBoundary onFail={finish}>
         <RoomCanvas
@@ -166,8 +171,11 @@ export default function RoomStage() {
         </button>
         <p
           id="room-use-pc-hint"
-          style={{ color: "#c8d0e0" }}
-          className="text-lg"
+          style={{
+            color: "#c8d0e0",
+            background: ROOM_PALETTE[theme].hintBackground,
+          }}
+          className="px-3 text-lg"
         >
           {zooming ? room.zoomOutHint[language] : room.usePcHint[language]}
         </p>

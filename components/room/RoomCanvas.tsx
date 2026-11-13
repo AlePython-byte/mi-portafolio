@@ -4,6 +4,7 @@ import { PerformanceMonitor } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { usePreferences } from "@/components/PreferencesProvider";
+import { ROOM_PALETTE } from "@/data/roomPalette";
 import { ROOM_SCREEN_COLOR, ROOM_SCREEN_COLOR_DARK } from "@/lib/room3d";
 import CameraRig, { type CameraTarget } from "./CameraRig";
 import RoomModel, { ROOM_CAMERA } from "./RoomModel";
@@ -107,13 +108,13 @@ export default function RoomCanvas({
           onMullis={onMullis}
         />
       </Canvas>
-      {/* Viñeta nocturna hacia los bordes; se disipa con el zoom para que la
+      {/* Viñeta hacia los bordes (oscura de noche, cálida de día); se disipa con el zoom para que la
           pantalla llegue con su color exacto. */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%)",
+            `radial-gradient(ellipse at center, transparent 50%, ${ROOM_PALETTE[theme].vignette} 100%)`,
           opacity: target === "screen" ? 0 : 1,
           transition: "opacity 1.2s ease-in-out",
         }}
