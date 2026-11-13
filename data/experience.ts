@@ -60,13 +60,6 @@ export const experienceSection: ExperienceData = {
       role: participant,
       location: pasto,
       period: { es: "Segundo periodo de 2026", en: "Second term of 2026" },
-      badge: {
-        src: "/images/escarapelas/seminario-4.png",
-        alt: {
-          es: "Escarapela del IV Seminario de Ingeniería de Software",
-          en: "Badge from the 4th Software Engineering Seminar",
-        },
-      },
     },
     {
       id: "iii-seminario",
@@ -80,13 +73,6 @@ export const experienceSection: ExperienceData = {
       role: participant,
       location: pasto,
       period: { es: "Segundo periodo de 2025", en: "Second term of 2025" },
-      badge: {
-        src: "/images/escarapelas/seminario-3.png",
-        alt: {
-          es: "Escarapela del III Seminario de Ingeniería de Software",
-          en: "Badge from the 3rd Software Engineering Seminar",
-        },
-      },
     },
     {
       id: "ii-seminario",
