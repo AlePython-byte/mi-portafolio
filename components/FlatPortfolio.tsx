@@ -1,3 +1,5 @@
+import { ui } from "@/data/profile";
+import SkipLink from "./sections/SkipLink";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
@@ -12,8 +14,9 @@ import Footer from "./sections/Footer";
 export default function FlatPortfolio() {
   return (
     <>
+      <SkipLink />
       <Navbar />
-      <main>
+      <main id={ui.mainContentId} tabIndex={-1} className="outline-none">
         <Hero />
         <About />
         <Projects />

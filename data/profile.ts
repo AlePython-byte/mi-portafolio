@@ -57,6 +57,8 @@ export const languages: LanguageOption[] = [
 ];
 
 export const ui: UiLabels = {
+  skipToContent: { es: "Saltar al contenido", en: "Skip to content" },
+  mainContentId: "contenido",
   navAriaLabel: { es: "Navegación principal", en: "Main navigation" },
   menuOpen: { es: "Abrir menú", en: "Open menu" },
   menuClose: { es: "Cerrar menú", en: "Close menu" },

@@ -152,6 +152,8 @@ export type LanguageOption = {
 };
 
 export type UiLabels = {
+  skipToContent: LocalizedText;
+  mainContentId: string; // id del <main> al que lleva el enlace de saltar
   navAriaLabel: LocalizedText;
   menuOpen: LocalizedText;
   menuClose: LocalizedText;
