@@ -272,10 +272,21 @@ export type ContactData = {
   form: ContactFormData;
 };
 
+// Iconos en píxeles del escritorio retro (lib/retroIcons.ts).
+export type RetroIconId =
+  | "perfil"
+  | "proyectos"
+  | "experiencia"
+  | "habilidades"
+  | "contacto"
+  | "cv"
+  | "intereses"
+  | "testimonios";
+
 export type RetroApp = {
   id: string;
   label: LocalizedText;
-  icon: "folder" | "document";
+  icon: RetroIconId;
 };
 
 export type RetroData = {

@@ -31,33 +31,33 @@ export const retro: RetroData = {
   projectListLabel: { es: "Lista de proyectos", en: "Project list" },
   skillGroupsLabel: { es: "Grupos de habilidades", en: "Skill groups" },
   apps: [
-    { id: "perfil", label: { es: "Perfil", en: "Profile" }, icon: "folder" },
-    { id: "gustos", label: { es: "Gustos", en: "Interests" }, icon: "folder" },
+    { id: "perfil", label: { es: "Perfil", en: "Profile" }, icon: "perfil" },
+    { id: "gustos", label: { es: "Gustos", en: "Interests" }, icon: "intereses" },
     {
       id: "proyectos",
       label: { es: "Proyectos", en: "Projects" },
-      icon: "folder",
+      icon: "proyectos",
     },
     {
       id: "habilidades",
       label: { es: "Habilidades", en: "Skills" },
-      icon: "folder",
+      icon: "habilidades",
     },
     {
       id: "experiencia",
       label: { es: "Experiencia", en: "Experience" },
-      icon: "folder",
+      icon: "experiencia",
     },
     {
       id: "testimonios",
       label: { es: "Testimonios", en: "Testimonials" },
-      icon: "folder",
+      icon: "testimonios",
     },
     {
       id: "contacto",
       label: { es: "Contacto", en: "Contact" },
-      icon: "folder",
+      icon: "contacto",
     },
-    { id: "cv", label: { es: "CV", en: "CV" }, icon: "document" },
+    { id: "cv", label: { es: "CV", en: "CV" }, icon: "cv" },
   ],
 };

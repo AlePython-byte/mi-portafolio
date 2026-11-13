@@ -28,6 +28,8 @@ import {
   type Rect,
   type Saved,
 } from "@/lib/iconGrid";
+import { RETRO_ICONS } from "@/lib/retroIcons";
+import { PixelIcon } from "./PixelIcon";
 import { useWindowManager } from "./WindowManager";
 
 const STORAGE_KEY = "portfolio-retro-icons";
@@ -58,29 +60,6 @@ function takenBy(id: string, positions: Saved, blocked: ReadonlySet<string>) {
     if (otherId !== id) taken.add(cellKey(cell));
   }
   return taken;
-}
-
-function FolderIcon({ kind }: { kind: RetroApp["icon"] }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 32 32"
-      className="h-10 w-10"
-      shapeRendering="crispEdges"
-    >
-      {kind === "folder" ? (
-        <>
-          <path d="M2 7h11l3 3h14v17H2z" fill="#e8c34a" stroke="#000" />
-          <path d="M3 13h26v13H3z" fill="#f6dc7a" />
-        </>
-      ) : (
-        <>
-          <path d="M7 3h14l5 5v21H7z" fill="#fff" stroke="#000" />
-          <path d="M11 13h10M11 17h10M11 21h10" stroke="#000" />
-        </>
-      )}
-    </svg>
-  );
 }
 
 // Movimiento mínimo (px) para que un gesto cuente como arrastre y no como clic.
@@ -234,7 +213,7 @@ function DesktopIcon({
           dragging ? "cursor-grabbing" : ""
         }`}
       >
-        <FolderIcon kind={app.icon} />
+        <PixelIcon rows={RETRO_ICONS[app.icon]} className="h-8 w-8" />
         <span
           className={`px-1 ${
             selected
