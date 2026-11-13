@@ -7,7 +7,7 @@ import { profile, ui } from "@/data/profile";
 import { retro } from "@/data/retro";
 import { RETRO_ICONS_SMALL, START_ICON } from "@/lib/retroIcons";
 import { PixelIcon } from "./PixelIcon";
-import { windowTitle } from "./windowTitles";
+import { windowIcon, windowTitle } from "./windowTitles";
 import { useWindowManager } from "./WindowManager";
 
 function useClock(locale: string) {
@@ -125,18 +125,24 @@ export default function TaskBar() {
         aria-label={retro.windowsLabel[language]}
         className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden"
       >
-        {windows.map((win) => (
-          <li key={win.id} className="min-w-0 max-w-44 flex-1">
-            <button
-              type="button"
-              onClick={() => toggle(win.id)}
-              aria-pressed={focusedId === win.id}
-              className={`${button} w-full truncate text-left`}
-            >
-              {windowTitle(win.id, language)}
-            </button>
-          </li>
-        ))}
+        {windows.map((win) => {
+          const icon = windowIcon(win.id);
+          return (
+            <li key={win.id} className="min-w-0 max-w-44 flex-1">
+              <button
+                type="button"
+                onClick={() => toggle(win.id)}
+                aria-pressed={focusedId === win.id}
+                className={`${button} flex w-full items-center gap-2 text-left`}
+              >
+                {icon && <PixelIcon rows={icon} className="h-4 w-4 shrink-0" />}
+                <span className="truncate">
+                  {windowTitle(win.id, language)}
+                </span>
+              </button>
+            </li>
+          );
+        })}
       </ul>
 
       <button
