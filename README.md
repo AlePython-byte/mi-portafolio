@@ -2,7 +2,7 @@
 
 Portafolio personal de Alejandro Parra, estudiante de Ingeniería de Software. Reúne perfil, proyectos, experiencia, habilidades y contacto en un sitio bilingüe con dos formas de recorrerlo: una página clásica y un escritorio retro interactivo.
 
-**Despliegue:** [pendiente]
+**Despliegue:** https://mi-portafolio-rust-pi.vercel.app/
 
 ## Tecnologías
 
