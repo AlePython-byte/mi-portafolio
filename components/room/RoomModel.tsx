@@ -337,10 +337,11 @@ export default function RoomModel({
   screenColor,
   interactive,
   onActivate,
-}: MonitorProps) {
+  onMullis,
+}: MonitorProps & { onMullis: () => void }) {
   return (
     <>
-      <hemisphereLight args={["#34467a", "#0a1410", 1.4]} />
+      <hemisphereLight args={["#34467a", "#0a1410", 1.75]} />
       <Shell />
       <Window />
       <Desk />
@@ -355,6 +356,9 @@ export default function RoomModel({
       <MullisFigure
         position={[-0.32, DESK_TOP, -1.38]}
         facing={ROOM_CAMERA.position}
+        width={0.3}
+        interactive={interactive}
+        onActivate={onMullis}
       />
       <DevStats />
     </>

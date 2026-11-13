@@ -80,8 +80,20 @@ type WindowManagerValue = {
 
 const WindowManagerContext = createContext<WindowManagerValue | null>(null);
 
-export function WindowManagerProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, { windows: [], spawned: 0 });
+function initState(initialOpen?: string): State {
+  return initialOpen
+    ? { windows: [{ id: initialOpen, minimized: false, spawn: 0 }], spawned: 1 }
+    : { windows: [], spawned: 0 };
+}
+
+export function WindowManagerProvider({
+  children,
+  initialOpen,
+}: {
+  children: ReactNode;
+  initialOpen?: string; // ventana abierta desde el primer momento
+}) {
+  const [state, dispatch] = useReducer(reducer, initialOpen, initState);
 
   const value = useMemo<WindowManagerValue>(() => {
     // La ventana enfocada es la de más arriba que no está minimizada.

@@ -47,6 +47,7 @@ type RoomCanvasProps = {
   target: CameraTarget; // hacia dónde mira la cámara
   onArrive: () => void; // la cámara llegó a la pantalla
   onUsePc: () => void; // clic en el monitor
+  onMullis: () => void; // clic en Mullis
   onFail: () => void; // el equipo es demasiado lento: al escritorio
 };
 
@@ -56,6 +57,7 @@ export default function RoomCanvas({
   target,
   onArrive,
   onUsePc,
+  onMullis,
   onFail,
 }: RoomCanvasProps) {
   // El contexto de React no cruza el Canvas: el tema se lee aquí y baja por props.
@@ -101,6 +103,7 @@ export default function RoomCanvas({
           screenColor={screenColor}
           interactive={target === "room"}
           onActivate={onUsePc}
+          onMullis={onMullis}
         />
       </Canvas>
       {/* Viñeta nocturna hacia los bordes; se disipa con el zoom para que la

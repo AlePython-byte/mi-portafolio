@@ -22,7 +22,9 @@ type RetroModeValue = {
   active: boolean; // el modo retro está encendido (habitación o escritorio)
   phase: Phase;
   powerOn: () => void; // pasa a la habitación, sin guardar
-  enterDesktop: () => void; // pasa al escritorio y guarda "retro"
+  initialOpen?: string; // ventana que el escritorio abre al entrar
+  // pasa al escritorio y guarda "retro"; `open` abre esa ventana al llegar
+  enterDesktop: (options?: { open?: string }) => void;
   powerOff: () => void;
 };
 
@@ -39,6 +41,7 @@ function save(mode: "retro" | "flat") {
 export function RetroModeProvider({ children }: { children: ReactNode }) {
   // Por defecto, modo plano.
   const [phase, setPhase] = useState<Phase>("flat");
+  const [initialOpen, setInitialOpen] = useState<string | undefined>();
   const available = useMediaQuery(RETRO_QUERY);
 
   useEffect(() => {
@@ -56,12 +59,15 @@ export function RetroModeProvider({ children }: { children: ReactNode }) {
     available,
     active: available && phase !== "flat",
     phase,
+    initialOpen,
     powerOn: () => setPhase("room"),
-    enterDesktop: () => {
+    enterDesktop: (options) => {
+      setInitialOpen(options?.open);
       setPhase("desktop");
       save("retro");
     },
     powerOff: () => {
+      setInitialOpen(undefined);
       setPhase("flat");
       save("flat");
     },

@@ -23,7 +23,7 @@ function Shell({
   assets: RetroAssets;
   children: ReactNode;
 }) {
-  const { active, phase, enterDesktop } = useRetroMode();
+  const { active, phase, initialOpen, enterDesktop } = useRetroMode();
 
   const reduceMotion = useReducedMotion();
   const canUse3D = useCanUse3D();
@@ -56,7 +56,7 @@ function Shell({
       <div className="contents" inert={active} aria-hidden={active || undefined}>
         {children}
       </div>
-      {active && phase === "desktop" && <RetroDesktop assets={assets} />}
+      {active && phase === "desktop" && <RetroDesktop assets={assets} initialOpen={initialOpen} />}
       {/* Al salir, el escritorio ya está montado debajo y la habitación se
           desvanece por encima (z mayor) antes de desmontarse. */}
       <AnimatePresence>

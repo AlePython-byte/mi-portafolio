@@ -5,6 +5,7 @@ import { VT323 } from "next/font/google";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { useRetroMode } from "@/components/RetroModeProvider";
+import { MULLIS_CHAT_ID } from "@/data/assistant";
 import { room } from "@/data/room";
 import type { CameraTarget } from "./CameraRig";
 import RoomErrorBoundary from "./RoomErrorBoundary";
@@ -45,6 +46,7 @@ export default function RoomStage() {
   const [target, setTarget] = useState<CameraTarget>("room");
   const targetRef = useRef<CameraTarget>("room");
   const doneRef = useRef(false); // ya se decidió salir: nada más debe actuar
+  const openRef = useRef<string | undefined>(undefined); // ventana a abrir al llegar
   const readyRef = useRef(false);
   const usePcRef = useRef<HTMLButtonElement>(null);
 
@@ -56,11 +58,14 @@ export default function RoomStage() {
 
   // Única salida al escritorio, aunque lleguen varias señales a la vez
   // (llegada del zoom, fallo del canvas, botón...).
-  const goDesktop = useCallback(() => {
+  const goDesktop = useCallback((open?: string) => {
     if (doneRef.current) return;
     doneRef.current = true;
-    actions.current.enterDesktop();
+    actions.current.enterDesktop(open ? { open } : undefined);
   }, []);
+
+  // Salida automática (llegada, fallo, tiempo): conserva el destino elegido.
+  const finish = useCallback(() => goDesktop(openRef.current), [goDesktop]);
 
   const leave = useCallback(() => {
     doneRef.current = true; // un zoom en curso ya no debe abrir el escritorio
@@ -73,14 +78,20 @@ export default function RoomStage() {
   }, []);
 
   // Acerca la cámara al monitor. Con movimiento reducido no se anima.
-  const zoomIn = useCallback(() => {
-    if (doneRef.current || targetRef.current === "screen") return;
-    if (window.matchMedia(REDUCED_MOTION).matches) {
-      goDesktop();
-      return;
-    }
-    changeTarget("screen");
-  }, [changeTarget, goDesktop]);
+  const zoomIn = useCallback(
+    (open?: string) => {
+      if (doneRef.current || targetRef.current === "screen") return;
+      openRef.current = open;
+      if (window.matchMedia(REDUCED_MOTION).matches) {
+        goDesktop(open);
+        return;
+      }
+      changeTarget("screen");
+    },
+    [changeTarget, goDesktop],
+  );
+  const zoomToPc = useCallback(() => zoomIn(), [zoomIn]);
+  const zoomToMullis = useCallback(() => zoomIn(MULLIS_CHAT_ID), [zoomIn]);
 
   const markReady = useCallback(() => {
     readyRef.current = true;
@@ -89,10 +100,10 @@ export default function RoomStage() {
   // Red de seguridad: si el canvas no arranca a tiempo, al escritorio.
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!readyRef.current) goDesktop();
+      if (!readyRef.current) finish();
     }, READY_TIMEOUT_MS);
     return () => clearTimeout(timer);
-  }, [goDesktop]);
+  }, [finish]);
 
   // Escape durante el zoom vuelve a la habitación. Solo existe mientras el
   // escenario está montado y no deja pasar la tecla a nada más.
@@ -101,6 +112,7 @@ export default function RoomStage() {
       if (event.key !== "Escape") return;
       if (doneRef.current || targetRef.current !== "screen") return;
       event.stopPropagation();
+      openRef.current = undefined;
       changeTarget("room");
     };
     window.addEventListener("keydown", onKeyDown, true);
@@ -122,14 +134,15 @@ export default function RoomStage() {
       className={`retro-root fixed inset-0 z-50 ${vt323.className}`}
       style={{ background: "#070b16" }}
     >
-      <RoomErrorBoundary onFail={goDesktop}>
+      <RoomErrorBoundary onFail={finish}>
         <RoomCanvas
           onReady={markReady}
-          onContextLost={goDesktop}
+          onContextLost={finish}
           target={target}
-          onArrive={goDesktop}
-          onUsePc={zoomIn}
-          onFail={goDesktop}
+          onArrive={finish}
+          onUsePc={zoomToPc}
+          onMullis={zoomToMullis}
+          onFail={finish}
         />
       </RoomErrorBoundary>
 
@@ -143,7 +156,7 @@ export default function RoomStage() {
         <button
           ref={usePcRef}
           type="button"
-          onClick={zoomIn}
+          onClick={zoomToPc}
           // aria-disabled (y no disabled) para no perder el foco durante el zoom.
           aria-disabled={zooming || undefined}
           aria-describedby="room-use-pc-hint"
@@ -158,7 +171,15 @@ export default function RoomStage() {
         >
           {zooming ? room.zoomOutHint[language] : room.usePcHint[language]}
         </p>
-        <button type="button" onClick={goDesktop} className={button}>
+        <button
+          type="button"
+          onClick={zoomToMullis}
+          aria-disabled={zooming || undefined}
+          className={`${button} ${zooming ? "cursor-not-allowed opacity-60" : ""}`}
+        >
+          {room.mullisLabel[language]}
+        </button>
+        <button type="button" onClick={() => goDesktop()} className={button}>
           {room.skip[language]}
         </button>
       </div>

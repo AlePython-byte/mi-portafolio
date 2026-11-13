@@ -49,7 +49,13 @@ function Desktop() {
   );
 }
 
-export default function RetroDesktop({ assets }: { assets: RetroAssets }) {
+export default function RetroDesktop({
+  assets,
+  initialOpen,
+}: {
+  assets: RetroAssets;
+  initialOpen?: string; // ventana abierta desde el primer momento
+}) {
   const { language } = usePreferences();
 
   return (
@@ -60,7 +66,7 @@ export default function RetroDesktop({ assets }: { assets: RetroAssets }) {
       className={`retro-root fixed inset-0 z-50 flex flex-col ${vt323.className}`}
     >
       <RetroAssetsProvider assets={assets}>
-        <WindowManagerProvider>
+        <WindowManagerProvider initialOpen={initialOpen}>
           <Desktop />
         </WindowManagerProvider>
       </RetroAssetsProvider>
