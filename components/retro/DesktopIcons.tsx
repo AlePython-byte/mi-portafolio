@@ -209,16 +209,16 @@ function DesktopIcon({
         onPointerMove={onPointerMove}
         onPointerUp={(event) => endDrag(event, true)}
         onPointerCancel={(event) => endDrag(event, false)}
-        className={`retro-press flex w-24 touch-none select-none flex-col items-center gap-1 p-1 text-center text-white ${
+        className={`retro-icon group retro-press flex w-24 touch-none select-none flex-col items-center gap-1 p-1 text-center text-white ${
           dragging ? "cursor-grabbing" : ""
         }`}
       >
         <PixelIcon rows={RETRO_ICONS[app.icon]} className="h-8 w-8" />
         <span
-          className={`px-1 ${
+          className={`border border-dotted px-[3px] ${
             selected
-              ? "bg-[var(--retro-select)] text-[var(--retro-select-text)]"
-              : "[text-shadow:1px_1px_0_#000]"
+              ? "border-[var(--retro-select-text)] bg-[var(--retro-select)] text-[var(--retro-select-text)]"
+              : "border-transparent [text-shadow:1px_1px_0_#000] group-focus-visible:border-white"
           }`}
         >
           {app.label[language]}

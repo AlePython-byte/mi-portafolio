@@ -267,6 +267,12 @@ body:has(dialog[open]) {
   outline-offset: 2px;
 }
 
+/* Iconos de escritorio: el foco y la selección se dibujan como rectángulo punteado
+   alrededor de la etiqueta (en DesktopIcons), no alrededor de todo el botón. */
+.retro-root .retro-icon:focus-visible {
+  outline: none;
+}
+
 .retro-titlebar :focus-visible {
   outline-color: var(--retro-title-text);
 }
