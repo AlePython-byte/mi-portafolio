@@ -5,6 +5,8 @@ import { usePreferences } from "@/components/PreferencesProvider";
 import { useRetroMode } from "@/components/RetroModeProvider";
 import { ui } from "@/data/profile";
 import { retro } from "@/data/retro";
+import { START_ICON } from "@/lib/retroIcons";
+import { PixelIcon } from "./PixelIcon";
 import { windowTitle } from "./windowTitles";
 import { useWindowManager } from "./WindowManager";
 
@@ -71,8 +73,9 @@ export default function TaskBar() {
         onClick={() => setMenuOpen((value) => !value)}
         aria-expanded={menuOpen}
         aria-controls="retro-menu-inicio"
-        className={`${button} font-bold`}
+        className={`${button} inline-flex items-center gap-2 font-bold`}
       >
+        <PixelIcon rows={START_ICON} className="h-4 w-4 shrink-0" />
         {retro.start[language]}
       </button>
 

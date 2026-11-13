@@ -287,3 +287,23 @@ export const RETRO_ICONS: Readonly<Record<RetroIconId, PixelGrid>> = {
     "................................",
   ],
 };
+
+// Botón Inicio (16×16): cabeza de gato con orejas sobre un cuadrado azul.
+export const START_ICON: PixelGrid = [
+  ".kkkkkkkkkkkkkk.",
+  "kcccccccccccccck",
+  "kcddddddddddddkk",
+  "kcdgddddddddgdkk",
+  "kcdggddddddggdkk",
+  "kcdggggggggggdkk",
+  "kcdkggggggggkdkk",
+  "kcdkwgwwwwwwkdkk",
+  "kcdkwwawwawwkdkk",
+  "kcdkwwkwwkwwkdkk",
+  "kcdkwwwppwwwkdkk",
+  "kcdkwwwkkwwwkdkk",
+  "kcdkwwwwwwwwkdkk",
+  "kcddkkkkkkkkddkk",
+  "kckkkkkkkkkkkkkk",
+  ".kkkkkkkkkkkkkk.",
+];
