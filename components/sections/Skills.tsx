@@ -90,22 +90,10 @@ export default function Skills() {
             style={{ zIndex: isDeck ? (topIndex === index ? 50 : index + 1) : 0 }}
             onHoverStart={isDeck ? () => activate(index) : undefined}
             onPointerDown={isDeck ? () => activate(index) : undefined}
-            onFocus={isDeck ? () => activate(index) : undefined}
-            onBlur={
-              isDeck
-                ? (event) => {
-                    // Solo suelta si el foco sale de la carta.
-                    if (!event.currentTarget.contains(event.relatedTarget)) {
-                      release();
-                    }
-                  }
-                : undefined
-            }
           >
             <article
-              tabIndex={0}
               aria-labelledby={`habilidad-${group.id}`}
-              className="rounded-card bg-background p-6 shadow-neu focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="rounded-card bg-background p-6 shadow-neu"
             >
               <p className="font-display text-3xl font-bold tracking-tighter text-accent">
                 {group.number}
