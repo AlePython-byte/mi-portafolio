@@ -11,6 +11,8 @@ import {
 } from "react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { retro } from "@/data/retro";
+import { PixelIcon } from "./PixelIcon";
+import { windowIcon } from "./windowTitles";
 import { useWindowManager } from "./WindowManager";
 
 type Props = {
@@ -42,6 +44,7 @@ export default function Window({
   const { language } = usePreferences();
   const { focus, close, minimize } = useWindowManager();
   const titleId = useId();
+  const icon = windowIcon(id);
   const windowRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ dx: number; dy: number } | null>(null);
   // null = posición inicial escalonada, calculada con CSS para que quepa
@@ -142,13 +145,16 @@ export default function Window({
         onPointerCancel={onTitlePointerUp}
         className="retro-titlebar flex cursor-move touch-none select-none items-center justify-between gap-2 px-2 py-0.5"
       >
-        <h2
-          id={titleId}
-          className="truncate text-xl font-normal tracking-normal"
-          style={{ fontFamily: "inherit", letterSpacing: "normal" }}
-        >
-          {title}
-        </h2>
+        <div className="flex min-w-0 items-center gap-2">
+          {icon && <PixelIcon rows={icon} className="h-4 w-4 shrink-0" />}
+          <h2
+            id={titleId}
+            className="truncate text-xl font-normal tracking-normal"
+            style={{ fontFamily: "inherit", letterSpacing: "normal" }}
+          >
+            {title}
+          </h2>
+        </div>
         <div className="flex gap-1">
           <button
             type="button"
