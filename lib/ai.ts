@@ -53,6 +53,8 @@ export async function generateAnswer({
       body: JSON.stringify({
         model,
         max_tokens: maxTokens,
+        // Sin razonamiento oculto: gastaba el límite de tokens y cortaba la respuesta.
+        thinking: { type: "disabled" },
         system,
         messages,
       }),
