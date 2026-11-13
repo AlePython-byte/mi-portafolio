@@ -4,6 +4,7 @@ import { RoundedBox, useCursor } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Object3D, type InstancedMesh } from "three";
+import { ROOM_PALETTE, type RoomPalette, type RoomTheme } from "@/data/roomPalette";
 import CrtScreen from "./CrtScreen";
 import MullisFigure from "./MullisFigure";
 
@@ -38,13 +39,8 @@ export const SCREEN_POSITION = [
 // ---------- Colores planos ----------
 
 const C = {
-  wallBack: "#0c0f0e",
-  wallSide: "#101514",
-  floor: "#0e2616",
   rugOuter: "#93493a",
   rugInner: "#7a3829",
-  windowFrame: "#1b2421",
-  night: "#0a1330",
   moon: "#f1ecd2",
   wood: "#6b4a2f",
   woodDark: "#55391f",
@@ -82,13 +78,13 @@ function Box({
 
 // ---------- Piezas ----------
 
-function Shell() {
+function Shell({ palette }: { palette: RoomPalette }) {
   return (
     <>
       {/* Suelo y alfombra */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0.8]}>
         <planeGeometry args={[6, 6]} />
-        <Flat color={C.floor} />
+        <Flat color={palette.floor} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.1, 0.005, -0.7]}>
         <planeGeometry args={[2.8, 2.2]} />
@@ -111,24 +107,24 @@ function Shell() {
       {/* Paredes: fondo e izquierda */}
       <mesh position={[0, 1.5, -2.2]}>
         <planeGeometry args={[6, 3]} />
-        <Flat color={C.wallBack} />
+        <Flat color={palette.wallBack} />
       </mesh>
       <mesh rotation={[0, Math.PI / 2, 0]} position={[-3, 1.5, 0.8]}>
         <planeGeometry args={[6, 3]} />
-        <Flat color={C.wallSide} />
+        <Flat color={palette.wallSide} />
       </mesh>
     </>
   );
 }
 
-function Window() {
-  const frame = C.windowFrame;
+function Window({ palette }: { palette: RoomPalette }) {
+  const frame = palette.windowFrame;
   return (
     <group position={[-1.4, 1.75, -2.19]}>
       {/* Noche y luna, un poco por delante de la pared */}
       <mesh position={[0, 0, 0.005]}>
         <planeGeometry args={[1.28, 0.98]} />
-        <meshBasicMaterial color={C.night} />
+        <meshBasicMaterial color={palette.sky} />
       </mesh>
       <mesh position={[0.3, 0.2, 0.01]}>
         <circleGeometry args={[0.13, 24]} />
@@ -334,16 +330,25 @@ function DevStats() {
 }
 
 export default function RoomModel({
+  theme,
   screenColor,
   interactive,
   onActivate,
   onMullis,
-}: MonitorProps & { onMullis: () => void }) {
+}: MonitorProps & { onMullis: () => void; theme: RoomTheme }) {
+  const palette = ROOM_PALETTE[theme];
+
+  // Con frameloop="demand" un cambio de tema debe pedir su propio fotograma.
+  const invalidate = useThree((state) => state.invalidate);
+  useEffect(() => {
+    invalidate();
+  }, [theme, invalidate]);
+
   return (
     <>
       <hemisphereLight args={["#34467a", "#0a1410", 1.75]} />
-      <Shell />
-      <Window />
+      <Shell palette={palette} />
+      <Window palette={palette} />
       <Desk />
       <Monitor
         screenColor={screenColor}

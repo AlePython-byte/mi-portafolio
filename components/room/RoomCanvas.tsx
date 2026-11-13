@@ -100,6 +100,7 @@ export default function RoomCanvas({
         )}
         <CameraRig target={target} onArrive={onArrive} />
         <RoomModel
+          theme={theme}
           screenColor={screenColor}
           interactive={target === "room"}
           onActivate={onUsePc}
