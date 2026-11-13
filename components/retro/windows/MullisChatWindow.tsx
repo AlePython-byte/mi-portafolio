@@ -4,7 +4,9 @@ import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { useReducedMotion } from "motion/react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { assistant } from "@/data/assistant";
+import { LuVolume2, LuVolumeX } from "react-icons/lu";
 import { askAssistant } from "@/lib/assistant";
+import { useMullisVoice, VOICE_AVAILABLE } from "./useMullisVoice";
 
 type Message =
   | { id: number; role: "user"; text: string }
@@ -25,6 +27,7 @@ export default function MullisChatWindow() {
   const logRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const inputId = useId();
+  const voice = useMullisVoice();
 
   // Mantiene visible el último mensaje (sin animar si se pide menos movimiento).
   useEffect(() => {
@@ -39,6 +42,7 @@ export default function MullisChatWindow() {
   async function ask(question: string) {
     const text = question.trim();
     if (!text || pending) return;
+    voice.stop();
     setMessages((current) => [
       ...current,
       { id: nextId.current++, role: "user", text },
@@ -61,6 +65,10 @@ export default function MullisChatWindow() {
       { id: nextId.current++, role: "assistant", text: answer },
     ]);
     setPending(false);
+    // Solo se lee una respuesta real, no los textos de aviso.
+    if (answer !== assistant.fallback[language] && answer !== assistant.rateLimited[language]) {
+      void voice.speak(answer, language);
+    }
   }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -148,6 +156,30 @@ export default function MullisChatWindow() {
           autoComplete="off"
           className="retro-inset min-w-0 flex-1 bg-[var(--retro-field)] px-2 py-1"
         />
+        {VOICE_AVAILABLE && (
+          <button
+            type="button"
+            onClick={voice.toggle}
+            aria-pressed={voice.enabled}
+            aria-label={
+              voice.enabled
+                ? assistant.voiceOn[language]
+                : assistant.voiceOff[language]
+            }
+            title={
+              voice.enabled
+                ? assistant.voiceOn[language]
+                : assistant.voiceOff[language]
+            }
+            className="retro-button grid place-items-center px-2 py-1"
+          >
+            {voice.enabled ? (
+              <LuVolume2 aria-hidden="true" className="h-4 w-4" />
+            ) : (
+              <LuVolumeX aria-hidden="true" className="h-4 w-4" />
+            )}
+          </button>
+        )}
         <button
           type="submit"
           disabled={pending || draft.trim() === ""}
