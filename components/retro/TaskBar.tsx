@@ -92,7 +92,7 @@ export default function TaskBar() {
                 open(app.id);
                 setMenuOpen(false);
               }}
-              className="px-3 py-0.5 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]"
+              className="retro-press px-3 py-0.5 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]"
             >
               {app.label[language]}
             </button>

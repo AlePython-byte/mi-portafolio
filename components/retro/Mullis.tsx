@@ -59,7 +59,7 @@ export default function Mullis() {
         onClick={() => open(MULLIS_CHAT_ID)}
         aria-label={assistant.openLabel[language]}
         aria-describedby={chatOpen ? undefined : bubbleId}
-        className="pointer-events-auto block"
+        className="retro-press pointer-events-auto block"
       >
         <MullisSprite className="mullis-bob h-[130px] w-[120px]" />
       </button>

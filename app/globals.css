@@ -217,13 +217,24 @@ body:has(dialog[open]) {
     inset -2px -2px 0 var(--retro-lo);
 }
 
-.retro-button:active,
+/* Hundido: al presionar (solo si está activo) o mientras está marcado. */
+.retro-button:not(:disabled, [aria-disabled="true"]):active,
 .retro-button[aria-pressed="true"],
 .retro-button[aria-expanded="true"] {
   box-shadow:
     0 0 0 1px var(--retro-edge),
     inset 2px 2px 0 var(--retro-lo),
     inset -2px -2px 0 var(--retro-hi);
+}
+
+/* Al presionar, el botón baja 1 px (estático, sin transición); con
+   prefers-reduced-motion queda solo el cambio de bisel. Los iconos, filas y
+   menús sin bisel (.retro-press) hacen lo mismo. */
+@media (prefers-reduced-motion: no-preference) {
+  .retro-button:not(:disabled, [aria-disabled="true"]):active,
+  .retro-press:not(:disabled, [aria-disabled="true"]):active {
+    translate: 1px 1px;
+  }
 }
 
 .retro-titlebar {

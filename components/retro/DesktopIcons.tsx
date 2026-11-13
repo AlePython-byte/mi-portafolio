@@ -230,7 +230,7 @@ function DesktopIcon({
         onPointerMove={onPointerMove}
         onPointerUp={(event) => endDrag(event, true)}
         onPointerCancel={(event) => endDrag(event, false)}
-        className={`flex w-24 touch-none select-none flex-col items-center gap-1 p-1 text-center text-white ${
+        className={`retro-press flex w-24 touch-none select-none flex-col items-center gap-1 p-1 text-center text-white ${
           dragging ? "cursor-grabbing" : ""
         }`}
       >

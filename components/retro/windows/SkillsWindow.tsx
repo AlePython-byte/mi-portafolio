@@ -34,7 +34,7 @@ export default function SkillsWindow() {
               onClick={() => toggle(group.id)}
               aria-expanded={isOpen}
               aria-controls={panelId}
-              className="flex w-full items-center gap-2 p-2 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]"
+              className="retro-press flex w-full items-center gap-2 p-2 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]"
             >
               <span aria-hidden="true" className="w-4 shrink-0 text-center">
                 {isOpen ? "−" : "+"}

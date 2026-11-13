@@ -252,7 +252,7 @@ export default function ProjectsWindow() {
                   setVideoFor(null);
                 }}
                 aria-current={isSelected ? "true" : undefined}
-                className={`flex w-full items-start gap-2 p-1.5 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)] ${
+                className={`retro-press flex w-full items-start gap-2 p-1.5 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)] ${
                   isSelected
                     ? "bg-[var(--retro-select)] text-[var(--retro-select-text)]"
                     : ""

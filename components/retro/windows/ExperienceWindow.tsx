@@ -15,7 +15,7 @@ const folders = [
 ] as const;
 
 const rowButton =
-  "flex w-full items-center gap-2 p-2 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]";
+  "retro-press flex w-full items-center gap-2 p-2 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]";
 
 function Entry({
   item,

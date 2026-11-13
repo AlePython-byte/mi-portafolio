@@ -152,7 +152,7 @@ export default function InterestsWindow() {
               lastOpened.current = card.id;
               setActiveId(card.id);
             }}
-            className="flex w-full items-center gap-3 p-2 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]"
+            className="retro-press flex w-full items-center gap-3 p-2 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]"
           >
             <span className="retro-inset relative block h-10 w-10 shrink-0 overflow-hidden">
               <Image
