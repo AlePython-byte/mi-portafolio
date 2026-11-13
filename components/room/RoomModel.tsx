@@ -3,7 +3,14 @@
 import { RoundedBox, useCursor } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Object3D, type InstancedMesh } from "three";
+import {
+  AdditiveBlending,
+  DoubleSide,
+  Object3D,
+  Quaternion,
+  Vector3,
+  type InstancedMesh,
+} from "three";
 import { ROOM_PALETTE, type RoomPalette, type RoomTheme } from "@/data/roomPalette";
 import CrtScreen from "./CrtScreen";
 import MullisFigure from "./MullisFigure";
@@ -154,6 +161,53 @@ function Sun() {
         <meshBasicMaterial color={C.sunRay} />
       </instancedMesh>
     </group>
+  );
+}
+
+// Haz de sol: un plano aditivo desde la ventana hasta el suelo y su mancha de luz.
+const BEAM_FROM = new Vector3(-1.4, 1.75, -2.17);
+const BEAM_TO = new Vector3(-0.5, 0.02, -0.6);
+const BEAM_DIR = BEAM_TO.clone().sub(BEAM_FROM);
+const BEAM_LENGTH = BEAM_DIR.length();
+const BEAM_MID = BEAM_FROM.clone().add(BEAM_TO).multiplyScalar(0.5);
+const BEAM_ROTATION = new Quaternion().setFromUnitVectors(
+  new Vector3(0, 1, 0),
+  BEAM_DIR.clone().normalize(),
+);
+
+function SunBeam() {
+  return (
+    <>
+      <mesh
+        position={BEAM_MID.toArray()}
+        quaternion={BEAM_ROTATION}
+        renderOrder={1}
+      >
+        <planeGeometry args={[0.8, BEAM_LENGTH]} />
+        <meshBasicMaterial
+          color="#fff0c0"
+          transparent
+          opacity={0.1}
+          blending={AdditiveBlending}
+          side={DoubleSide}
+          depthWrite={false}
+        />
+      </mesh>
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[BEAM_TO.x, 0.014, BEAM_TO.z]}
+        renderOrder={1}
+      >
+        <planeGeometry args={[0.9, 0.9]} />
+        <meshBasicMaterial
+          color="#fff0c0"
+          transparent
+          opacity={0.16}
+          blending={AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+    </>
   );
 }
 
@@ -410,6 +464,7 @@ export default function RoomModel({
         intensity={palette.sun.intensity}
       />      <Shell palette={palette} />
       <Window palette={palette} theme={theme} />
+      {theme === "light" && <SunBeam />}
       <Desk />
       <Monitor
         screenColor={screenColor}
