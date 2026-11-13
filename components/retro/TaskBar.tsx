@@ -16,10 +16,14 @@ function useClock(locale: string) {
     const timer = window.setInterval(() => setNow(new Date()), 15_000);
     return () => window.clearInterval(timer);
   }, []);
-  return now.toLocaleTimeString(locale, {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  return {
+    time: now.toLocaleTimeString(locale, {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+    // Fecha completa en el idioma activo, p. ej. "viernes, 13 de noviembre de 2026".
+    date: new Intl.DateTimeFormat(locale, { dateStyle: "full" }).format(now),
+  };
 }
 
 export default function TaskBar() {
@@ -29,7 +33,7 @@ export default function TaskBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const startRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const time = useClock(language);
+  const { time, date } = useClock(language);
   const dark = theme === "dark";
   const nextLanguage = language === "es" ? "en" : "es";
 
@@ -156,7 +160,14 @@ export default function TaskBar() {
       >
         {language.toUpperCase()}
       </button>
-      <span className="retro-inset px-3 py-0.5 tabular-nums">{time}</span>
+      <span
+        role="timer"
+        title={date}
+        aria-label={`${time}, ${date}`}
+        className="retro-inset px-3 py-0.5 tabular-nums"
+      >
+        {time}
+      </span>
       <button type="button" onClick={powerOff} className={button}>
         {retro.shutdown[language]}
       </button>
