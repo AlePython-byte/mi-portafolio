@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { usePreferences } from "@/components/PreferencesProvider";
 import { useRetroMode } from "@/components/RetroModeProvider";
-import { ui } from "@/data/profile";
+import { profile, ui } from "@/data/profile";
 import { retro } from "@/data/retro";
-import { START_ICON } from "@/lib/retroIcons";
+import { RETRO_ICONS_SMALL, START_ICON } from "@/lib/retroIcons";
 import { PixelIcon } from "./PixelIcon";
 import { windowTitle } from "./windowTitles";
 import { useWindowManager } from "./WindowManager";
@@ -85,21 +85,35 @@ export default function TaskBar() {
           id="retro-menu-inicio"
           role="group"
           aria-label={retro.startMenuLabel[language]}
-          className="retro-raised absolute bottom-full left-1 mb-1 flex min-w-44 flex-col gap-1 p-1"
+          className="retro-raised absolute bottom-full left-1 mb-1 flex min-w-44 gap-1 p-1"
         >
-          {retro.apps.map((app) => (
-            <button
-              key={app.id}
-              type="button"
-              onClick={() => {
-                open(app.id);
-                setMenuOpen(false);
-              }}
-              className="retro-press px-3 py-0.5 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]"
-            >
-              {app.label[language]}
-            </button>
-          ))}
+          <div
+            aria-hidden="true"
+            className="retro-titlebar flex shrink-0 items-end px-1 py-2"
+          >
+            <span className="rotate-180 whitespace-nowrap font-bold [writing-mode:vertical-rl]">
+              {profile.name}
+            </span>
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col gap-1">
+            {retro.apps.map((app) => (
+              <button
+                key={app.id}
+                type="button"
+                onClick={() => {
+                  open(app.id);
+                  setMenuOpen(false);
+                }}
+                className="retro-press flex items-center gap-2 px-3 py-0.5 text-left hover:bg-[var(--retro-select)] hover:text-[var(--retro-select-text)] focus-visible:bg-[var(--retro-select)] focus-visible:text-[var(--retro-select-text)]"
+              >
+                <PixelIcon
+                  rows={RETRO_ICONS_SMALL[app.icon]}
+                  className="h-4 w-4 shrink-0"
+                />
+                {app.label[language]}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
